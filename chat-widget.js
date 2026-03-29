@@ -264,33 +264,33 @@
 
       /* ---- CTA Card ---- */
       .dtchat-cta {
-        margin: 8px 0 !important;
-        padding: 16px 18px !important;
+        margin: 12px 0 !important;
+        padding: 20px 22px !important;
         background: linear-gradient(135deg, #1a1a1a 0%, #1f1b14 100%) !important;
-        border: 1px solid rgba(201, 168, 76, 0.4) !important;
-        border-radius: 12px !important;
+        border: 1px solid rgba(201, 168, 76, 0.3) !important;
+        border-radius: 14px !important;
         align-self: flex-start !important;
         max-width: 92% !important;
       }
       .dtchat-cta-text {
-        font-size: 13px !important;
+        font-size: 13.5px !important;
         color: #d0d0d0 !important;
-        margin-bottom: 12px !important;
-        line-height: 1.55 !important;
+        margin-bottom: 16px !important;
+        line-height: 1.6 !important;
       }
       .dtchat-cta-actions {
         display: flex !important;
         flex-direction: column !important;
-        gap: 8px !important;
+        gap: 10px !important;
       }
       .dtchat-cta-btn {
         display: inline-block !important;
-        padding: 10px 18px !important;
+        padding: 12px 20px !important;
         background: #c9a84c !important;
         color: #141414 !important;
-        font-size: 13px !important;
+        font-size: 14px !important;
         font-weight: 600 !important;
-        border-radius: 8px !important;
+        border-radius: 10px !important;
         text-decoration: none !important;
         text-align: center !important;
         cursor: pointer !important;
@@ -306,7 +306,7 @@
         color: #888 !important;
         text-align: center !important;
         cursor: pointer !important;
-        text-decoration: underline !important;
+        text-decoration: none !important;
         background: none !important;
         border: none !important;
         padding: 4px 0 !important;
