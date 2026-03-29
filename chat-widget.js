@@ -443,6 +443,65 @@
     return div;
   }
 
+  /**
+   * Typewriter effect — types out bot response character by character.
+   * Returns a promise that resolves when typing is complete.
+   */
+  function typewriterMessage(container, text, scrollEl) {
+    return new Promise(function (resolve) {
+      var div = document.createElement('div');
+      div.className = 'dtchat-msg dtchat-msg-bot';
+      container.appendChild(div);
+
+      // Split into segments: markdown tokens (**bold**) stay intact, rest char-by-char
+      var chars = [];
+      var i = 0;
+      while (i < text.length) {
+        // Keep markdown bold markers together
+        if (text[i] === '*' && text[i + 1] === '*') {
+          var end = text.indexOf('**', i + 2);
+          if (end !== -1) {
+            chars.push(text.substring(i, end + 2));
+            i = end + 2;
+            continue;
+          }
+        }
+        // Keep links together [text](url)
+        if (text[i] === '[') {
+          var closeBracket = text.indexOf('](', i);
+          var closeParen = closeBracket !== -1 ? text.indexOf(')', closeBracket + 2) : -1;
+          if (closeParen !== -1) {
+            chars.push(text.substring(i, closeParen + 1));
+            i = closeParen + 1;
+            continue;
+          }
+        }
+        chars.push(text[i]);
+        i++;
+      }
+
+      var typed = '';
+      var idx = 0;
+      var speed = 12; // ms per character
+
+      function tick() {
+        if (idx >= chars.length) {
+          div.innerHTML = renderMarkdown(text);
+          resolve(div);
+          return;
+        }
+        typed += chars[idx];
+        idx++;
+        div.innerHTML = renderMarkdown(typed);
+        if (scrollEl) scrollToBottom(scrollEl);
+        setTimeout(tick, speed);
+      }
+
+      // Small initial delay to feel like "thinking"
+      setTimeout(tick, 400);
+    });
+  }
+
   function createSources(sources) {
     if (!sources || !sources.length) return null;
     const wrapper = document.createElement('div');
@@ -601,12 +660,12 @@
 
       try {
         const data = await sendToApi(question);
-        // Remove typing
+        // Remove typing indicator
         typingEl.remove();
 
         const answer = data.answer || data.response || data.message || '';
-        const botEl = createMessage('bot', answer);
-        messagesEl.appendChild(botEl);
+        // Typewriter effect for bot responses
+        const botEl = await typewriterMessage(messagesEl, answer, messagesEl);
 
         const botMsg = { role: 'bot', content: answer };
 
