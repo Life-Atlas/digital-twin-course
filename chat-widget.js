@@ -403,6 +403,74 @@
         transform: translateY(-1px) !important;
       }
 
+      /* ---- Post-SPIN alternatives ---- */
+      .dtchat-post-spin {
+        margin: 10px 0 !important;
+        align-self: flex-start !important;
+        max-width: 92% !important;
+      }
+      .dtchat-post-spin-header {
+        font-size: 12px !important;
+        color: #888 !important;
+        margin-bottom: 8px !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.05em !important;
+      }
+      .dtchat-alt-offering {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 12px 14px !important;
+        margin-bottom: 6px !important;
+        background: #1e1e1e !important;
+        border: 1px solid #333 !important;
+        border-radius: 10px !important;
+        text-decoration: none !important;
+        cursor: pointer !important;
+        transition: border-color 0.15s ease, background 0.15s ease !important;
+      }
+      .dtchat-alt-offering:hover {
+        border-color: #c9a84c !important;
+        background: #252525 !important;
+      }
+      .dtchat-alt-info {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 2px !important;
+      }
+      .dtchat-alt-name {
+        font-size: 13px !important;
+        font-weight: 600 !important;
+        color: #e0e0e0 !important;
+      }
+      .dtchat-alt-desc {
+        font-size: 11px !important;
+        color: #888 !important;
+      }
+      .dtchat-alt-price {
+        font-size: 13px !important;
+        font-weight: 600 !important;
+        color: #c9a84c !important;
+        white-space: nowrap !important;
+        margin-left: 12px !important;
+      }
+      .dtchat-continue-chat {
+        display: block !important;
+        width: 100% !important;
+        margin-top: 8px !important;
+        padding: 8px 0 !important;
+        font-size: 12px !important;
+        color: #888 !important;
+        text-align: center !important;
+        cursor: pointer !important;
+        background: none !important;
+        border: none !important;
+        transition: color 0.15s ease !important;
+      }
+      .dtchat-continue-chat:hover {
+        color: #c9a84c !important;
+      }
+
       /* ---- Typing indicator ---- */
       .dtchat-typing {
         align-self: flex-start !important;
@@ -789,6 +857,66 @@
     return card;
   }
 
+  // ---------------------------------------------------------------------------
+  // Post-SPIN: show all offerings so user can pick
+  // ---------------------------------------------------------------------------
+  var ALL_OFFERINGS = [
+    { id: 'strategy', name: '1:1 Strategy Session', price: 'EUR 500', desc: '45-min deep dive + strategy document', url: 'https://buy.stripe.com/9B6cN48bj2Rb5Rm9jnejK03' },
+    { id: 'lecture', name: 'Inspirational Keynote', price: 'From EUR 1,000', desc: '1-hour keynote + interactive Q&A', url: 'https://buy.stripe.com/bJe8wO8bjgI1cfK8fjejK01' },
+    { id: 'workshop', name: '2-Hour Workshop', price: 'EUR 2,000', desc: 'Hands-on SMILE implementation', url: 'https://buy.stripe.com/28EbJ0gHP77rdjO1QVejK00' },
+  ];
+
+  function createPostSpinActions(recommendedId) {
+    var wrapper = document.createElement('div');
+    wrapper.className = 'dtchat-post-spin';
+
+    // "See other options" header
+    var header = document.createElement('div');
+    header.className = 'dtchat-post-spin-header';
+    header.textContent = 'Other options:';
+    wrapper.appendChild(header);
+
+    // Show alternatives (not the recommended one)
+    ALL_OFFERINGS.forEach(function (o) {
+      if (o.id === recommendedId) return;
+      var row = document.createElement('a');
+      row.className = 'dtchat-alt-offering';
+      row.href = o.url;
+      row.target = '_blank';
+      row.rel = 'noopener noreferrer';
+
+      var left = document.createElement('div');
+      left.className = 'dtchat-alt-info';
+      var nameEl = document.createElement('span');
+      nameEl.className = 'dtchat-alt-name';
+      nameEl.textContent = o.name;
+      var descEl = document.createElement('span');
+      descEl.className = 'dtchat-alt-desc';
+      descEl.textContent = o.desc;
+      left.appendChild(nameEl);
+      left.appendChild(descEl);
+
+      var priceEl = document.createElement('span');
+      priceEl.className = 'dtchat-alt-price';
+      priceEl.textContent = o.price;
+
+      row.appendChild(left);
+      row.appendChild(priceEl);
+      wrapper.appendChild(row);
+    });
+
+    // Continue chatting link
+    var cont = document.createElement('button');
+    cont.className = 'dtchat-continue-chat';
+    cont.textContent = 'Continue chatting instead';
+    cont.addEventListener('click', function () {
+      wrapper.style.display = 'none';
+    });
+    wrapper.appendChild(cont);
+
+    return wrapper;
+  }
+
   function createTyping() {
     const div = document.createElement('div');
     div.className = 'dtchat-typing';
@@ -954,6 +1082,10 @@
             // Show product card
             const productEl = createProductCard(data.spin.product);
             messagesEl.appendChild(productEl);
+
+            // Show alternatives + continue chatting
+            const altEl = createPostSpinActions(data.spin.product.id);
+            messagesEl.appendChild(altEl);
             scrollToBottom(messagesEl);
 
             // Clear SPIN state
