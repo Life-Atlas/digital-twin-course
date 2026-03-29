@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Future of People: Digital Twins for Life | Nicolas Waern</title>
+    <meta name="description" content="From Buildings to Bodies — How Interoperable Digital Twins Are Reshaping Every Industry. A 12-module course by Nicolas Waern, Digital Twin Consortium Co-Chair.">
+    <meta name="keywords" content="digital twin, course, SMILE methodology, interoperability, MIMs, smart buildings, precision wellness, edge computing, Nicolas Waern">
+    <meta property="og:title" content="The Future of People: Digital Twins for Life">
+    <meta property="og:description" content="12 modules. 4 tracks. From buildings to bodies. The definitive digital twin course.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            50: '#fdf8e8',
+                            100: '#f9edc4',
+                            200: '#f3db8a',
+                            300: '#ebc54f',
+                            400: '#d4a832',
+                            500: '#c9a84c',
+                            600: '#a8872a',
+                            700: '#876a1e',
+                            800: '#6b5318',
+                            900: '#4a3a11',
+                        },
+                        dark: {
+                            50: '#f5f5f5',
+                            100: '#e0e0e0',
+                            200: '#bdbdbd',
+                            300: '#9e9e9e',
+                            400: '#757575',
+                            500: '#616161',
+                            600: '#424242',
+                            700: '#1e1e1e',
+                            800: '#141414',
+                            900: '#0a0a0a',
+                            950: '#050505',
+                        }
+                    },
+                    fontFamily: {
+                        'display': ['Playfair Display', 'serif'],
+                        'body': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Playfair Display', serif; }
+
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, #c9a84c 0%, #f3db8a 50%, #c9a84c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Animated gradient border */
+        .gold-border-glow {
+            position: relative;
+        }
+        .gold-border-glow::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            background: linear-gradient(135deg, #c9a84c, #f3db8a, #c9a84c, #a8872a);
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        /* Subtle grid background */
+        .grid-bg {
+            background-image:
+                linear-gradient(rgba(201, 168, 76, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(201, 168, 76, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        /* Glow effects */
+        .gold-glow {
+            box-shadow: 0 0 60px rgba(201, 168, 76, 0.15), 0 0 120px rgba(201, 168, 76, 0.05);
+        }
+
+        .gold-glow-sm {
+            box-shadow: 0 0 30px rgba(201, 168, 76, 0.1);
+        }
+
+        /* Card hover */
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 40px rgba(201, 168, 76, 0.15);
+        }
+
+        /* Pricing card featured */
+        .pricing-featured {
+            background: linear-gradient(180deg, rgba(201, 168, 76, 0.08) 0%, rgba(10, 10, 10, 1) 100%);
+            border: 1px solid rgba(201, 168, 76, 0.3);
+        }
+
+        /* Module accordion */
+        .module-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .module-content.open {
+            max-height: 800px;
+        }
+
+        /* Smooth fade-in */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Track indicator line */
+        .track-line {
+            position: relative;
+        }
+        .track-line::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            border-radius: 3px;
+        }
+        .track-a::before { background: linear-gradient(180deg, #c9a84c, #a8872a); }
+        .track-b::before { background: linear-gradient(180deg, #3b82f6, #1d4ed8); }
+        .track-c::before { background: linear-gradient(180deg, #10b981, #047857); }
+        .track-d::before { background: linear-gradient(180deg, #8b5cf6, #6d28d9); }
+
+        /* Scroll progress bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #c9a84c, #f3db8a);
+            z-index: 9999;
+            transition: width 0.1s linear;
+        }
+
+        /* Badge pulse */
+        @keyframes pulse-gold {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(201, 168, 76, 0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(201, 168, 76, 0); }
+        }
+        .pulse-gold { animation: pulse-gold 2s infinite; }
+
+        /* FAQ styling */
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .faq-answer.open {
+            max-height: 300px;
+        }
+
+        /* Decorative floating elements */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(3deg); }
+        }
+        .float-slow { animation: float 8s ease-in-out infinite; }
+        .float-medium { animation: float 6s ease-in-out infinite; }
+
+        /* Nav blur */
+        .nav-blur {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        /* Number counter animation */
+        .counter { font-variant-numeric: tabular-nums; }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #c9a84c; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #d4a832; }
+
+        /* Video hook cards */
+        .hook-card {
+            background: linear-gradient(135deg, rgba(30, 30, 30, 0.8), rgba(20, 20, 20, 0.9));
+            border: 1px solid rgba(201, 168, 76, 0.1);
+            transition: all 0.3s ease;
+        }
+        .hook-card:hover {
+            border-color: rgba(201, 168, 76, 0.4);
+            background: linear-gradient(135deg, rgba(40, 35, 20, 0.8), rgba(20, 20, 20, 0.9));
+        }
+    </style>
+</head>
+<body class="bg-dark-950 text-white antialiased">
+
+<!-- Scroll Progress Bar -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- Navigation -->
+<nav class="fixed top-0 left-0 right-0 z-50 nav-blur bg-dark-950/80 border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16 sm:h-20">
+            <a href="#hero" class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center">
+                    <svg class="w-5 h-5 text-dark-950" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2m0 14v2m-7-9H3m18 0h-2m-1.636-6.364l-1.414 1.414M6.05 17.95l-1.414 1.414m12.728 0l-1.414-1.414M6.05 6.05L4.636 4.636M12 8a4 4 0 100 8 4 4 0 000-8z"/>
+                    </svg>
+                </div>
+                <span class="font-semibold text-sm sm:text-base tracking-tight">Digital Twins for Life</span>
+            </a>
+            <div class="hidden md:flex items-center gap-8 text-sm text-dark-300">
+                <a href="#tracks" class="hover:text-gold-400 transition-colors">Curriculum</a>
+                <a href="#instructor" class="hover:text-gold-400 transition-colors">Instructor</a>
+                <a href="#pricing" class="hover:text-gold-400 transition-colors">Pricing</a>
+                <a href="#previews" class="hover:text-gold-400 transition-colors">Free Previews</a>
+                <a href="#faq" class="hover:text-gold-400 transition-colors">FAQ</a>
+            </div>
+            <a href="#signup" class="bg-gold-500 hover:bg-gold-400 text-dark-950 font-semibold px-4 py-2 sm:px-5 sm:py-2.5 rounded-lg text-sm transition-all hover:shadow-lg hover:shadow-gold-500/20">
+                Get Notified
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section id="hero" class="relative min-h-screen flex items-center justify-center grid-bg overflow-hidden">
+    <!-- Decorative elements -->
+    <div class="absolute top-20 left-10 w-64 h-64 bg-gold-500/5 rounded-full blur-3xl float-slow"></div>
+    <div class="absolute bottom-20 right-10 w-96 h-96 bg-gold-500/3 rounded-full blur-3xl float-medium"></div>
+    <div class="absolute top-1/3 right-1/4 w-2 h-2 bg-gold-400/40 rounded-full float-medium"></div>
+    <div class="absolute top-2/3 left-1/4 w-1.5 h-1.5 bg-gold-400/30 rounded-full float-slow"></div>
+
+    <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-32 pb-20">
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 bg-dark-800/60 border border-gold-500/20 rounded-full px-4 py-1.5 mb-8">
+            <span class="w-2 h-2 bg-gold-400 rounded-full pulse-gold"></span>
+            <span class="text-xs sm:text-sm text-gold-300 font-medium tracking-wide uppercase">Course launching 2026</span>
+        </div>
+
+        <!-- Title -->
+        <h1 class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.1] mb-6">
+            The Future of People:<br>
+            <span class="gradient-text">Digital Twins for Life</span>
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="text-lg sm:text-xl md:text-2xl text-dark-300 max-w-3xl mx-auto mb-4 font-light leading-relaxed">
+            From Buildings to Bodies — How Interoperable Digital Twins Are Reshaping Every Industry
+        </p>
+        <p class="text-sm sm:text-base text-dark-400 max-w-2xl mx-auto mb-10">
+            12 modules. 4 tracks. One methodology. The definitive course by Nicolas Waern — from the factory floor to the human body.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+            <a href="#signup" class="w-full sm:w-auto bg-gold-500 hover:bg-gold-400 text-dark-950 font-bold px-8 py-4 rounded-xl text-lg transition-all hover:shadow-xl hover:shadow-gold-500/20 hover:scale-[1.02]">
+                Get Early Access
+            </a>
+            <a href="#previews" class="w-full sm:w-auto border border-white/10 hover:border-gold-500/30 text-white font-medium px-8 py-4 rounded-xl text-lg transition-all hover:bg-white/5">
+                Watch Free Previews
+            </a>
+        </div>
+
+        <!-- Stats row -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-3xl mx-auto">
+            <div class="text-center">
+                <div class="text-3xl sm:text-4xl font-bold gradient-text counter">12</div>
+                <div class="text-xs sm:text-sm text-dark-400 mt-1">Modules</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl sm:text-4xl font-bold gradient-text counter">7</div>
+                <div class="text-xs sm:text-sm text-dark-400 mt-1">Industry Verticals</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl sm:text-4xl font-bold gradient-text counter">10+</div>
+                <div class="text-xs sm:text-sm text-dark-400 mt-1">Years Experience</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl sm:text-4xl font-bold gradient-text counter">4</div>
+                <div class="text-xs sm:text-sm text-dark-400 mt-1">Countries Deployed</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2">
+        <div class="w-6 h-10 border-2 border-white/20 rounded-full flex items-start justify-center p-1">
+            <div class="w-1.5 h-3 bg-gold-400 rounded-full animate-bounce"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Social Proof Bar -->
+<section class="relative border-y border-white/5 bg-dark-900/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+        <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-12 text-dark-400 text-xs sm:text-sm font-medium tracking-wide uppercase">
+            <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-gold-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5a17.92 17.92 0 01-8.716-2.247m0 0A9.015 9.015 0 003 12c0-1.605.42-3.113 1.157-4.418"/></svg>
+                <span>Digital Twin Consortium</span>
+            </div>
+            <div class="hidden sm:block w-px h-4 bg-white/10"></div>
+            <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-gold-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
+                <span>Swedish Energy Agency</span>
+            </div>
+            <div class="hidden sm:block w-px h-4 bg-white/10"></div>
+            <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-gold-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"/></svg>
+                <span>Amity University</span>
+            </div>
+            <div class="hidden sm:block w-px h-4 bg-white/10"></div>
+            <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-gold-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z"/></svg>
+                <span>7 Verticals</span>
+            </div>
+            <div class="hidden sm:block w-px h-4 bg-white/10"></div>
+            <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-gold-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+                <span>Sweden &middot; Australia &middot; Ukraine &middot; Saudi Arabia</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Who Is This For -->
+<section id="audience" class="relative py-20 sm:py-28">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+            <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase">Built for impact-makers</span>
+            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">Who Is This Course For?</h2>
+            <p class="text-dark-300 text-lg max-w-2xl mx-auto">Whether you build systems, advise companies, lead organizations, or are just starting out — this course meets you where you are.</p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Engineers -->
+            <div class="card-hover bg-dark-800/40 border border-white/5 rounded-2xl p-8 fade-in">
+                <div class="w-14 h-14 bg-gradient-to-br from-gold-500/20 to-gold-600/10 rounded-xl flex items-center justify-center mb-6">
+                    <svg class="w-7 h-7 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17l-5.66-5.66a8 8 0 1111.31 0l-5.66 5.66zM12 9v.01M8 21h8"/><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Engineers & Architects</h3>
+                <p class="text-dark-400 text-sm leading-relaxed">IoT engineers, solutions architects, and developers who want to build interoperable digital twins that actually work across systems.</p>
+                <div class="mt-6 pt-4 border-t border-white/5">
+                    <p class="text-xs text-gold-400/80 font-medium">Best tracks: A + D</p>
+                </div>
+            </div>
+
+            <!-- Consultants -->
+            <div class="card-hover bg-dark-800/40 border border-white/5 rounded-2xl p-8 fade-in" style="transition-delay: 0.1s">
+                <div class="w-14 h-14 bg-gradient-to-br from-blue-500/20 to-blue-600/10 rounded-xl flex items-center justify-center mb-6">
+                    <svg class="w-7 h-7 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6"/></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Consultants & Advisors</h3>
+                <p class="text-dark-400 text-sm leading-relaxed">Technology consultants and digital transformation advisors who need a structured methodology to deliver digital twin projects reliably.</p>
+                <div class="mt-6 pt-4 border-t border-white/5">
+                    <p class="text-xs text-blue-400/80 font-medium">Best tracks: A + B</p>
+                </div>
+            </div>
+
+            <!-- Executives -->
+            <div class="card-hover bg-dark-800/40 border border-white/5 rounded-2xl p-8 fade-in" style="transition-delay: 0.2s">
+                <div class="w-14 h-14 bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 rounded-xl flex items-center justify-center mb-6">
+                    <svg class="w-7 h-7 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3H21m-3.75 3H21"/></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Executives & Leaders</h3>
+                <p class="text-dark-400 text-sm leading-relaxed">CTOs, CDOs, and innovation leaders who need to understand the strategic value of digital twins and make informed investment decisions.</p>
+                <div class="mt-6 pt-4 border-t border-white/5">
+                    <p class="text-xs text-emerald-400/80 font-medium">Best tracks: B + C</p>
+                </div>
+            </div>
+
+            <!-- Students -->
+            <div class="card-hover bg-dark-800/40 border border-white/5 rounded-2xl p-8 fade-in" style="transition-delay: 0.3s">
+                <div class="w-14 h-14 bg-gradient-to-br from-purple-500/20 to-purple-600/10 rounded-xl flex items-center justify-center mb-6">
+                    <svg class="w-7 h-7 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"/></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Students & Researchers</h3>
+                <p class="text-dark-400 text-sm leading-relaxed">Graduate students, PhD researchers, and early-career professionals who want to build a career at the intersection of digital twins and AI.</p>
+                <div class="mt-6 pt-4 border-t border-white/5">
+                    <p class="text-xs text-purple-400/80 font-medium">Best tracks: A + C + D</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Tracks & Modules -->
+<section id="tracks" class="relative py-20 sm:py-28 bg-dark-900/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+            <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase">The curriculum</span>
+            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">4 Tracks. 12 Modules.</h2>
+            <p class="text-dark-300 text-lg max-w-2xl mx-auto">A structured journey from theory to implementation, across every major digital twin vertical.</p>
+        </div>
+
+        <div class="space-y-8">
+            <!-- Track A: Foundations -->
+            <div class="fade-in">
+                <div class="track-line track-a pl-6 mb-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs font-bold tracking-widest uppercase text-gold-400 bg-gold-500/10 px-3 py-1 rounded-full">Track A</span>
+                        <h3 class="text-xl sm:text-2xl font-bold">Foundations</h3>
+                    </div>
+                    <p class="text-dark-400 text-sm mt-2">The theory, methodology, and standards that make digital twins interoperable</p>
+                </div>
+                <div class="grid sm:grid-cols-3 gap-4 pl-6">
+                    <div class="bg-dark-800/50 border border-white/5 rounded-xl p-6 card-hover cursor-pointer" onclick="toggleModule(this)">
+                        <div class="flex items-start justify-between">
+                            <span class="text-gold-400 font-mono text-sm font-bold">01</span>
+                            <svg class="w-5 h-5 text-dark-500 module-chevron transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                        </div>
+                        <h4 class="text-base font-semibold mt-3 mb-1">What Is a Digital Twin?</h4>
+                        <p class="text-dark-500 text-xs">The Journey from Buildings to People</p>
+                        <div class="module-content mt-4">
+                            <div class="pt-4 border-t border-white/5 space-y-2 text-sm text-dark-400">
+                                <p>Distinguish digital twins from digital models and shadows. Understand the lifecycle perspective and maturity spectrum. See why the same principles that twin a building can twin a human body.</p>
+                                <p class="text-xs text-dark-500 mt-3"><strong class="text-gold-400/70">Case Study:</strong> WINNIIO Smart Heating — Self-learning twins on the edge in Swedish schools</p>
+                                <p class="text-xs text-dark-500"><strong class="text-gold-400/70">Duration:</strong> 60-90 minutes</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-dark-800/50 border border-white/5 rounded-xl p-6 card-hover cursor-pointer" onclick="toggleModule(this)">
+                        <div class="flex items-start justify-between">
+                            <span class="text-gold-400 font-mono text-sm font-bold">02</span>
+                            <svg class="w-5 h-5 text-dark-500 module-chevron transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                        </div>
+                        <h4 class="text-base font-semibold mt-3 mb-1">The SMILE Methodology</h4>
+                        <p class="text-dark-500 text-xs">Impact First, Data Last</p>
+                        <div class="module-content mt-4">
+                            <div class="pt-4 border-t border-white/5 space-y-2 text-sm text-dark-400">
+                                <p>Master the six phases of SMILE (Sustainable Methodology for Impact Lifecycle Enablement). Apply the inverted pyramid: start with outcomes, work backward to data. Define a Minimal Viable Twin for any use case.</p>
+                                <p class="text-xs text-dark-500 mt-3"><strong class="text-gold-400/70">Exercise:</strong> SMILE Canvas workshop — apply Phase 1-2 to your own scenario</p>
+                                <p class="text-xs text-dark-500"><strong class="text-gold-400/70">Downloadable:</strong> SMILE Canvas template</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-dark-800/50 border border-white/5 rounded-xl p-6 card-hover cursor-pointer" onclick="toggleModule(this)">
+                        <div class="flex items-start justify-between">
+                            <span class="text-gold-400 font-mono text-sm font-bold">03</span>
+                            <svg class="w-5 h-5 text-dark-500 module-chevron transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                        </div>
+                        <h4 class="text-base font-semibold mt-3 mb-1">MIMs & Omni-Interoperability</h4>
+                        <p class="text-dark-500 text-xs">Making Everything Talk to Everything</p>
+                        <div class="module-content mt-4">
+                            <div class="pt-4 border-t border-white/5 space-y-2 text-sm text-dark-400">
+                                <p>Master all 10 Minimal Interoperability Mechanisms (MIMs). Navigate legal, organizational, semantic, and technical interoperability layers. Design ontology-first architectures that are MIM-compliant from day one.</p>
+                                <p class="text-xs text-dark-500 mt-3"><strong class="text-gold-400/70">Exercise:</strong> MIM Maturity Assessment for your organization</p>
+                                <p class="text-xs text-dark-500"><strong class="text-gold-400/70">Downloadable:</strong> MIM assessment tool + gap analysis template</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Track B: Industries -->
+            <div class="fade-in">
+                <div class="track-line track-b pl-6 mb-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs font-bold tracking-widest uppercase text-blue-400 bg-blue-500/10 px-3 py-1 rounded-full">Track B</span>
+                        <h3 class="text-xl sm:text-2xl font-bold">Industries</h3>
+                    </div>
+                    <p class="text-dark-400 text-sm mt-2">Vertical deep dives showing how the same principles apply across radically different domains</p>
+                </div>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 pl-6">
+                    <div class="bg-dark-800/50 border border-white/5 rounded-xl p-6 card-hover cursor-pointer" onclick="toggleModule(this)">
+                        <div class="flex items-start justify-between">
+                            <span class="text-blue-400 font-mono text-sm font-bold">04</span>
+                            <svg class="w-5 h-5 text-dark-500 module-chevron transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                        </div>
+                        <h4 class="text-base font-semibold mt-3 mb-1">Smart Buildings & Cities</h4>
+                        <p class="text-dark-500 text-xs">Where Digital Twins Were Born</p>
+                        <div class="module-content mt-4">
+                            <div class="pt-4 border-t border-white/5 space-y-2 text-sm text-dark-400">
+                                <p>BIM/CIM/GIS integration. Local Digital Twins for municipalities. EU policy context. Self-learning heating systems.</p>
+                                <p class="text-xs text-dark-500 mt-3"><strong class="text-blue-400/70">Case Study:</strong> WINNIIO/VOFAB Smart Heating, Swedish Energy Agency</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-dark-800/50 border border-white/5 rounded-xl p-6 card-hover cursor-pointer" onclick="toggleModule(this)">
+                        <div class="flex items-start justify-between">
+                            <span class="text-blue-400 font-mono text-sm font-bold">05</span>
+                            <svg class="w-5 h-5 text-dark-500 module-chevron transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                        </div>
+                        <h4 class="text-base font-semibold mt-3 mb-1">Manufacturing & Automotive</h4>
+                        <p class="text-dark-500 text-xs">The Factory of the Future</p>
+                        <div class="module-content mt-4">
+                            <div class="pt-4 border-t border-white/5 space-y-2 text-sm text-dark-400">
+                                <p>ISO 23247 manufacturing twins. Product lifecycle twins. Supply chain visibility. Digital product passports.</p>
+                                <p class="text-xs text-dark-500 mt-3"><strong class="text-blue-400/70">Case Study:</strong> Heavy vehicle digital twins spanning manufacturing to fleet ops</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-dark-800/50 border border-white/5 rounded-xl p-6 card-hover cursor-pointer" onclick="toggleModule(this)">
+                        <div class="flex items-start justify-between">
+                            <span class="text-blue-400 font-mono text-sm font-bold">06</span>
+                            <svg class="w-5 h-5 text-dark-500 module-chevron transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                        </div>
+                        <h4 class="text-base font-semibold mt-3 mb-1">The Biological Digital Twin</h4>
+                        <p class="text-dark-500 text-xs">When the Subject Is Alive</p>
+                        <div class="module-content mt-4">
+                            <div class="pt-4 border-t border-white/5 space-y-2 text-sm text-dark-400">
+                                <p>Continuous-state models for living beings. Biological data complexity. Readiness scoring. What-if scenarios for biology.</p>
+                                <p class="text-xs text-dark-500 mt-3"><strong class="text-blue-400/70">Case Study:</strong> EquestRai at Mulawa Arabian Stud, Australia</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-dark-800/50 border border-white/5 rounded-xl p-6 card-hover cursor-pointer" onclick="toggleModule(this)">
+                        <div class="flex items-start justify-between">
+                            <span class="text-blue-400 font-mono text-sm font-bold">07</span>
+                            <svg class="w-5 h-5 text-dark-500 module-chevron transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                        </div>
+                        <h4 class="text-base font-semibold mt-3 mb-1">Space & Planetary Twins</h4>
+                        <p class="text-dark-500 text-xs">The View from Above</p>
+                        <div class="module-content mt-4">
+                            <div class="pt-4 border-t border-white/5 space-y-2 text-sm text-dark-400">
+                                <p>Earth observation data pipelines. GIS/BIM/CIM convergence at planetary scale. Digital Earth concept. Space-enabled precision.</p>
+                                <p class="text-xs text-dark-500 mt-3"><strong class="text-blue-400/70">Case Study:</strong> Satellite thermal imaging validating edge-sensor data</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Track C: Life -->
+            <div class="fade-in">
+                <div class="track-line track-c pl-6 mb-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs font-bold tracking-widest uppercase text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full">Track C</span>
+                        <h3 class="text-xl sm:text-2xl font-bold">Life</h3>
+                    </div>
+                    <p class="text-dark-400 text-sm mt-2">The journey from building twins to biological twins to personal twins</p>
+                </div>
+                <div class="grid sm:grid-cols-3 gap-4 pl-6">
+                    <div class="bg-dark-800/50 border border-white/5 rounded-xl p-6 card-hover cursor-pointer" onclick="toggleModule(this)">
+                        <div class="flex items-start justify-between">
+                            <span class="text-emerald-400 font-mono text-sm font-bold">08</span>
+                            <svg class="w-5 h-5 text-dark-500 module-chevron transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                        </div>
+                        <h4 class="text-base font-semibold mt-3 mb-1">The Personal Digital Twin</h4>
+                        <p class="text-dark-500 text-xs">Your Life, Digitally Twinned</p>
+                        <div class="module-content mt-4">
+                            <div class="pt-4 border-t border-white/5 space-y-2 text-sm text-dark-400">
+                                <p>Why people are the most important thing to twin. Personal data sovereignty. WHO Quality of Life dimensions. Wearable integration. Proactive wellness.</p>
+                                <p class="text-xs text-dark-500 mt-3"><strong class="text-emerald-400/70">Case Study:</strong> LifeAtlas — Building the personal digital twin platform</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-dark-800/50 border border-white/5 rounded-xl p-6 card-hover cursor-pointer" onclick="toggleModule(this)">
+                        <div class="flex items-start justify-between">
+                            <span class="text-emerald-400 font-mono text-sm font-bold">09</span>
+                            <svg class="w-5 h-5 text-dark-500 module-chevron transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                        </div>
+                        <h4 class="text-base font-semibold mt-3 mb-1">Precision Wellness & Longevity</h4>
+                        <p class="text-dark-500 text-xs">From Reactive Healthcare to Proactive Life</p>
+                        <div class="module-content mt-4">
+                            <div class="pt-4 border-t border-white/5 space-y-2 text-sm text-dark-400">
+                                <p>WHO-grounded wellness intelligence. Health data regulations. Precision medicine. Elderly care at scale. Never-generic health nudges grounded in real data.</p>
+                                <p class="text-xs text-dark-500 mt-3"><strong class="text-emerald-400/70">Case Study:</strong> Elderly care digital twin — behavioral analysis for 515K+ seniors</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-dark-800/50 border border-white/5 rounded-xl p-6 card-hover cursor-pointer" onclick="toggleModule(this)">
+                        <div class="flex items-start justify-between">
+                            <span class="text-emerald-400 font-mono text-sm font-bold">10</span>
+                            <svg class="w-5 h-5 text-dark-500 module-chevron transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                        </div>
+                        <h4 class="text-base font-semibold mt-3 mb-1">Edge-Native Intelligence</h4>
+                        <p class="text-dark-500 text-xs">Intelligence Where You Are</p>
+                        <div class="module-content mt-4">
+                            <div class="pt-4 border-t border-white/5 space-y-2 text-sm text-dark-400">
+                                <p>Edge-first, cloud-fallback architectures. Data sovereignty at the personal level. Local-first patterns. Edge AI. Zero vendor lock-in.</p>
+                                <p class="text-xs text-dark-500 mt-3"><strong class="text-emerald-400/70">Case Study:</strong> VOFAB edge deployment + LifeAtlas personal health processing</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Track D: Implementation -->
+            <div class="fade-in">
+                <div class="track-line track-d pl-6 mb-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs font-bold tracking-widest uppercase text-purple-400 bg-purple-500/10 px-3 py-1 rounded-full">Track D</span>
+                        <h3 class="text-xl sm:text-2xl font-bold">Implementation</h3>
+                    </div>
+                    <p class="text-dark-400 text-sm mt-2">How to actually build, deploy, and scale interoperable digital twins</p>
+                </div>
+                <div class="grid sm:grid-cols-2 gap-4 pl-6">
+                    <div class="bg-dark-800/50 border border-white/5 rounded-xl p-6 card-hover cursor-pointer" onclick="toggleModule(this)">
+                        <div class="flex items-start justify-between">
+                            <span class="text-purple-400 font-mono text-sm font-bold">11</span>
+                            <svg class="w-5 h-5 text-dark-500 module-chevron transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                        </div>
+                        <h4 class="text-base font-semibold mt-3 mb-1">The AI Journey</h4>
+                        <p class="text-dark-500 text-xs">From Data to Explainable Decisions</p>
+                        <div class="module-content mt-4">
+                            <div class="pt-4 border-t border-white/5 space-y-2 text-sm text-dark-400">
+                                <p>Five stages of AI maturity. Fair AI (MIM5) in practice. RAG for hallucination-free AI. Agent architecture. Explainability anchored in reality.</p>
+                                <p class="text-xs text-dark-500 mt-3"><strong class="text-purple-400/70">Case Study:</strong> LifeAtlas AI Agent — 25 tools, capability scoping, prompt injection defense</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-dark-800/50 border border-white/5 rounded-xl p-6 card-hover cursor-pointer" onclick="toggleModule(this)">
+                        <div class="flex items-start justify-between">
+                            <span class="text-purple-400 font-mono text-sm font-bold">12</span>
+                            <svg class="w-5 h-5 text-dark-500 module-chevron transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                        </div>
+                        <h4 class="text-base font-semibold mt-3 mb-1">Scaling, Ecosystem & Your DT Career</h4>
+                        <p class="text-dark-500 text-xs">From Pilot to Production to Movement</p>
+                        <div class="module-content mt-4">
+                            <div class="pt-4 border-t border-white/5 space-y-2 text-sm text-dark-400">
+                                <p>Business case building. Ecosystem transaction management. EU/national funding. Career positioning. Open source strategy. The digital twin economy.</p>
+                                <p class="text-xs text-dark-500 mt-3"><strong class="text-purple-400/70">Case Study:</strong> Nicolas's cross-vertical journey — from Sweden to global</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Instructor Section -->
+<section id="instructor" class="relative py-20 sm:py-28">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <div class="fade-in">
+                <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase">Your instructor</span>
+                <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">Nicolas Waern</h2>
+                <p class="text-dark-300 text-lg leading-relaxed mb-6">
+                    Digital twin subject matter expert with 10+ years of cross-vertical experience. Nicolas has deployed digital twins in buildings, factories, farms, and healthcare systems across four continents.
+                </p>
+                <p class="text-dark-400 leading-relaxed mb-8">
+                    As Co-Chair of the Manufacturing Digital Twin Working Groups at the Digital Twin Consortium, Nicolas shapes global standards for interoperability. His proprietary SMILE methodology (Sustainable Methodology for Impact Lifecycle Enablement) is used across industries as a benefits-driven framework for digital twin implementation. He is CEO of LifeAtlas and Winniio, and lectures at universities from Oxford to Amity University (300+ students).
+                </p>
+
+                <div class="space-y-4">
+                    <div class="flex items-start gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-gold-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <svg class="w-4 h-4 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/></svg>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-sm">Co-Chair, Manufacturing Digital Twin Working Groups</p>
+                            <p class="text-dark-500 text-xs">Digital Twin Consortium</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-gold-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <svg class="w-4 h-4 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/></svg>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-sm">Creator of the SMILE Methodology</p>
+                            <p class="text-dark-500 text-xs">Sustainable Methodology for Impact Lifecycle Enablement</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-gold-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <svg class="w-4 h-4 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/></svg>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-sm">CEO of LifeAtlas & Winniio</p>
+                            <p class="text-dark-500 text-xs">Edge-native digital twins across 7 industry verticals</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-gold-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <svg class="w-4 h-4 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/></svg>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-sm">Swedish Energy Agency & LF Edge</p>
+                            <p class="text-dark-500 text-xs">Research-funded edge-native digital twin deployments</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visual element instead of photo -->
+            <div class="fade-in relative">
+                <div class="bg-dark-800/60 border border-white/5 rounded-2xl p-8 gold-glow">
+                    <div class="text-center mb-8">
+                        <div class="w-28 h-28 mx-auto rounded-full bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center mb-4">
+                            <span class="text-4xl font-display font-bold text-dark-950">NW</span>
+                        </div>
+                        <h3 class="text-xl font-bold">Nicolas Waern</h3>
+                        <p class="text-dark-400 text-sm">Digital Twin SME</p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3 bg-dark-700/50 rounded-lg p-3">
+                            <div class="w-2 h-2 rounded-full bg-gold-400"></div>
+                            <span class="text-sm text-dark-300">Deployed twins across 4 continents</span>
+                        </div>
+                        <div class="flex items-center gap-3 bg-dark-700/50 rounded-lg p-3">
+                            <div class="w-2 h-2 rounded-full bg-blue-400"></div>
+                            <span class="text-sm text-dark-300">Lectured to 300+ university students</span>
+                        </div>
+                        <div class="flex items-center gap-3 bg-dark-700/50 rounded-lg p-3">
+                            <div class="w-2 h-2 rounded-full bg-emerald-400"></div>
+                            <span class="text-sm text-dark-300">7 industry verticals mastered</span>
+                        </div>
+                        <div class="flex items-center gap-3 bg-dark-700/50 rounded-lg p-3">
+                            <div class="w-2 h-2 rounded-full bg-purple-400"></div>
+                            <span class="text-sm text-dark-300">From smart heating to biological twins</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-6 border-t border-white/5 text-center">
+                        <p class="text-dark-500 text-xs italic">"The most important physical thing to twin is not a machine — it is a life."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing Section -->
+<section id="pricing" class="relative py-20 sm:py-28 bg-dark-900/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+            <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase">Invest in your future</span>
+            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">Choose Your Path</h2>
+            <p class="text-dark-300 text-lg max-w-2xl mx-auto">Three tiers designed for different levels of commitment. Start free, go deep, or get certified.</p>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
+            <!-- Free Tier -->
+            <div class="bg-dark-800/40 border border-white/5 rounded-2xl p-8 card-hover fade-in flex flex-col">
+                <div class="mb-6">
+                    <span class="text-xs font-bold tracking-widest uppercase text-dark-400">Free</span>
+                    <div class="mt-3 flex items-baseline gap-1">
+                        <span class="text-4xl font-bold">$0</span>
+                    </div>
+                    <p class="text-dark-500 text-sm mt-2">Lead generation tier</p>
+                </div>
+
+                <div class="space-y-3 mb-8 flex-1">
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-gold-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-sm text-dark-300">12 x 5-minute video snippets</span>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-gold-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-sm text-dark-300">Key concept explainers</span>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-gold-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-sm text-dark-300">YouTube & LinkedIn access</span>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-gold-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-sm text-dark-300">Myth-busting & industry hooks</span>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-dark-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                        <span class="text-sm text-dark-500">Full module content</span>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-dark-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                        <span class="text-sm text-dark-500">Templates & exercises</span>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-dark-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                        <span class="text-sm text-dark-500">Live sessions with Nicolas</span>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-dark-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                        <span class="text-sm text-dark-500">Certificate</span>
+                    </div>
+                </div>
+
+                <a href="#signup" class="block w-full text-center border border-white/10 hover:border-gold-500/30 text-white font-semibold px-6 py-3.5 rounded-xl transition-all hover:bg-white/5">
+                    Get Started Free
+                </a>
+            </div>
+
+            <!-- Explorer Tier - Featured -->
+            <div class="pricing-featured rounded-2xl p-8 card-hover fade-in flex flex-col relative" style="transition-delay: 0.1s">
+                <div class="absolute -top-4 left-1/2 -translate-x-1/2">
+                    <span class="bg-gold-500 text-dark-950 text-xs font-bold tracking-widest uppercase px-4 py-1.5 rounded-full">Most Popular</span>
+                </div>
+
+                <div class="mb-6">
+                    <span class="text-xs font-bold tracking-widest uppercase text-gold-400">Explorer</span>
+                    <div class="mt-3 flex items-baseline gap-1">
+                        <span class="text-4xl font-bold">$399</span>
+                        <span class="text-dark-500 text-sm">/full course</span>
+                    </div>
+                    <p class="text-dark-500 text-sm mt-2">Self-paced, 12-month access</p>
+                </div>
+
+                <div class="space-y-3 mb-8 flex-1">
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-gold-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-sm text-dark-300">Everything in Free</span>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-gold-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-sm text-dark-300"><strong>Full 12 modules</strong> (60-90 min each)</span>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-gold-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-sm text-dark-300">SMILE Canvas template</span>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-gold-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-sm text-dark-300">MIM assessment tools</span>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-gold-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-sm text-dark-300">Architecture decision trees</span>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-gold-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-sm text-dark-300">Real case studies in detail</span>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-gold-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-sm text-dark-300">Community forum access</span>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-dark-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                        <span class="text-sm text-dark-500">Live sessions with Nicolas</span>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-dark-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                        <span class="text-sm text-dark-500">Certificate</span>
+                    </div>
+                </div>
+
+                <a href="#signup" class="block w-full text-center bg-gold-500 hover:bg-gold-400 text-dark-950 font-bold px-6 py-3.5 rounded-xl transition-all hover:shadow-lg hover:shadow-gold-500/20">
+                    Join the Waitlist
+                </a>
+            </div>
+
+            <!-- Practitioner Tier -->
+            <div class="bg-dark-800/40 border border-white/5 rounded-2xl p-8 card-hover fade-in flex flex-col" style="transition-delay: 0.2s">
+                <div class="mb-6">
+                    <span class="text-xs font-bold tracking-widest uppercase text-purple-400">Practitioner</span>
+                    <div class="mt-3 flex items-baseline gap-1">
+                        <span class="text-4xl font-bold">$2,500</span>
+                        <span class="text-dark-500 text-sm">/program</span>
+                    </div>
+                    <p class="text-dark-500 text-sm mt-2">Live cohort, 6-month program</p>
+                </div>
+
+                <div class="space-y-3 mb-8 flex-1">
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-gold-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-sm text-dark-300">Everything in Explorer</span>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/></svg>
+                        <span class="text-sm text-dark-300"><strong>12 live sessions</strong> with Nicolas (recorded)</span>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/></svg>
+                        <span class="text-sm text-dark-300"><strong>1:1 architecture review</strong> (30 min)</span>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/></svg>
+                        <span class="text-sm text-dark-300"><strong>Digital Twin Professional Certificate</strong></span>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/></svg>
+                        <span class="text-sm text-dark-300">Alumni community access</span>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/></svg>
+                        <span class="text-sm text-dark-300">Priority consulting access</span>
+                    </div>
+                </div>
+
+                <div class="mb-4 text-center">
+                    <span class="text-xs text-dark-500">Cohort size: 20-30 max | Bi-weekly, 6 months</span>
+                </div>
+
+                <a href="#signup" class="block w-full text-center border border-purple-500/30 hover:border-purple-400/50 text-white font-semibold px-6 py-3.5 rounded-xl transition-all hover:bg-purple-500/10">
+                    Apply for Cohort 1
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Free Previews Section -->
+<section id="previews" class="relative py-20 sm:py-28">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+            <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase">Free tier</span>
+            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">12 Free Video Previews</h2>
+            <p class="text-dark-300 text-lg max-w-2xl mx-auto">One 5-minute hook per module. Myth-busting, eye-opening, and designed to make you want the full course.</p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="hook-card rounded-xl p-5 fade-in">
+                <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-gold-500/10 flex items-center justify-center">
+                        <span class="text-gold-400 font-mono text-sm font-bold">01</span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-semibold text-sm leading-snug mb-2">"The Digital Twin Is Not What You Think"</h4>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs bg-gold-500/10 text-gold-400 px-2 py-0.5 rounded-full font-medium">Coming Soon</span>
+                            <span class="text-xs text-dark-500">5 min</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hook-card rounded-xl p-5 fade-in" style="transition-delay: 0.05s">
+                <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-gold-500/10 flex items-center justify-center">
+                        <span class="text-gold-400 font-mono text-sm font-bold">02</span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-semibold text-sm leading-snug mb-2">"Why Most Digital Twin Projects Fail"</h4>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs bg-gold-500/10 text-gold-400 px-2 py-0.5 rounded-full font-medium">Coming Soon</span>
+                            <span class="text-xs text-dark-500">5 min</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hook-card rounded-xl p-5 fade-in" style="transition-delay: 0.1s">
+                <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-gold-500/10 flex items-center justify-center">
+                        <span class="text-gold-400 font-mono text-sm font-bold">03</span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-semibold text-sm leading-snug mb-2">"10 Rules That Make Digital Twins Talk to Each Other"</h4>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs bg-gold-500/10 text-gold-400 px-2 py-0.5 rounded-full font-medium">Coming Soon</span>
+                            <span class="text-xs text-dark-500">5 min</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hook-card rounded-xl p-5 fade-in" style="transition-delay: 0.15s">
+                <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                        <span class="text-blue-400 font-mono text-sm font-bold">04</span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-semibold text-sm leading-snug mb-2">"Your Building Already Has a Digital Twin"</h4>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs bg-gold-500/10 text-gold-400 px-2 py-0.5 rounded-full font-medium">Coming Soon</span>
+                            <span class="text-xs text-dark-500">5 min</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hook-card rounded-xl p-5 fade-in" style="transition-delay: 0.2s">
+                <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                        <span class="text-blue-400 font-mono text-sm font-bold">05</span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-semibold text-sm leading-snug mb-2">"The Factory of the Future Runs on Digital Twins"</h4>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs bg-gold-500/10 text-gold-400 px-2 py-0.5 rounded-full font-medium">Coming Soon</span>
+                            <span class="text-xs text-dark-500">5 min</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hook-card rounded-xl p-5 fade-in" style="transition-delay: 0.25s">
+                <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                        <span class="text-blue-400 font-mono text-sm font-bold">06</span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-semibold text-sm leading-snug mb-2">"What If Your Horse Had a Digital Twin?"</h4>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs bg-gold-500/10 text-gold-400 px-2 py-0.5 rounded-full font-medium">Coming Soon</span>
+                            <span class="text-xs text-dark-500">5 min</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hook-card rounded-xl p-5 fade-in" style="transition-delay: 0.3s">
+                <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                        <span class="text-blue-400 font-mono text-sm font-bold">07</span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-semibold text-sm leading-snug mb-2">"The Planet Is the Biggest Digital Twin of All"</h4>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs bg-gold-500/10 text-gold-400 px-2 py-0.5 rounded-full font-medium">Coming Soon</span>
+                            <span class="text-xs text-dark-500">5 min</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hook-card rounded-xl p-5 fade-in" style="transition-delay: 0.35s">
+                <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+                        <span class="text-emerald-400 font-mono text-sm font-bold">08</span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-semibold text-sm leading-snug mb-2">"Your Body Deserves a Digital Twin"</h4>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs bg-gold-500/10 text-gold-400 px-2 py-0.5 rounded-full font-medium">Coming Soon</span>
+                            <span class="text-xs text-dark-500">5 min</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hook-card rounded-xl p-5 fade-in" style="transition-delay: 0.4s">
+                <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+                        <span class="text-emerald-400 font-mono text-sm font-bold">09</span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-semibold text-sm leading-snug mb-2">"AI Health Advice Is Killing Us — Here's the Alternative"</h4>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs bg-gold-500/10 text-gold-400 px-2 py-0.5 rounded-full font-medium">Coming Soon</span>
+                            <span class="text-xs text-dark-500">5 min</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hook-card rounded-xl p-5 fade-in" style="transition-delay: 0.45s">
+                <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+                        <span class="text-emerald-400 font-mono text-sm font-bold">10</span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-semibold text-sm leading-snug mb-2">"Stop Sending Your Health Data to the Cloud"</h4>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs bg-gold-500/10 text-gold-400 px-2 py-0.5 rounded-full font-medium">Coming Soon</span>
+                            <span class="text-xs text-dark-500">5 min</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hook-card rounded-xl p-5 fade-in" style="transition-delay: 0.5s">
+                <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center">
+                        <span class="text-purple-400 font-mono text-sm font-bold">11</span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-semibold text-sm leading-snug mb-2">"AI Without Understanding Is Just Automation"</h4>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs bg-gold-500/10 text-gold-400 px-2 py-0.5 rounded-full font-medium">Coming Soon</span>
+                            <span class="text-xs text-dark-500">5 min</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hook-card rounded-xl p-5 fade-in" style="transition-delay: 0.55s">
+                <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center">
+                        <span class="text-purple-400 font-mono text-sm font-bold">12</span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-semibold text-sm leading-snug mb-2">"The Digital Twin Economy Is Coming — Are You Ready?"</h4>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs bg-gold-500/10 text-gold-400 px-2 py-0.5 rounded-full font-medium">Coming Soon</span>
+                            <span class="text-xs text-dark-500">5 min</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Email Capture Section -->
+<section id="signup" class="relative py-20 sm:py-28 bg-dark-900/30">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-dark-800/60 border border-gold-500/20 rounded-3xl p-8 sm:p-12 gold-glow fade-in text-center">
+            <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center mb-6">
+                <svg class="w-8 h-8 text-dark-950" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+            </div>
+            <h2 class="font-display text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">Get Notified When We Launch</h2>
+            <p class="text-dark-300 text-base sm:text-lg mb-8 max-w-lg mx-auto">Be the first to access free previews, early-bird pricing, and Practitioner cohort enrollment. No spam, ever.</p>
+
+            <form action="#" method="POST" class="space-y-4 max-w-md mx-auto" id="signupForm">
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Your name"
+                        required
+                        class="flex-1 bg-dark-700/80 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white placeholder-dark-500 focus:outline-none focus:border-gold-500/50 focus:ring-1 focus:ring-gold-500/30 transition-all"
+                    >
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="you@company.com"
+                        required
+                        class="flex-1 bg-dark-700/80 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white placeholder-dark-500 focus:outline-none focus:border-gold-500/50 focus:ring-1 focus:ring-gold-500/30 transition-all"
+                    >
+                </div>
+                <select name="interest" class="w-full bg-dark-700/80 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-dark-400 focus:outline-none focus:border-gold-500/50 focus:ring-1 focus:ring-gold-500/30 transition-all appearance-none">
+                    <option value="" disabled selected>I'm most interested in...</option>
+                    <option value="free">Free previews only</option>
+                    <option value="explorer">Explorer ($399) — self-paced</option>
+                    <option value="practitioner">Practitioner ($2,500) — live cohort</option>
+                    <option value="all">Tell me about everything</option>
+                </select>
+                <button type="submit" class="w-full bg-gold-500 hover:bg-gold-400 text-dark-950 font-bold px-6 py-4 rounded-xl text-base transition-all hover:shadow-xl hover:shadow-gold-500/20 hover:scale-[1.01]">
+                    Notify Me at Launch
+                </button>
+                <p class="text-xs text-dark-500 mt-3">We respect your data. Unsubscribe anytime. Your information stays private.</p>
+            </form>
+
+            <div id="signupSuccess" class="hidden">
+                <div class="w-16 h-16 mx-auto rounded-full bg-emerald-500/10 flex items-center justify-center mb-4">
+                    <svg class="w-8 h-8 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-2">You're on the list!</h3>
+                <p class="text-dark-400 text-sm">We'll notify you when the course launches. Keep an eye on your inbox.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section id="faq" class="relative py-20 sm:py-28">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+            <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase">Questions?</span>
+            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">Frequently Asked</h2>
+        </div>
+
+        <div class="space-y-3 fade-in">
+            <!-- FAQ 1 -->
+            <div class="bg-dark-800/40 border border-white/5 rounded-xl overflow-hidden">
+                <button class="w-full flex items-center justify-between p-6 text-left" onclick="toggleFaq(this)">
+                    <span class="font-semibold text-sm sm:text-base pr-4">Do I need a technical background to take this course?</span>
+                    <svg class="w-5 h-5 text-dark-500 flex-shrink-0 faq-chevron transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div class="faq-answer">
+                    <div class="px-6 pb-6 text-sm text-dark-400 leading-relaxed">
+                        Track A (Foundations) and Track C (Life) are accessible to non-technical professionals. Tracks B and D go deeper into architecture and implementation. The Practitioner tier includes live guidance to help you navigate technical concepts regardless of your background.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="bg-dark-800/40 border border-white/5 rounded-xl overflow-hidden">
+                <button class="w-full flex items-center justify-between p-6 text-left" onclick="toggleFaq(this)">
+                    <span class="font-semibold text-sm sm:text-base pr-4">What makes SMILE different from other digital twin frameworks?</span>
+                    <svg class="w-5 h-5 text-dark-500 flex-shrink-0 faq-chevron transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div class="faq-answer">
+                    <div class="px-6 pb-6 text-sm text-dark-400 leading-relaxed">
+                        SMILE starts with outcomes, not data. Most frameworks begin with "what data do we have?" and hope for value. SMILE inverts the pyramid: define the impact you want, then work backward to the minimal data needed. It is industry-agnostic, standards-aligned (MIMs, ISO 23247), and has been validated across buildings, manufacturing, equestrian, healthcare, and personal wellness.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div class="bg-dark-800/40 border border-white/5 rounded-xl overflow-hidden">
+                <button class="w-full flex items-center justify-between p-6 text-left" onclick="toggleFaq(this)">
+                    <span class="font-semibold text-sm sm:text-base pr-4">When does the Practitioner cohort start?</span>
+                    <svg class="w-5 h-5 text-dark-500 flex-shrink-0 faq-chevron transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div class="faq-answer">
+                    <div class="px-6 pb-6 text-sm text-dark-400 leading-relaxed">
+                        The first Practitioner cohort is planned for September 2026. It runs bi-weekly for 6 months (12 sessions). Cohort size is limited to 20-30 participants to ensure meaningful interaction. Sign up to be notified when enrollment opens.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 4 -->
+            <div class="bg-dark-800/40 border border-white/5 rounded-xl overflow-hidden">
+                <button class="w-full flex items-center justify-between p-6 text-left" onclick="toggleFaq(this)">
+                    <span class="font-semibold text-sm sm:text-base pr-4">Is the Digital Twin Professional Certificate recognized?</span>
+                    <svg class="w-5 h-5 text-dark-500 flex-shrink-0 faq-chevron transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div class="faq-answer">
+                    <div class="px-6 pb-6 text-sm text-dark-400 leading-relaxed">
+                        The certificate is issued by Winniio AB and represents completion of the Practitioner program. While not an industry-standard certification (yet), it is backed by Nicolas's position as Co-Chair at the Digital Twin Consortium and reflects practical, deployment-ready expertise validated through live projects and reviews.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 5 -->
+            <div class="bg-dark-800/40 border border-white/5 rounded-xl overflow-hidden">
+                <button class="w-full flex items-center justify-between p-6 text-left" onclick="toggleFaq(this)">
+                    <span class="font-semibold text-sm sm:text-base pr-4">Can I upgrade from Explorer to Practitioner later?</span>
+                    <svg class="w-5 h-5 text-dark-500 flex-shrink-0 faq-chevron transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div class="faq-answer">
+                    <div class="px-6 pb-6 text-sm text-dark-400 leading-relaxed">
+                        Yes. Explorer purchases are credited toward the Practitioner tier. If you buy Explorer at $399 and later want to join a live cohort, you pay the difference. We encourage starting with Explorer and upgrading if you want the live experience.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 6 -->
+            <div class="bg-dark-800/40 border border-white/5 rounded-xl overflow-hidden">
+                <button class="w-full flex items-center justify-between p-6 text-left" onclick="toggleFaq(this)">
+                    <span class="font-semibold text-sm sm:text-base pr-4">What industries does this course cover?</span>
+                    <svg class="w-5 h-5 text-dark-500 flex-shrink-0 faq-chevron transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div class="faq-answer">
+                    <div class="px-6 pb-6 text-sm text-dark-400 leading-relaxed">
+                        Seven verticals with real case studies: smart buildings, smart cities, manufacturing, automotive, equestrian (biological twins), space/earth observation, and personal health/wellness. The SMILE methodology is industry-agnostic, so the principles transfer to any domain.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Final CTA -->
+<section class="relative py-20 sm:py-28 bg-dark-900/30 border-t border-white/5">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in">
+        <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
+            The digital twin economy is coming.<br>
+            <span class="gradient-text">Will you be ready?</span>
+        </h2>
+        <p class="text-dark-300 text-lg mb-10 max-w-2xl mx-auto">
+            Join hundreds of engineers, executives, and researchers who are learning to twin not just machines and buildings — but life itself.
+        </p>
+        <a href="#signup" class="inline-block bg-gold-500 hover:bg-gold-400 text-dark-950 font-bold px-10 py-4 rounded-xl text-lg transition-all hover:shadow-xl hover:shadow-gold-500/20 hover:scale-[1.02]">
+            Get Early Access
+        </a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="border-t border-white/5 py-12 sm:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+            <!-- Brand -->
+            <div class="lg:col-span-2">
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center">
+                        <svg class="w-5 h-5 text-dark-950" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2m0 14v2m-7-9H3m18 0h-2m-1.636-6.364l-1.414 1.414M6.05 17.95l-1.414 1.414m12.728 0l-1.414-1.414M6.05 6.05L4.636 4.636M12 8a4 4 0 100 8 4 4 0 000-8z"/>
+                        </svg>
+                    </div>
+                    <span class="font-semibold">Digital Twins for Life</span>
+                </div>
+                <p class="text-dark-500 text-sm leading-relaxed max-w-sm">A course by Nicolas Waern. From buildings to bodies — the definitive guide to interoperable digital twins across every industry.</p>
+            </div>
+
+            <!-- Links -->
+            <div>
+                <h4 class="font-semibold text-sm mb-4">Course</h4>
+                <ul class="space-y-2 text-sm text-dark-400">
+                    <li><a href="#tracks" class="hover:text-gold-400 transition-colors">Curriculum</a></li>
+                    <li><a href="#pricing" class="hover:text-gold-400 transition-colors">Pricing</a></li>
+                    <li><a href="#previews" class="hover:text-gold-400 transition-colors">Free Previews</a></li>
+                    <li><a href="#faq" class="hover:text-gold-400 transition-colors">FAQ</a></li>
+                </ul>
+            </div>
+
+            <!-- Company -->
+            <div>
+                <h4 class="font-semibold text-sm mb-4">Company</h4>
+                <ul class="space-y-2 text-sm text-dark-400">
+                    <li><a href="https://winniio.com" target="_blank" rel="noopener" class="hover:text-gold-400 transition-colors">Winniio AB</a></li>
+                    <li><a href="https://lifeatlas.online" target="_blank" rel="noopener" class="hover:text-gold-400 transition-colors">LifeAtlas</a></li>
+                    <li><a href="https://www.linkedin.com/in/nicolaswaern/" target="_blank" rel="noopener" class="hover:text-gold-400 transition-colors">LinkedIn</a></li>
+                    <li><a href="#instructor" class="hover:text-gold-400 transition-colors">About Nicolas</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p class="text-dark-500 text-xs">&copy; 2026 Winniio AB. All rights reserved. Swedish Company Reg. No.</p>
+            <div class="flex items-center gap-6 text-xs text-dark-500">
+                <a href="#" class="hover:text-gold-400 transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-gold-400 transition-colors">Terms of Service</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- JavaScript -->
+<script>
+    // Scroll progress bar
+    window.addEventListener('scroll', () => {
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const progress = (scrollTop / scrollHeight) * 100;
+        document.getElementById('scrollProgress').style.width = progress + '%';
+    });
+
+    // Fade-in on scroll
+    const fadeElements = document.querySelectorAll('.fade-in');
+    const fadeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                fadeObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    fadeElements.forEach(el => fadeObserver.observe(el));
+
+    // Module accordion
+    function toggleModule(el) {
+        const content = el.querySelector('.module-content');
+        const chevron = el.querySelector('.module-chevron');
+        const isOpen = content.classList.contains('open');
+
+        // Close all others
+        document.querySelectorAll('.module-content.open').forEach(c => {
+            c.classList.remove('open');
+            c.closest('[onclick]').querySelector('.module-chevron').style.transform = '';
+        });
+
+        if (!isOpen) {
+            content.classList.add('open');
+            chevron.style.transform = 'rotate(180deg)';
+        }
+    }
+
+    // FAQ accordion
+    function toggleFaq(btn) {
+        const parent = btn.parentElement;
+        const answer = parent.querySelector('.faq-answer');
+        const chevron = btn.querySelector('.faq-chevron');
+        const isOpen = answer.classList.contains('open');
+
+        // Close all others
+        document.querySelectorAll('.faq-answer.open').forEach(a => {
+            a.classList.remove('open');
+            a.closest('.bg-dark-800\\/40').querySelector('.faq-chevron').style.transform = '';
+        });
+
+        if (!isOpen) {
+            answer.classList.add('open');
+            chevron.style.transform = 'rotate(180deg)';
+        }
+    }
+
+    // Form submission (placeholder)
+    document.getElementById('signupForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        this.style.display = 'none';
+        document.getElementById('signupSuccess').classList.remove('hidden');
+    });
+
+    // Smooth scroll for nav links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                const offset = 80;
+                const position = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                window.scrollTo({ top: position, behavior: 'smooth' });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
