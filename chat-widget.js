@@ -10,7 +10,7 @@
   // Configuration
   // ---------------------------------------------------------------------------
   const DTCHAT_CONFIG = {
-    apiUrl: window.DTCHAT_API_URL || 'https://dt-knowledge-api.up.railway.app',
+    apiUrl: window.DTCHAT_API_URL || 'https://api-theta-seven-95.vercel.app',
     bookingUrl: 'https://cal.com/nicolaswaern',
   };
 
