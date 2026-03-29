@@ -749,17 +749,42 @@
   // ---------------------------------------------------------------------------
   // Product Card
   // ---------------------------------------------------------------------------
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
   function createProductCard(product) {
     const card = document.createElement('div');
     card.className = 'dtchat-product';
 
-    card.innerHTML = [
-      '<div class="dtchat-product-name">' + (product.name || '') + '</div>',
-      '<div class="dtchat-product-desc">' + (product.description || '') + '</div>',
-      '<div class="dtchat-product-price">' + (product.price || '') + '</div>',
-      '<div class="dtchat-product-price-note">' + (product.price_note || '') + '</div>',
-      '<a class="dtchat-product-btn" href="' + (product.url || DTCHAT_CONFIG.bookingUrl) + '" target="_blank" rel="noopener noreferrer">' + (product.cta_text || 'Get Started') + '</a>',
-    ].join('');
+    var name = document.createElement('div');
+    name.className = 'dtchat-product-name';
+    name.textContent = product.name || '';
+    card.appendChild(name);
+
+    var desc = document.createElement('div');
+    desc.className = 'dtchat-product-desc';
+    desc.textContent = product.description || '';
+    card.appendChild(desc);
+
+    var price = document.createElement('div');
+    price.className = 'dtchat-product-price';
+    price.textContent = product.price || '';
+    card.appendChild(price);
+
+    var note = document.createElement('div');
+    note.className = 'dtchat-product-price-note';
+    note.textContent = product.price_note || '';
+    card.appendChild(note);
+
+    var btn = document.createElement('a');
+    btn.className = 'dtchat-product-btn';
+    btn.href = product.url || DTCHAT_CONFIG.bookingUrl;
+    btn.target = '_blank';
+    btn.rel = 'noopener noreferrer';
+    btn.textContent = product.cta_text || 'Get Started';
+    card.appendChild(btn);
 
     return card;
   }
