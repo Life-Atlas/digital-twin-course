@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Build an AI-Powered Daily Brief App in One Session | LifeAtlas Guides</title>
+    <meta name="description" content="Build a full-stack LinkedIn Daily Brief app with Vite, React, Supabase Edge Functions, and Claude. From zero to deployed in one session using the roast methodology.">
+    <meta property="og:title" content="How to Build an AI-Powered Daily Brief App in One Session">
+    <meta property="og:description" content="Architecture, stack choices, and the roast methodology that took it from 0 to production in a single sitting.">
+    <meta property="og:type" content="article">
+    <meta property="article:published_time" content="2026-03-29">
+    <meta property="article:author" content="Nicolas Waern">
+    <meta name="twitter:card" content="summary_large_image">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            50: '#fdf8e8', 100: '#f9edc4', 200: '#f3db8a', 300: '#ebc54f',
+                            400: '#d4a832', 500: '#c9a84c', 600: '#a8872a', 700: '#876a1e',
+                            800: '#6b5318', 900: '#4a3a11',
+                        },
+                        dark: {
+                            50: '#f5f5f5', 100: '#e0e0e0', 200: '#bdbdbd', 300: '#9e9e9e',
+                            400: '#757575', 500: '#616161', 600: '#424242', 700: '#1e1e1e',
+                            800: '#141414', 900: '#0a0a0a', 950: '#050505',
+                        }
+                    },
+                    fontFamily: {
+                        'display': ['Playfair Display', 'serif'],
+                        'body': ['Inter', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Playfair Display', serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .gradient-text {
+            background: linear-gradient(135deg, #c9a84c 0%, #f3db8a 50%, #c9a84c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .grid-bg {
+            background-image:
+                linear-gradient(rgba(201, 168, 76, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(201, 168, 76, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+        pre {
+            background: #0d0d0d;
+            border: 1px solid rgba(201, 168, 76, 0.1);
+            border-radius: 12px;
+            padding: 1.25rem;
+            overflow-x: auto;
+            font-size: 0.875rem;
+            line-height: 1.7;
+        }
+        pre code {
+            font-family: 'JetBrains Mono', monospace;
+            color: #e0e0e0;
+        }
+        .prose-gold h2 {
+            scroll-margin-top: 6rem;
+        }
+        .toc-link {
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .toc-link:hover {
+            color: #c9a84c;
+            border-color: #c9a84c;
+        }
+        .step-number {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .callout {
+            border-left: 3px solid;
+            padding: 1rem 1.25rem;
+            border-radius: 0 8px 8px 0;
+        }
+        .callout-warn { border-color: #ebc54f; background: rgba(235, 197, 79, 0.05); }
+        .callout-info { border-color: #60a5fa; background: rgba(96, 165, 250, 0.05); }
+        .callout-success { border-color: #34d399; background: rgba(52, 211, 153, 0.05); }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th { text-align: left; padding: 0.75rem 1rem; border-bottom: 2px solid rgba(201, 168, 76, 0.2); color: #c9a84c; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+        td { padding: 0.75rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.875rem; color: #bdbdbd; }
+        tr:hover td { background: rgba(201, 168, 76, 0.03); }
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.7rem;
+            background: rgba(201, 168, 76, 0.1);
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            border-radius: 6px;
+            color: #c9a84c;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .code-block:hover .copy-btn { opacity: 1; }
+        .copy-btn:hover { background: rgba(201, 168, 76, 0.2); }
+    </style>
+</head>
+<body class="bg-dark-900 text-white grid-bg min-h-screen">
+
+    <!-- Nav -->
+    <nav class="fixed top-0 w-full z-50 bg-dark-900/80 backdrop-blur-xl border-b border-gold-500/10">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="../../" class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-gold-500 to-gold-700 flex items-center justify-center">
+                    <span class="text-dark-900 font-bold text-sm">LA</span>
+                </div>
+                <span class="text-white font-semibold">LifeAtlas</span>
+            </a>
+            <div class="flex items-center gap-6">
+                <a href="../../" class="text-dark-300 hover:text-gold-400 text-sm transition-colors">Course</a>
+                <a href="./" class="text-gold-400 text-sm font-medium">Guides</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-6xl mx-auto px-6 pt-28 pb-20 flex gap-12">
+
+        <!-- Sidebar TOC (desktop) -->
+        <aside class="hidden lg:block w-56 flex-shrink-0">
+            <div class="sticky top-28">
+                <p class="text-dark-400 text-xs font-semibold uppercase tracking-widest mb-4">On this page</p>
+                <nav class="flex flex-col gap-1">
+                    <a href="#what" class="toc-link text-dark-300 text-sm border-l-2 border-dark-700 pl-3 py-1">What We Built</a>
+                    <a href="#architecture" class="toc-link text-dark-300 text-sm border-l-2 border-dark-700 pl-3 py-1">Architecture</a>
+                    <a href="#stack" class="toc-link text-dark-300 text-sm border-l-2 border-dark-700 pl-3 py-1">Stack Choices</a>
+                    <a href="#roast" class="toc-link text-dark-300 text-sm border-l-2 border-dark-700 pl-3 py-1">The Roast Methodology</a>
+                    <a href="#patterns" class="toc-link text-dark-300 text-sm border-l-2 border-dark-700 pl-3 py-1">Key Patterns</a>
+                    <a href="#lessons" class="toc-link text-dark-300 text-sm border-l-2 border-dark-700 pl-3 py-1">Lessons Learned</a>
+                    <a href="#repo" class="toc-link text-dark-300 text-sm border-l-2 border-dark-700 pl-3 py-1">Source Code</a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <article class="flex-1 max-w-3xl prose-gold">
+
+            <!-- Header -->
+            <div class="mb-12">
+                <a href="./" class="inline-flex items-center gap-2 text-dark-400 hover:text-gold-400 text-sm transition-colors mb-6">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                    Back to Guides
+                </a>
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="px-3 py-1 bg-gold-500/10 text-gold-400 text-xs font-medium rounded-full">AI Workflows</span>
+                    <span class="text-dark-400 text-xs">March 2026</span>
+                    <span class="text-dark-500 text-xs">12 min read</span>
+                </div>
+                <h1 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+                    <span class="gradient-text">How to Build an AI-Powered<br>Daily Brief App in One Session</span>
+                </h1>
+                <p class="text-dark-300 text-lg leading-relaxed max-w-2xl">
+                    We built a full-stack LinkedIn Daily Brief dashboard &mdash; from empty folder to deployed app &mdash; in a single session with Claude Code. Here's the architecture, the patterns, and the methodology that made it possible.
+                </p>
+                <div class="flex items-center gap-4 mt-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-full bg-gradient-to-br from-gold-500 to-gold-700 flex items-center justify-center text-dark-900 font-bold text-xs">NW</div>
+                        <div>
+                            <p class="text-sm font-medium text-white">Nicolas Waern</p>
+                            <p class="text-xs text-dark-400">CEO, LifeAtlas</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="border-dark-700/30 mb-10">
+
+            <!-- Quick Facts -->
+            <div class="grid grid-cols-3 gap-4 mb-10">
+                <div class="bg-dark-800/40 border border-dark-700/30 rounded-xl p-4 text-center">
+                    <p class="text-gold-400 text-lg font-bold">1 session</p>
+                    <p class="text-dark-400 text-xs mt-1">Build time</p>
+                </div>
+                <div class="bg-dark-800/40 border border-dark-700/30 rounded-xl p-4 text-center">
+                    <p class="text-gold-400 text-lg font-bold">Full stack</p>
+                    <p class="text-dark-400 text-xs mt-1">React + Edge Functions</p>
+                </div>
+                <div class="bg-dark-800/40 border border-dark-700/30 rounded-xl p-4 text-center">
+                    <p class="text-gold-400 text-lg font-bold">Deployed</p>
+                    <p class="text-dark-400 text-xs mt-1">Netlify + Supabase</p>
+                </div>
+            </div>
+
+            <!-- What We Built -->
+            <section id="what" class="mb-12">
+                <h2 class="text-2xl font-bold text-white mb-4">What We Built</h2>
+                <p class="text-dark-300 text-sm leading-relaxed mb-4">
+                    A LinkedIn Daily Brief app that gives you a morning dashboard of your LinkedIn activity: new connections, post analytics, engagement metrics, and AI-generated summaries &mdash; all in a single page you open with your coffee.
+                </p>
+                <p class="text-dark-300 text-sm leading-relaxed mb-4">
+                    The key insight: instead of scrolling LinkedIn for 30 minutes, you get a 2-minute briefing of what matters. It pulls data from LinkedIn via MCP, processes it through Supabase Edge Functions, and presents it in a clean React dashboard.
+                </p>
+                <div class="bg-dark-800/40 border border-dark-700/30 rounded-xl p-5 mb-4">
+                    <p class="text-white text-sm font-semibold mb-3">Features at launch:</p>
+                    <ul class="space-y-2 text-dark-300 text-sm">
+                        <li class="flex items-start gap-2"><span class="text-gold-500 mt-0.5">&#8226;</span> Daily connection request summary with accept/ignore actions</li>
+                        <li class="flex items-start gap-2"><span class="text-gold-500 mt-0.5">&#8226;</span> Post performance metrics (impressions, reactions, comments)</li>
+                        <li class="flex items-start gap-2"><span class="text-gold-500 mt-0.5">&#8226;</span> Engagement feed with quick-reply drafts</li>
+                        <li class="flex items-start gap-2"><span class="text-gold-500 mt-0.5">&#8226;</span> Authentication via Supabase with shared session across the LifeAtlas ecosystem</li>
+                        <li class="flex items-start gap-2"><span class="text-gold-500 mt-0.5">&#8226;</span> Toast notification system for all actions</li>
+                        <li class="flex items-start gap-2"><span class="text-gold-500 mt-0.5">&#8226;</span> Mobile-responsive dark theme matching LifeAtlas design system</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Architecture -->
+            <section id="architecture" class="mb-12">
+                <h2 class="text-2xl font-bold text-white mb-4">Architecture</h2>
+                <div class="code-block relative">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>Browser (React + Vite)
+    |
+    +--> Supabase Auth (shared session)
+    |
+    +--> Supabase Edge Functions (Deno)
+            |
+            +--> /daily-brief      --> aggregates LinkedIn data
+            +--> /connections      --> fetch + accept/ignore
+            +--> /post-analytics   --> engagement metrics
+            |
+            +--> LinkedIn REST API (via stored OAuth tokens)</code></pre>
+                </div>
+                <p class="text-dark-300 text-sm leading-relaxed mt-4">
+                    The frontend is a static React SPA deployed on Netlify. All LinkedIn API calls go through Supabase Edge Functions &mdash; never directly from the browser. This keeps tokens server-side and avoids CORS issues entirely.
+                </p>
+                <div class="callout callout-info mt-4">
+                    <p class="text-sm text-dark-200"><strong class="text-white">Why Edge Functions?</strong> They run close to the user (Deno Deploy edge network), cold-start in under 100ms, and share the same Supabase auth context as the frontend. No separate backend to deploy.</p>
+                </div>
+            </section>
+
+            <!-- Stack Choices -->
+            <section id="stack" class="mb-12">
+                <h2 class="text-2xl font-bold text-white mb-4">Stack Choices and Why</h2>
+                <div class="overflow-x-auto rounded-xl border border-dark-700/30">
+                    <table>
+                        <thead><tr><th>Layer</th><th>Choice</th><th>Why</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-white font-medium">Frontend</td>
+                                <td>React + Vite + TypeScript</td>
+                                <td>Fast HMR, type safety, same stack as LifeAtlas core</td>
+                            </tr>
+                            <tr>
+                                <td class="text-white font-medium">Styling</td>
+                                <td>Tailwind CSS</td>
+                                <td>Consistent with LifeAtlas design system, no CSS files to manage</td>
+                            </tr>
+                            <tr>
+                                <td class="text-white font-medium">Validation</td>
+                                <td>Zod</td>
+                                <td>Runtime type checking for API responses &mdash; LinkedIn's API returns inconsistent shapes</td>
+                            </tr>
+                            <tr>
+                                <td class="text-white font-medium">Auth</td>
+                                <td>Supabase Auth</td>
+                                <td>Shared session across all LifeAtlas apps, JWT-based, zero custom code</td>
+                            </tr>
+                            <tr>
+                                <td class="text-white font-medium">Backend</td>
+                                <td>Supabase Edge Functions</td>
+                                <td>No server to manage, same auth context, edge-deployed globally</td>
+                            </tr>
+                            <tr>
+                                <td class="text-white font-medium">Hosting</td>
+                                <td>Netlify</td>
+                                <td>Git-push deploys, preview URLs, custom domain support</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout callout-warn mt-4">
+                    <p class="text-sm text-dark-200"><strong class="text-white">Zero lock-in.</strong> Every layer is replaceable. Vite can swap to Next.js. Supabase can swap to any Postgres + auth provider. Netlify can swap to Vercel or Cloudflare Pages. This is a LifeAtlas non-negotiable.</p>
+                </div>
+            </section>
+
+            <!-- The Roast Methodology -->
+            <section id="roast" class="mb-12">
+                <h2 class="text-2xl font-bold text-white mb-4">The Roast Methodology</h2>
+                <p class="text-dark-300 text-sm leading-relaxed mb-4">
+                    We didn't plan this app in a Figma file for two weeks. We built it in rapid iterations using what we call the <strong class="text-white">roast methodology</strong>: build fast, then have Claude Code brutally critique its own output, then fix everything it finds.
+                </p>
+                <div class="bg-dark-800/40 border border-dark-700/30 rounded-xl p-5 mb-4">
+                    <p class="text-white text-sm font-semibold mb-3">The cycle (repeat until score converges):</p>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3">
+                            <span class="step-number bg-gold-500/20 text-gold-400 text-xs">1</span>
+                            <div>
+                                <p class="text-white text-sm font-medium">Build</p>
+                                <p class="text-dark-400 text-xs">Scaffold the feature as fast as possible. Don't polish. Get it working.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="step-number bg-gold-500/20 text-gold-400 text-xs">2</span>
+                            <div>
+                                <p class="text-white text-sm font-medium">Roast</p>
+                                <p class="text-dark-400 text-xs">Ask Claude: "Roast this. Score it 1-10. Be brutal." It finds missing error handling, inconsistent patterns, accessibility gaps, security holes.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="step-number bg-gold-500/20 text-gold-400 text-xs">3</span>
+                            <div>
+                                <p class="text-white text-sm font-medium">Fix</p>
+                                <p class="text-dark-400 text-xs">Address every item from the roast. Not just the easy ones &mdash; all of them.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="step-number bg-gold-500/20 text-gold-400 text-xs">4</span>
+                            <div>
+                                <p class="text-white text-sm font-medium">Score</p>
+                                <p class="text-dark-400 text-xs">Re-roast. Compare scores. When you plateau at 8+/10, ship it.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-dark-300 text-sm leading-relaxed">
+                    This approach turns Claude from a code generator into a code reviewer. The adversarial loop catches things that a single-pass "generate and ship" workflow never would. We went from a 4/10 first draft to 8.5/10 in three roast cycles.
+                </p>
+            </section>
+
+            <!-- Key Patterns -->
+            <section id="patterns" class="mb-12">
+                <h2 class="text-2xl font-bold text-white mb-4">Key Patterns</h2>
+
+                <h3 class="text-lg font-semibold text-white mb-3 mt-6">Zod validation at the boundary</h3>
+                <p class="text-dark-300 text-sm leading-relaxed mb-3">
+                    LinkedIn's API is loosely typed and returns different shapes depending on the endpoint version. We validate every response at the edge function boundary before it reaches the frontend.
+                </p>
+                <div class="code-block relative">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>import { z } from "zod";
+
+const ConnectionSchema = z.object({
+  id: z.string(),
+  firstName: z.string().default("Unknown"),
+  lastName: z.string().default(""),
+  headline: z.string().optional(),
+  profileUrl: z.string().url().optional(),
+  connectedAt: z.string().datetime().optional(),
+});
+
+// Parse with fallbacks — never crash on bad data
+const connections = rawData
+  .map(item =&gt; ConnectionSchema.safeParse(item))
+  .filter(r =&gt; r.success)
+  .map(r =&gt; r.data);</code></pre>
+                </div>
+
+                <h3 class="text-lg font-semibold text-white mb-3 mt-8">Shared auth across apps</h3>
+                <p class="text-dark-300 text-sm leading-relaxed mb-3">
+                    All LifeAtlas apps share the same Supabase project. The Daily Brief app doesn't have its own login &mdash; it reads the existing session. If you're logged into LifeAtlas, you're logged into every satellite app.
+                </p>
+                <div class="code-block relative">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY
+);
+
+// Session persists across apps via shared Supabase project
+const { data: { session } } = await supabase.auth.getSession();</code></pre>
+                </div>
+
+                <h3 class="text-lg font-semibold text-white mb-3 mt-8">REST endpoints with consistent error shape</h3>
+                <p class="text-dark-300 text-sm leading-relaxed mb-3">
+                    Every Edge Function returns the same envelope. The frontend has one error handler, not ten.
+                </p>
+                <div class="code-block relative">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>// Every response follows this shape
+type ApiResponse&lt;T&gt; = {
+  data: T | null;
+  error: string | null;
+  status: number;
+};
+
+// Frontend consumption
+const { data, error } = await fetchBrief();
+if (error) {
+  toast.error(error);  // Consistent UX for all failures
+  return;
+}</code></pre>
+                </div>
+
+                <h3 class="text-lg font-semibold text-white mb-3 mt-8">Toast notifications for everything</h3>
+                <p class="text-dark-300 text-sm leading-relaxed mb-3">
+                    Every user action gets feedback. Accept a connection? Toast. Error fetching data? Toast. No silent failures, no mystery loading states.
+                </p>
+            </section>
+
+            <!-- Lessons Learned -->
+            <section id="lessons" class="mb-12">
+                <h2 class="text-2xl font-bold text-white mb-4">Lessons Learned</h2>
+                <div class="space-y-4">
+                    <div class="bg-dark-800/40 border border-dark-700/30 rounded-xl p-5">
+                        <p class="text-white text-sm font-semibold mb-1">Start with the data, not the UI</p>
+                        <p class="text-dark-400 text-sm">We built the edge functions first, verified the data shapes, then built the frontend to match. Trying to design the UI before knowing what LinkedIn actually returns would have wasted hours.</p>
+                    </div>
+                    <div class="bg-dark-800/40 border border-dark-700/30 rounded-xl p-5">
+                        <p class="text-white text-sm font-semibold mb-1">The roast catches what tests miss</p>
+                        <p class="text-dark-400 text-sm">Tests verify correctness. Roasts verify quality. Missing loading states, inconsistent spacing, unclear error messages &mdash; these aren't bugs, but they're the difference between 6/10 and 9/10.</p>
+                    </div>
+                    <div class="bg-dark-800/40 border border-dark-700/30 rounded-xl p-5">
+                        <p class="text-white text-sm font-semibold mb-1">Zod is non-negotiable at API boundaries</p>
+                        <p class="text-dark-400 text-sm">LinkedIn's API returned null for fields documented as required. Without Zod's <code class="font-mono text-gold-400 text-xs">.default()</code> and <code class="font-mono text-gold-400 text-xs">.optional()</code>, the app would crash on real data that the test data didn't cover.</p>
+                    </div>
+                    <div class="bg-dark-800/40 border border-dark-700/30 rounded-xl p-5">
+                        <p class="text-white text-sm font-semibold mb-1">Ship the satellite, not the monolith</p>
+                        <p class="text-dark-400 text-sm">This is a standalone app that shares auth with the main platform. It ships independently, deploys independently, and can be killed independently. Every new feature doesn't have to be a PR to the monorepo.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Source Code -->
+            <section id="repo" class="mb-12">
+                <h2 class="text-2xl font-bold text-white mb-4">Source Code</h2>
+                <p class="text-dark-300 text-sm leading-relaxed mb-4">
+                    The full source is at <a href="https://github.com/Life-Atlas/linkedin-daily-brief" target="_blank" class="text-gold-400 hover:underline font-mono text-xs">github.com/Life-Atlas/linkedin-daily-brief</a>. The repo is private for now while we stabilize the API layer, but will be open-sourced once the edge functions are production-hardened.
+                </p>
+                <div class="code-block relative">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>linkedin-daily-brief/
+  src/
+    components/     # React components (cards, brief, nav)
+    pages/          # Route-level pages
+    lib/            # Supabase client, API helpers
+    test/           # Vitest tests
+  supabase/
+    functions/      # Edge Functions (Deno)
+  index.html        # SPA entry
+  vite.config.ts    # Vite + React config
+  tsconfig.json     # Strict TypeScript</code></pre>
+                </div>
+                <div class="callout callout-info mt-4">
+                    <p class="text-sm text-dark-200"><strong class="text-white">Want to build your own?</strong> Start with <code class="font-mono text-gold-400 text-xs">npm create vite@latest</code> and pick the React + TypeScript template. Add <code class="font-mono text-gold-400 text-xs">@supabase/supabase-js</code> and <code class="font-mono text-gold-400 text-xs">zod</code>. That's the entire dependency footprint that matters.</p>
+                </div>
+            </section>
+
+            <hr class="border-dark-700/30 mb-10">
+
+            <!-- CTA -->
+            <section class="bg-dark-800/40 border border-gold-500/10 rounded-2xl p-8 text-center">
+                <h3 class="text-xl font-bold text-white mb-2">Built with LifeAtlas</h3>
+                <p class="text-dark-300 text-sm mb-4">
+                    The Daily Brief is one of many satellite apps in the LifeAtlas ecosystem. Each one is built the same way &mdash; fast, modular, replaceable. Learn the methodology behind it all in the course.
+                </p>
+                <div class="flex items-center justify-center gap-4">
+                    <a href="../../" class="px-5 py-2.5 bg-gradient-to-r from-gold-600 to-gold-500 text-dark-900 text-sm font-semibold rounded-lg hover:from-gold-500 hover:to-gold-400 transition-all">
+                        Explore the Course
+                    </a>
+                    <a href="./" class="px-5 py-2.5 border border-dark-600 text-dark-200 text-sm font-medium rounded-lg hover:border-gold-500/30 hover:text-gold-400 transition-all">
+                        More Guides
+                    </a>
+                </div>
+            </section>
+
+        </article>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-dark-700/30 py-8 px-6">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-dark-400 text-sm">&copy; 2026 LifeAtlas. Built with intensity.</p>
+            <div class="flex items-center gap-6">
+                <a href="https://www.linkedin.com/in/nicolaswaern/" target="_blank" class="text-dark-400 hover:text-gold-400 text-sm transition-colors">LinkedIn</a>
+                <a href="../../" class="text-dark-400 hover:text-gold-400 text-sm transition-colors">Course</a>
+                <a href="./" class="text-dark-400 hover:text-gold-400 text-sm transition-colors">Guides</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Copy to Clipboard -->
+    <script>
+        function copyCode(btn) {
+            const code = btn.parentElement.querySelector('code');
+            const text = code.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                btn.textContent = 'Copied!';
+                setTimeout(() => btn.textContent = 'Copy', 2000);
+            });
+        }
+
+        // TOC active state
+        const sections = document.querySelectorAll('section[id]');
+        const tocLinks = document.querySelectorAll('.toc-link');
+        const observerToc = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    tocLinks.forEach(l => {
+                        l.classList.remove('text-gold-400', 'border-gold-500');
+                        l.classList.add('text-dark-300', 'border-dark-700');
+                    });
+                    const active = document.querySelector('.toc-link[href="#' + entry.target.id + '"]');
+                    if (active) {
+                        active.classList.remove('text-dark-300', 'border-dark-700');
+                        active.classList.add('text-gold-400', 'border-gold-500');
+                    }
+                }
+            });
+        }, { rootMargin: '-20% 0px -60% 0px' });
+        sections.forEach(s => observerToc.observe(s));
+    </script>
+</body>
+</html>
