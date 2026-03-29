@@ -27,7 +27,7 @@
 
   function loadHistory() {
     try {
-      const raw = sessionStorage.getItem(STORAGE_KEY);
+      const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
         const parsed = JSON.parse(raw);
         messageCount = parsed.length;
@@ -39,7 +39,7 @@
 
   function saveHistory(messages) {
     try {
-      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
     } catch (_) { /* ignore */ }
   }
 
@@ -565,7 +565,7 @@
       @media (max-width: 480px) {
         #dt-chat-panel {
           width: calc(100vw - 16px) !important;
-          height: 70vh !important;
+          height: 75vh !important;
           bottom: 80px !important;
           right: 8px !important;
           border-radius: 14px !important;
@@ -573,6 +573,35 @@
         #dt-chat-bubble {
           bottom: 16px !important;
           right: 16px !important;
+        }
+        .dtchat-msg {
+          max-width: 94% !important;
+          padding: 10px 12px !important;
+          font-size: 13px !important;
+        }
+        .dtchat-options {
+          max-width: 96% !important;
+        }
+        .dtchat-option-btn {
+          padding: 10px 12px !important;
+          font-size: 12.5px !important;
+        }
+        .dtchat-product {
+          max-width: 96% !important;
+          padding: 14px 16px !important;
+        }
+        .dtchat-product-price {
+          font-size: 18px !important;
+        }
+        .dtchat-cta {
+          max-width: 96% !important;
+          padding: 16px !important;
+        }
+        .dtchat-post-spin {
+          max-width: 96% !important;
+        }
+        .dtchat-alt-offering {
+          padding: 10px 12px !important;
         }
       }
     `;
