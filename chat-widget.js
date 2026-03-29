@@ -2,6 +2,7 @@
  * Digital Twin Course — Chat Widget
  * Self-contained, zero-dependency chat widget for embedding via <script> tag.
  * Connects to the DT Knowledge API for SMILE-powered Q&A.
+ * Includes SPIN questionnaire flow for lead qualification.
  */
 (function () {
   'use strict';
@@ -11,16 +12,18 @@
   // ---------------------------------------------------------------------------
   const DTCHAT_CONFIG = {
     apiUrl: window.DTCHAT_API_URL || 'https://api-theta-seven-95.vercel.app',
-    bookingUrl: 'https://cal.com/nicolaswaern',
+    bookingUrl: 'https://calendly.com/futurecreation',
   };
 
   // ---------------------------------------------------------------------------
   // State
   // ---------------------------------------------------------------------------
   const STORAGE_KEY = 'dtchat_history';
+  const SPIN_KEY = 'dtchat_spin';
   let isOpen = false;
   let isSending = false;
   let messageCount = 0;
+  let spinState = null;  // Current SPIN questionnaire state
 
   function loadHistory() {
     try {
@@ -37,6 +40,24 @@
   function saveHistory(messages) {
     try {
       sessionStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+    } catch (_) { /* ignore */ }
+  }
+
+  function loadSpinState() {
+    try {
+      const raw = sessionStorage.getItem(SPIN_KEY);
+      if (raw) return JSON.parse(raw);
+    } catch (_) { /* ignore */ }
+    return null;
+  }
+
+  function saveSpinState(state) {
+    try {
+      if (state) {
+        sessionStorage.setItem(SPIN_KEY, JSON.stringify(state));
+      } else {
+        sessionStorage.removeItem(SPIN_KEY);
+      }
     } catch (_) { /* ignore */ }
   }
 
@@ -122,7 +143,7 @@
         display: flex !important;
         align-items: center !important;
         justify-content: space-between !important;
-        padding: 16px 18px !important;
+        padding: 16px 20px !important;
         background: #1a1a1a !important;
         border-bottom: 1px solid #2a2a2a !important;
         flex-shrink: 0 !important;
@@ -156,7 +177,7 @@
       #dt-chat-messages {
         flex: 1 !important;
         overflow-y: auto !important;
-        padding: 16px !important;
+        padding: 18px 20px !important;
         background: #1e1e1e !important;
         display: flex !important;
         flex-direction: column !important;
@@ -175,7 +196,7 @@
 
       .dtchat-msg {
         max-width: 88% !important;
-        padding: 10px 14px !important;
+        padding: 12px 16px !important;
         border-radius: 12px !important;
         font-size: 14px !important;
         color: #e0e0e0 !important;
@@ -243,30 +264,143 @@
 
       /* ---- CTA Card ---- */
       .dtchat-cta {
-        margin-top: 10px !important;
-        padding: 12px !important;
-        background: #1a1a1a !important;
-        border: 1px solid #c9a84c !important;
-        border-radius: 10px !important;
+        margin: 8px 0 !important;
+        padding: 16px 18px !important;
+        background: linear-gradient(135deg, #1a1a1a 0%, #1f1b14 100%) !important;
+        border: 1px solid rgba(201, 168, 76, 0.4) !important;
+        border-radius: 12px !important;
+        align-self: flex-start !important;
+        max-width: 92% !important;
       }
       .dtchat-cta-text {
         font-size: 13px !important;
-        color: #e0e0e0 !important;
-        margin-bottom: 8px !important;
+        color: #d0d0d0 !important;
+        margin-bottom: 12px !important;
+        line-height: 1.55 !important;
+      }
+      .dtchat-cta-actions {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
       }
       .dtchat-cta-btn {
         display: inline-block !important;
-        padding: 8px 16px !important;
+        padding: 10px 18px !important;
         background: #c9a84c !important;
         color: #141414 !important;
         font-size: 13px !important;
         font-weight: 600 !important;
         border-radius: 8px !important;
         text-decoration: none !important;
-        transition: background 0.15s ease !important;
+        text-align: center !important;
+        cursor: pointer !important;
+        border: none !important;
+        transition: background 0.15s ease, transform 0.1s ease !important;
       }
       .dtchat-cta-btn:hover {
         background: #d4b65e !important;
+        transform: translateY(-1px) !important;
+      }
+      .dtchat-cta-skip {
+        font-size: 12px !important;
+        color: #888 !important;
+        text-align: center !important;
+        cursor: pointer !important;
+        text-decoration: underline !important;
+        background: none !important;
+        border: none !important;
+        padding: 4px 0 !important;
+        transition: color 0.15s ease !important;
+      }
+      .dtchat-cta-skip:hover {
+        color: #c9a84c !important;
+      }
+
+      /* ---- SPIN Option Buttons ---- */
+      .dtchat-options {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 6px !important;
+        margin: 8px 0 !important;
+        align-self: flex-start !important;
+        max-width: 92% !important;
+      }
+      .dtchat-option-btn {
+        display: block !important;
+        width: 100% !important;
+        padding: 10px 14px !important;
+        background: #1e1e1e !important;
+        border: 1px solid #333 !important;
+        border-radius: 10px !important;
+        color: #e0e0e0 !important;
+        font-size: 13px !important;
+        text-align: left !important;
+        cursor: pointer !important;
+        transition: border-color 0.15s ease, background 0.15s ease, transform 0.1s ease !important;
+      }
+      .dtchat-option-btn:hover {
+        border-color: #c9a84c !important;
+        background: #252525 !important;
+        transform: translateX(4px) !important;
+      }
+      .dtchat-option-btn.dtchat-selected {
+        border-color: #c9a84c !important;
+        background: rgba(201, 168, 76, 0.1) !important;
+        color: #c9a84c !important;
+        pointer-events: none !important;
+      }
+
+      /* ---- Product Card ---- */
+      .dtchat-product {
+        margin: 8px 0 !important;
+        padding: 18px 20px !important;
+        background: linear-gradient(135deg, #1a1a1a 0%, #1f1b14 100%) !important;
+        border: 1px solid rgba(201, 168, 76, 0.5) !important;
+        border-radius: 14px !important;
+        align-self: flex-start !important;
+        max-width: 92% !important;
+      }
+      .dtchat-product-name {
+        font-size: 15px !important;
+        font-weight: 700 !important;
+        color: #c9a84c !important;
+        margin-bottom: 6px !important;
+      }
+      .dtchat-product-desc {
+        font-size: 13px !important;
+        color: #d0d0d0 !important;
+        margin-bottom: 12px !important;
+        line-height: 1.55 !important;
+      }
+      .dtchat-product-price {
+        font-size: 20px !important;
+        font-weight: 700 !important;
+        color: #e0e0e0 !important;
+        margin-bottom: 4px !important;
+      }
+      .dtchat-product-price-note {
+        font-size: 11px !important;
+        color: #888 !important;
+        margin-bottom: 14px !important;
+      }
+      .dtchat-product-btn {
+        display: block !important;
+        width: 100% !important;
+        padding: 12px 18px !important;
+        background: #c9a84c !important;
+        color: #141414 !important;
+        font-size: 14px !important;
+        font-weight: 600 !important;
+        border-radius: 10px !important;
+        text-decoration: none !important;
+        text-align: center !important;
+        cursor: pointer !important;
+        border: none !important;
+        transition: background 0.15s ease, transform 0.1s ease !important;
+      }
+      .dtchat-product-btn:hover {
+        background: #d4b65e !important;
+        transform: translateY(-1px) !important;
       }
 
       /* ---- Typing indicator ---- */
@@ -301,7 +435,7 @@
       #dt-chat-input-area {
         display: flex !important;
         align-items: center !important;
-        padding: 12px 14px !important;
+        padding: 12px 16px !important;
         background: #141414 !important;
         border-top: 1px solid #2a2a2a !important;
         gap: 8px !important;
@@ -356,7 +490,7 @@
         font-size: 13px !important;
         color: #e05555 !important;
         text-align: center !important;
-        padding: 8px 14px !important;
+        padding: 8px 16px !important;
       }
 
       /* ---- Mobile ---- */
@@ -385,7 +519,7 @@
     const bubble = document.createElement('button');
     bubble.id = 'dt-chat-bubble';
     bubble.setAttribute('aria-label', 'Open chat');
-    bubble.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/><path d="M7 9h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2z"/></svg>`;
+    bubble.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/><path d="M7 9h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2z"/></svg>';
     document.body.appendChild(bubble);
 
     // Panel
@@ -419,8 +553,12 @@
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;');
+    // Links: [text](url)
+    html = html.replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" style="color:#c9a84c;text-decoration:underline;">$1</a>');
     // Bold: **text**
     html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    // List items: - text
+    html = html.replace(/^- (.+)$/gm, '<li style="margin-left:16px !important;list-style:disc !important;">$1</li>');
     // Paragraphs: split on double newlines
     html = html
       .split(/\n{2,}/)
@@ -453,7 +591,7 @@
       div.className = 'dtchat-msg dtchat-msg-bot';
       container.appendChild(div);
 
-      // Split into segments: markdown tokens (**bold**) stay intact, rest char-by-char
+      // Split into segments: markdown tokens stay intact, rest char-by-char
       var chars = [];
       var i = 0;
       while (i < text.length) {
@@ -482,7 +620,7 @@
 
       var typed = '';
       var idx = 0;
-      var speed = 12; // ms per character
+      var speed = 12;
 
       function tick() {
         if (idx >= chars.length) {
@@ -497,7 +635,6 @@
         setTimeout(tick, speed);
       }
 
-      // Small initial delay to feel like "thinking"
       setTimeout(tick, 400);
     });
   }
@@ -529,22 +666,101 @@
     return wrapper;
   }
 
-  function createCTA(cta) {
+  // ---------------------------------------------------------------------------
+  // CTA Card — now supports SPIN trigger
+  // ---------------------------------------------------------------------------
+  function createCTA(cta, onSpinStart) {
     if (!cta) return null;
     const card = document.createElement('div');
     card.className = 'dtchat-cta';
+
     const text = document.createElement('div');
     text.className = 'dtchat-cta-text';
     text.textContent = cta.text || cta.message || 'Want to learn more?';
     card.appendChild(text);
 
-    const btn = document.createElement('a');
-    btn.className = 'dtchat-cta-btn';
-    btn.href = cta.url || cta.link || DTCHAT_CONFIG.bookingUrl;
-    btn.target = '_blank';
-    btn.rel = 'noopener noreferrer';
-    btn.textContent = cta.label || cta.button_text || 'Book a Session';
-    card.appendChild(btn);
+    const actions = document.createElement('div');
+    actions.className = 'dtchat-cta-actions';
+
+    if (cta.cta_action === 'spin_start') {
+      // SPIN assessment button
+      const btn = document.createElement('button');
+      btn.className = 'dtchat-cta-btn';
+      btn.textContent = cta.cta_text || 'Start Assessment';
+      btn.addEventListener('click', function () {
+        card.style.opacity = '0.5';
+        card.style.pointerEvents = 'none';
+        if (onSpinStart) onSpinStart();
+      });
+      actions.appendChild(btn);
+
+      // Skip link
+      if (cta.skip_url) {
+        const skip = document.createElement('a');
+        skip.className = 'dtchat-cta-skip';
+        skip.href = cta.skip_url;
+        skip.target = '_blank';
+        skip.rel = 'noopener noreferrer';
+        skip.textContent = cta.skip_text || 'Skip — book directly';
+        actions.appendChild(skip);
+      }
+    } else {
+      // Standard CTA link
+      const btn = document.createElement('a');
+      btn.className = 'dtchat-cta-btn';
+      btn.href = cta.url || cta.cta_url || cta.link || DTCHAT_CONFIG.bookingUrl;
+      btn.target = '_blank';
+      btn.rel = 'noopener noreferrer';
+      btn.textContent = cta.cta_text || cta.label || cta.button_text || 'Book a Session';
+      actions.appendChild(btn);
+    }
+
+    card.appendChild(actions);
+    return card;
+  }
+
+  // ---------------------------------------------------------------------------
+  // SPIN Option Buttons
+  // ---------------------------------------------------------------------------
+  function createSpinOptions(options, onSelect) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'dtchat-options';
+
+    options.forEach(function (opt) {
+      const btn = document.createElement('button');
+      btn.className = 'dtchat-option-btn';
+      btn.textContent = opt.label;
+      btn.addEventListener('click', function () {
+        // Mark this one as selected, disable all
+        wrapper.querySelectorAll('.dtchat-option-btn').forEach(function (b) {
+          b.style.pointerEvents = 'none';
+          b.style.opacity = '0.5';
+        });
+        btn.classList.add('dtchat-selected');
+        btn.style.opacity = '1';
+        onSelect(opt.value, opt.label);
+      });
+      wrapper.appendChild(btn);
+    });
+
+    return wrapper;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Product Card
+  // ---------------------------------------------------------------------------
+  function createProductCard(product) {
+    const card = document.createElement('div');
+    card.className = 'dtchat-product';
+
+    card.innerHTML = [
+      '<div class="dtchat-product-name">' + (product.name || '') + '</div>',
+      '<div class="dtchat-product-desc">' + (product.description || '') + '</div>',
+      '<div class="dtchat-product-price">' + (product.price || '') + '</div>',
+      '<div class="dtchat-product-price-note">' + (product.price_note || '') + '</div>',
+      '<a class="dtchat-product-btn" href="' + (product.url || DTCHAT_CONFIG.bookingUrl) + '" target="_blank" rel="noopener noreferrer">' + (product.cta_text || 'Get Started') + '</a>',
+    ].join('');
+
     return card;
   }
 
@@ -568,11 +784,12 @@
   // ---------------------------------------------------------------------------
   // API
   // ---------------------------------------------------------------------------
-  async function sendToApi(question) {
+  async function sendToApi(payload) {
+    const body = Object.assign({ message_count: messageCount }, payload);
     const res = await fetch(DTCHAT_CONFIG.apiUrl + '/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ question: question, message_count: messageCount }),
+      body: JSON.stringify(body),
     });
     if (!res.ok) throw new Error('API responded with status ' + res.status);
     return res.json();
@@ -590,6 +807,9 @@
     const closeBtn = panel.querySelector('#dt-chat-header-close');
     let hasShownWelcome = false;
 
+    // Restore SPIN state
+    spinState = loadSpinState();
+
     // Restore history
     const history = loadHistory();
     if (history.length > 0) {
@@ -600,10 +820,6 @@
         if (msg.sources) {
           const srcEl = createSources(msg.sources);
           if (srcEl) messagesEl.appendChild(srcEl);
-        }
-        if (msg.cta) {
-          const ctaEl = createCTA(msg.cta);
-          if (ctaEl) messagesEl.appendChild(ctaEl);
         }
       });
     }
@@ -618,9 +834,8 @@
           const welcome = "Hi! I'm a digital twin knowledge assistant powered by the SMILE methodology. Ask me anything about digital twins, interoperability, edge computing, or implementation strategy.";
           const welcomeEl = createMessage('bot', welcome);
           messagesEl.appendChild(welcomeEl);
-          const welcomeMsg = { role: 'bot', content: welcome };
           const h = loadHistory();
-          h.push(welcomeMsg);
+          h.push({ role: 'bot', content: welcome });
           saveHistory(h);
         }
         scrollToBottom(messagesEl);
@@ -637,6 +852,112 @@
       inputEl.disabled = val;
     }
 
+    // ------ SPIN Flow Handler ------
+    async function startSpinFlow() {
+      setSending(true);
+
+      // Show typing
+      const typingEl = createTyping();
+      messagesEl.appendChild(typingEl);
+      scrollToBottom(messagesEl);
+
+      try {
+        const data = await sendToApi({
+          question: '',
+          spin_action: 'start',
+        });
+
+        typingEl.remove();
+
+        if (data.spin) {
+          spinState = data.spin;
+          saveSpinState(spinState);
+
+          // Show the question with typewriter
+          await typewriterMessage(messagesEl, data.spin.question, messagesEl);
+
+          // Show options
+          const optEl = createSpinOptions(data.spin.options, handleSpinAnswer);
+          messagesEl.appendChild(optEl);
+          scrollToBottom(messagesEl);
+        }
+      } catch (_err) {
+        typingEl.remove();
+        // Fallback: open Calendly directly
+        window.open(DTCHAT_CONFIG.bookingUrl, '_blank');
+      }
+
+      setSending(false);
+    }
+
+    async function handleSpinAnswer(value, label) {
+      // Show user's selection as a message
+      const userEl = createMessage('user', label);
+      messagesEl.appendChild(userEl);
+      const h = loadHistory();
+      h.push({ role: 'user', content: label });
+      saveHistory(h);
+      scrollToBottom(messagesEl);
+
+      setSending(true);
+
+      // Show typing
+      const typingEl = createTyping();
+      messagesEl.appendChild(typingEl);
+      scrollToBottom(messagesEl);
+
+      try {
+        const data = await sendToApi({
+          question: '',
+          spin_action: 'answer',
+          spin_state: spinState,
+          spin_value: value,
+        });
+
+        typingEl.remove();
+
+        if (data.spin) {
+          spinState = data.spin;
+          saveSpinState(spinState);
+
+          if (data.spin.type === 'spin_complete' && data.spin.product) {
+            // Show recommendation message
+            await typewriterMessage(messagesEl, data.answer, messagesEl);
+            h.push({ role: 'bot', content: data.answer });
+            saveHistory(h);
+
+            // Show product card
+            const productEl = createProductCard(data.spin.product);
+            messagesEl.appendChild(productEl);
+            scrollToBottom(messagesEl);
+
+            // Clear SPIN state
+            spinState = null;
+            saveSpinState(null);
+          } else {
+            // Next question
+            await typewriterMessage(messagesEl, data.spin.question, messagesEl);
+            h.push({ role: 'bot', content: data.spin.question });
+            saveHistory(h);
+
+            // Show options
+            const optEl = createSpinOptions(data.spin.options, handleSpinAnswer);
+            messagesEl.appendChild(optEl);
+            scrollToBottom(messagesEl);
+          }
+        }
+      } catch (_err) {
+        typingEl.remove();
+        const errDiv = document.createElement('div');
+        errDiv.className = 'dtchat-error';
+        errDiv.textContent = 'Having trouble connecting. Try again in a moment.';
+        messagesEl.appendChild(errDiv);
+      }
+
+      setSending(false);
+    }
+
+    // ------ Normal Chat Handler ------
     async function handleSend() {
       const question = inputEl.value.trim();
       if (!question || isSending) return;
@@ -659,13 +980,12 @@
       scrollToBottom(messagesEl);
 
       try {
-        const data = await sendToApi(question);
-        // Remove typing indicator
+        const data = await sendToApi({ question: question });
         typingEl.remove();
 
         const answer = data.answer || data.response || data.message || '';
         // Typewriter effect for bot responses
-        const botEl = await typewriterMessage(messagesEl, answer, messagesEl);
+        await typewriterMessage(messagesEl, answer, messagesEl);
 
         const botMsg = { role: 'bot', content: answer };
 
@@ -677,12 +997,11 @@
           botMsg.sources = sources;
         }
 
-        // CTA
+        // CTA — now with SPIN support
         const cta = data.cta || null;
         if (cta) {
-          const ctaEl = createCTA(cta);
+          const ctaEl = createCTA(cta, startSpinFlow);
           if (ctaEl) messagesEl.appendChild(ctaEl);
-          botMsg.cta = cta;
         }
 
         const h2 = loadHistory();
