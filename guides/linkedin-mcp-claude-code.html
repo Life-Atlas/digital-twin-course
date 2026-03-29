@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Connect LinkedIn to Claude Code via MCP | LifeAtlas Guides</title>
+    <meta name="description" content="Post, message, and search LinkedIn directly from your terminal. Step-by-step MCP setup with OAuth, troubleshooting, and architecture explained.">
+    <meta property="og:title" content="How to Connect LinkedIn to Claude Code via MCP">
+    <meta property="og:description" content="Post, message, and search LinkedIn directly from your terminal. One-time OAuth setup, 60-day auto-refresh, zero lock-in.">
+    <meta property="og:type" content="article">
+    <meta property="article:published_time" content="2026-03-29">
+    <meta property="article:author" content="Nicolas Waern">
+    <meta name="twitter:card" content="summary_large_image">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            50: '#fdf8e8', 100: '#f9edc4', 200: '#f3db8a', 300: '#ebc54f',
+                            400: '#d4a832', 500: '#c9a84c', 600: '#a8872a', 700: '#876a1e',
+                            800: '#6b5318', 900: '#4a3a11',
+                        },
+                        dark: {
+                            50: '#f5f5f5', 100: '#e0e0e0', 200: '#bdbdbd', 300: '#9e9e9e',
+                            400: '#757575', 500: '#616161', 600: '#424242', 700: '#1e1e1e',
+                            800: '#141414', 900: '#0a0a0a', 950: '#050505',
+                        }
+                    },
+                    fontFamily: {
+                        'display': ['Playfair Display', 'serif'],
+                        'body': ['Inter', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Playfair Display', serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .gradient-text {
+            background: linear-gradient(135deg, #c9a84c 0%, #f3db8a 50%, #c9a84c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .grid-bg {
+            background-image:
+                linear-gradient(rgba(201, 168, 76, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(201, 168, 76, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+        pre {
+            background: #0d0d0d;
+            border: 1px solid rgba(201, 168, 76, 0.1);
+            border-radius: 12px;
+            padding: 1.25rem;
+            overflow-x: auto;
+            font-size: 0.875rem;
+            line-height: 1.7;
+        }
+        pre code {
+            font-family: 'JetBrains Mono', monospace;
+            color: #e0e0e0;
+        }
+        .prose-gold h2 {
+            scroll-margin-top: 6rem;
+        }
+        .toc-link {
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .toc-link:hover {
+            color: #c9a84c;
+            border-color: #c9a84c;
+        }
+        .step-number {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .callout {
+            border-left: 3px solid;
+            padding: 1rem 1.25rem;
+            border-radius: 0 8px 8px 0;
+        }
+        .callout-warn { border-color: #ebc54f; background: rgba(235, 197, 79, 0.05); }
+        .callout-info { border-color: #60a5fa; background: rgba(96, 165, 250, 0.05); }
+        .callout-success { border-color: #34d399; background: rgba(52, 211, 153, 0.05); }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th { text-align: left; padding: 0.75rem 1rem; border-bottom: 2px solid rgba(201, 168, 76, 0.2); color: #c9a84c; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+        td { padding: 0.75rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.875rem; color: #bdbdbd; }
+        tr:hover td { background: rgba(201, 168, 76, 0.03); }
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.7rem;
+            background: rgba(201, 168, 76, 0.1);
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            border-radius: 6px;
+            color: #c9a84c;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .code-block:hover .copy-btn { opacity: 1; }
+        .copy-btn:hover { background: rgba(201, 168, 76, 0.2); }
+    </style>
+</head>
+<body class="bg-dark-900 text-white grid-bg min-h-screen">
+
+    <!-- Nav -->
+    <nav class="fixed top-0 w-full z-50 bg-dark-900/80 backdrop-blur-xl border-b border-gold-500/10">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="../../" class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-gold-500 to-gold-700 flex items-center justify-center">
+                    <span class="text-dark-900 font-bold text-sm">LA</span>
+                </div>
+                <span class="text-white font-semibold">LifeAtlas</span>
+            </a>
+            <div class="flex items-center gap-6">
+                <a href="../../" class="text-dark-300 hover:text-gold-400 text-sm transition-colors">Course</a>
+                <a href="./" class="text-gold-400 text-sm font-medium">Guides</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-6xl mx-auto px-6 pt-28 pb-20 flex gap-12">
+
+        <!-- Sidebar TOC (desktop) -->
+        <aside class="hidden lg:block w-56 flex-shrink-0">
+            <div class="sticky top-28">
+                <p class="text-dark-400 text-xs font-semibold uppercase tracking-widest mb-4">On this page</p>
+                <nav class="flex flex-col gap-1">
+                    <a href="#what" class="toc-link text-dark-300 text-sm border-l-2 border-dark-700 pl-3 py-1">What You're Building</a>
+                    <a href="#step-1" class="toc-link text-dark-300 text-sm border-l-2 border-dark-700 pl-3 py-1">1. Create Dev App</a>
+                    <a href="#step-2" class="toc-link text-dark-300 text-sm border-l-2 border-dark-700 pl-3 py-1">2. Add Products</a>
+                    <a href="#step-3" class="toc-link text-dark-300 text-sm border-l-2 border-dark-700 pl-3 py-1">3. Redirect URI</a>
+                    <a href="#step-4" class="toc-link text-dark-300 text-sm border-l-2 border-dark-700 pl-3 py-1">4. Client Secret</a>
+                    <a href="#step-5" class="toc-link text-dark-300 text-sm border-l-2 border-dark-700 pl-3 py-1">5. Add MCP Server</a>
+                    <a href="#step-6" class="toc-link text-dark-300 text-sm border-l-2 border-dark-700 pl-3 py-1">6. Authenticate</a>
+                    <a href="#step-7" class="toc-link text-dark-300 text-sm border-l-2 border-dark-700 pl-3 py-1">7. Restart & Test</a>
+                    <a href="#troubleshooting" class="toc-link text-dark-300 text-sm border-l-2 border-dark-700 pl-3 py-1">Troubleshooting</a>
+                    <a href="#dont" class="toc-link text-dark-300 text-sm border-l-2 border-dark-700 pl-3 py-1">What NOT to Do</a>
+                    <a href="#architecture" class="toc-link text-dark-300 text-sm border-l-2 border-dark-700 pl-3 py-1">Architecture</a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <article class="flex-1 max-w-3xl prose-gold">
+
+            <!-- Header -->
+            <div class="mb-12">
+                <a href="./" class="inline-flex items-center gap-2 text-dark-400 hover:text-gold-400 text-sm transition-colors mb-6">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                    Back to Guides
+                </a>
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="px-3 py-1 bg-gold-500/10 text-gold-400 text-xs font-medium rounded-full">AI Workflows</span>
+                    <span class="text-dark-400 text-xs">March 2026</span>
+                    <span class="text-dark-500 text-xs">10 min read</span>
+                </div>
+                <h1 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+                    <span class="gradient-text">How to Connect LinkedIn<br>to Claude Code via MCP</span>
+                </h1>
+                <p class="text-dark-300 text-lg leading-relaxed max-w-2xl">
+                    Post, message, and search LinkedIn directly from your terminal. One-time OAuth setup, 60-day auto-refresh, zero lock-in. The complete guide we wish existed when we started.
+                </p>
+                <div class="flex items-center gap-4 mt-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-full bg-gradient-to-br from-gold-500 to-gold-700 flex items-center justify-center text-dark-900 font-bold text-xs">NW</div>
+                        <div>
+                            <p class="text-sm font-medium text-white">Nicolas Waern</p>
+                            <p class="text-xs text-dark-400">CEO, LifeAtlas</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="border-dark-700/30 mb-10">
+
+            <!-- Quick Facts -->
+            <div class="grid grid-cols-3 gap-4 mb-10">
+                <div class="bg-dark-800/40 border border-dark-700/30 rounded-xl p-4 text-center">
+                    <p class="text-gold-400 text-lg font-bold">~10 min</p>
+                    <p class="text-dark-400 text-xs mt-1">Setup time</p>
+                </div>
+                <div class="bg-dark-800/40 border border-dark-700/30 rounded-xl p-4 text-center">
+                    <p class="text-gold-400 text-lg font-bold">60 days</p>
+                    <p class="text-dark-400 text-xs mt-1">Token lifetime</p>
+                </div>
+                <div class="bg-dark-800/40 border border-dark-700/30 rounded-xl p-4 text-center">
+                    <p class="text-gold-400 text-lg font-bold">Free</p>
+                    <p class="text-dark-400 text-xs mt-1">No paid services</p>
+                </div>
+            </div>
+
+            <!-- What You're Building -->
+            <section id="what" class="mb-12">
+                <h2 class="text-2xl font-bold text-white mb-4">What You're Building</h2>
+                <div class="code-block relative">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>Claude Code  --&gt;  LinkedIn MCP Server  --&gt;  LinkedIn API
+   (you)         (runs locally)            (posts, messages, profiles)</code></pre>
+                </div>
+                <p class="text-dark-300 text-sm leading-relaxed mt-4">
+                    The MCP server runs on your machine. It talks to LinkedIn's official API using OAuth 2.0. You log in once, get a token that lasts 60 days, and Claude Code can use 25+ LinkedIn tools without you touching a browser again.
+                </p>
+            </section>
+
+            <!-- Step 1 -->
+            <section id="step-1" class="mb-12">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="step-number bg-gold-500/20 text-gold-400">1</span>
+                    <h2 class="text-2xl font-bold text-white">Create a LinkedIn Developer App</h2>
+                </div>
+                <ol class="space-y-3 text-dark-300 text-sm leading-relaxed ml-4">
+                    <li>1. Go to <a href="https://www.linkedin.com/developers/" target="_blank" class="text-gold-400 hover:underline">linkedin.com/developers</a></li>
+                    <li>2. Click <strong class="text-white">Create App</strong></li>
+                    <li>3. Fill in:
+                        <ul class="ml-6 mt-2 space-y-1 text-dark-400">
+                            <li><strong class="text-dark-200">App name:</strong> Whatever you want (e.g., "MyApp MCP")</li>
+                            <li><strong class="text-dark-200">LinkedIn Page:</strong> Select your company page (required)</li>
+                            <li><strong class="text-dark-200">Logo:</strong> Upload any image</li>
+                        </ul>
+                    </li>
+                    <li>4. Click <strong class="text-white">Create App</strong></li>
+                </ol>
+                <p class="text-dark-400 text-sm mt-3">You'll land on the app's Settings page. Note your <strong class="text-white">Client ID</strong> at the top.</p>
+            </section>
+
+            <!-- Step 2 -->
+            <section id="step-2" class="mb-12">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="step-number bg-gold-500/20 text-gold-400">2</span>
+                    <h2 class="text-2xl font-bold text-white">Add Required Products</h2>
+                </div>
+                <p class="text-dark-300 text-sm mb-4">In the Developer Portal, click the <strong class="text-white">Products</strong> tab. Request access to these three (they auto-approve):</p>
+                <div class="overflow-x-auto rounded-xl border border-dark-700/30">
+                    <table>
+                        <thead><tr><th>Product</th><th>Why</th></tr></thead>
+                        <tbody>
+                            <tr><td class="text-white font-medium">Share on LinkedIn</td><td>Create posts, comments, reactions</td></tr>
+                            <tr><td class="text-white font-medium">Sign In with LinkedIn using OpenID Connect</td><td>Required for OAuth login</td></tr>
+                            <tr><td class="text-white font-medium">Verified on LinkedIn</td><td>Profile verification access</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-dark-400 text-sm mt-3">Click <strong class="text-white">Request Access</strong> for each. They activate immediately.</p>
+            </section>
+
+            <!-- Step 3 -->
+            <section id="step-3" class="mb-12">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="step-number bg-gold-500/20 text-gold-400">3</span>
+                    <h2 class="text-2xl font-bold text-white">Configure the Redirect URI</h2>
+                </div>
+                <ol class="space-y-2 text-dark-300 text-sm leading-relaxed ml-4">
+                    <li>1. Click the <strong class="text-white">Auth</strong> tab</li>
+                    <li>2. Under <strong class="text-white">Authorized redirect URLs</strong>, click the pencil icon</li>
+                    <li>3. Add exactly this URL:</li>
+                </ol>
+                <div class="code-block relative mt-3">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>http://localhost:44002/auth/linkedin/callback</code></pre>
+                </div>
+                <div class="callout callout-warn mt-4">
+                    <p class="text-sm text-dark-200">This is <code class="font-mono text-gold-400 text-xs">http</code>, not <code class="font-mono text-gold-400 text-xs">https</code> &mdash; that's correct. It's localhost, so no encryption needed.</p>
+                </div>
+            </section>
+
+            <!-- Step 4 -->
+            <section id="step-4" class="mb-12">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="step-number bg-gold-500/20 text-gold-400">4</span>
+                    <h2 class="text-2xl font-bold text-white">Copy Your Client Secret</h2>
+                </div>
+                <p class="text-dark-300 text-sm leading-relaxed">Still on the <strong class="text-white">Auth</strong> tab:</p>
+                <ol class="space-y-2 text-dark-300 text-sm leading-relaxed ml-4 mt-2">
+                    <li>1. Find <strong class="text-white">Primary Client Secret</strong></li>
+                    <li>2. Click the eye icon to reveal it</li>
+                    <li>3. Copy it &mdash; you'll need it in the next steps</li>
+                </ol>
+                <p class="text-dark-400 text-xs mt-3 font-mono">It looks like: WPL_AP1.abcDEF123456.xyzABC==</p>
+            </section>
+
+            <!-- Step 5 -->
+            <section id="step-5" class="mb-12">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="step-number bg-gold-500/20 text-gold-400">5</span>
+                    <h2 class="text-2xl font-bold text-white">Add the MCP Server to Claude Code</h2>
+                </div>
+                <p class="text-dark-300 text-sm mb-3">Open a terminal and run:</p>
+                <div class="code-block relative">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>claude mcp add linkedin -s local \
+  -e LINKEDIN_CLIENT_ID=YOUR_CLIENT_ID \
+  -e "LINKEDIN_CLIENT_SECRET=YOUR_CLIENT_SECRET" \
+  -- npx -y linkedin-mcp-server</code></pre>
+                </div>
+                <p class="text-dark-400 text-sm mt-3">Replace <code class="font-mono text-gold-400 text-xs">YOUR_CLIENT_ID</code> and <code class="font-mono text-gold-400 text-xs">YOUR_CLIENT_SECRET</code> with your actual values.</p>
+                <div class="callout callout-info mt-3">
+                    <p class="text-sm text-dark-200">Wrap the secret in double quotes because it contains <code class="font-mono text-gold-400 text-xs">=</code> signs.</p>
+                </div>
+            </section>
+
+            <!-- Step 6 -->
+            <section id="step-6" class="mb-12">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="step-number bg-gold-500/20 text-gold-400">6</span>
+                    <h2 class="text-2xl font-bold text-white">Authenticate (One-Time Browser Login)</h2>
+                </div>
+                <p class="text-dark-300 text-sm mb-4">
+                    The MCP server tries to open your browser automatically, but on Windows it often fails silently. Here's the reliable method:
+                </p>
+
+                <!-- 6a -->
+                <h3 class="text-lg font-semibold text-white mb-3 mt-6">6a. Start the callback server</h3>
+                <p class="text-dark-300 text-sm mb-3">Save this as <code class="font-mono text-gold-400 text-xs">linkedin-auth.js</code> and run with <code class="font-mono text-gold-400 text-xs">node linkedin-auth.js</code>:</p>
+                <div class="code-block relative">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>const http = require('http');
+const https = require('https');
+const fs = require('fs');
+const path = require('path');
+
+// REPLACE THESE WITH YOUR VALUES
+const CLIENT_ID = 'YOUR_CLIENT_ID';
+const CLIENT_SECRET = 'YOUR_CLIENT_SECRET';
+const REDIRECT_URI = 'http://localhost:44002/auth/linkedin/callback';
+
+const server = http.createServer((req, res) =&gt; {
+  const u = new URL(req.url, 'http://localhost:44002');
+  if (u.pathname === '/auth/linkedin/callback' &amp;&amp; u.searchParams.get('code')) {
+    const code = u.searchParams.get('code');
+    const postData =
+      'grant_type=authorization_code&amp;code=' + code +
+      '&amp;redirect_uri=' + encodeURIComponent(REDIRECT_URI) +
+      '&amp;client_id=' + CLIENT_ID +
+      '&amp;client_secret=' + encodeURIComponent(CLIENT_SECRET);
+
+    const tokenReq = https.request({
+      hostname: 'www.linkedin.com',
+      path: '/oauth/v2/accessToken',
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    }, (tokenRes) =&gt; {
+      let data = '';
+      tokenRes.on('data', c =&gt; data += c);
+      tokenRes.on('end', () =&gt; {
+        const tokens = JSON.parse(data);
+        if (tokens.error) {
+          console.log('ERROR:', tokens.error_description);
+          res.writeHead(400, { 'Content-Type': 'text/html' });
+          res.end('&lt;h1&gt;Error: ' + tokens.error_description + '&lt;/h1&gt;');
+          server.close();
+          process.exit(1);
+          return;
+        }
+        const tokenDir = path.join(
+          process.env.USERPROFILE || process.env.HOME,
+          '.linkedin-mcp'
+        );
+        if (!fs.existsSync(tokenDir))
+          fs.mkdirSync(tokenDir, { recursive: true });
+        fs.writeFileSync(
+          path.join(tokenDir, 'tokens_default.json'),
+          JSON.stringify({
+            access_token: tokens.access_token,
+            expires_in: tokens.expires_in,
+            refresh_token: tokens.refresh_token || null,
+            scope: tokens.scope,
+            token_type: tokens.token_type,
+            created_at: Date.now()
+          }, null, 2)
+        );
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.end('&lt;h1&gt;LinkedIn authenticated! Close this tab.&lt;/h1&gt;');
+        console.log('SUCCESS! Token saved. Expires in ' +
+          Math.round(tokens.expires_in / 86400) + ' days.');
+        server.close();
+        process.exit(0);
+      });
+    });
+    tokenReq.write(postData);
+    tokenReq.end();
+  }
+});
+
+server.listen(44002, () =&gt; {
+  console.log('Callback server ready on port 44002.');
+  console.log('Now open the auth URL in your browser (see 6b).');
+});
+
+// Auto-close after 5 minutes
+setTimeout(() =&gt; { server.close(); process.exit(1); }, 300000);</code></pre>
+                </div>
+
+                <!-- 6b -->
+                <h3 class="text-lg font-semibold text-white mb-3 mt-8">6b. Open the auth URL in your browser</h3>
+                <p class="text-dark-300 text-sm mb-3">While the callback server is running, construct this URL (replace <code class="font-mono text-gold-400 text-xs">YOUR_CLIENT_ID</code>):</p>
+                <div class="code-block relative">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>https://www.linkedin.com/oauth/v2/authorization?response_type=code&amp;client_id=YOUR_CLIENT_ID&amp;redirect_uri=http%3A%2F%2Flocalhost%3A44002%2Fauth%2Flinkedin%2Fcallback&amp;scope=openid%20profile%20email%20w_member_social&amp;state=auth123</code></pre>
+                </div>
+                <p class="text-dark-300 text-sm mt-3">
+                    Paste the URL into your browser. LinkedIn will ask you to log in and authorize the app. Click <strong class="text-white">Allow</strong>. Your terminal should print <code class="font-mono text-green-400 text-xs">SUCCESS</code>.
+                </p>
+
+                <!-- 6c -->
+                <h3 class="text-lg font-semibold text-white mb-3 mt-8">6c. Verify the token</h3>
+                <div class="code-block relative">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>cat ~/.linkedin-mcp/tokens_default.json</code></pre>
+                </div>
+                <p class="text-dark-400 text-sm mt-3">You should see a JSON file with <code class="font-mono text-gold-400 text-xs">access_token</code>, <code class="font-mono text-gold-400 text-xs">expires_in</code> (5183999 = 60 days), and other fields.</p>
+            </section>
+
+            <!-- Step 7 -->
+            <section id="step-7" class="mb-12">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="step-number bg-gold-500/20 text-gold-400">7</span>
+                    <h2 class="text-2xl font-bold text-white">Restart Claude Code & Test</h2>
+                </div>
+                <p class="text-dark-300 text-sm leading-relaxed mb-4">
+                    Close and reopen Claude Code. The LinkedIn MCP server will start with your credentials and find the saved token.
+                </p>
+                <p class="text-dark-300 text-sm mb-3">Try these commands:</p>
+                <div class="code-block relative">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>Get my LinkedIn profile</code></pre>
+                </div>
+                <div class="code-block relative mt-3">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>Post on LinkedIn: "Testing my new AI workflow"</code></pre>
+                </div>
+                <div class="callout callout-success mt-4">
+                    <p class="text-sm text-dark-200">If it works, you're done. All 25+ LinkedIn tools are now available in Claude Code.</p>
+                </div>
+            </section>
+
+            <hr class="border-dark-700/30 mb-10">
+
+            <!-- Troubleshooting -->
+            <section id="troubleshooting" class="mb-12">
+                <h2 class="text-2xl font-bold text-white mb-4">Troubleshooting</h2>
+                <div class="overflow-x-auto rounded-xl border border-dark-700/30">
+                    <table>
+                        <thead><tr><th>Problem</th><th>Solution</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-white font-medium">"Client authentication failed"</td>
+                                <td>Wrong client secret. Reveal it again on the Auth tab and copy carefully. Watch for <code class="font-mono text-gold-400 text-xs">=</code> signs at the end.</td>
+                            </tr>
+                            <tr>
+                                <td class="text-white font-medium">"Bummer, something went wrong"</td>
+                                <td>URL got truncated. Copy the full URL to clipboard instead of clicking a link.</td>
+                            </tr>
+                            <tr>
+                                <td class="text-white font-medium">"redirect_uri parameter" error</td>
+                                <td>The redirect URI must exactly match <code class="font-mono text-gold-400 text-xs">http://localhost:44002/auth/linkedin/callback</code></td>
+                            </tr>
+                            <tr>
+                                <td class="text-white font-medium">Browser doesn't open</td>
+                                <td>Normal on Windows when running as MCP subprocess. Use the manual method (Step 6).</td>
+                            </tr>
+                            <tr>
+                                <td class="text-white font-medium">Timeout after 5 minutes</td>
+                                <td>The callback server didn't receive the redirect. Check that port 44002 isn't blocked by firewall.</td>
+                            </tr>
+                            <tr>
+                                <td class="text-white font-medium">Token expired (60 days)</td>
+                                <td>Re-run Step 6. Same process, takes 2 minutes.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- What NOT to Do -->
+            <section id="dont" class="mb-12">
+                <h2 class="text-2xl font-bold text-white mb-4">What NOT to Do</h2>
+                <ul class="space-y-3 text-dark-300 text-sm leading-relaxed">
+                    <li class="flex items-start gap-3">
+                        <span class="text-red-400 mt-0.5">&#x2717;</span>
+                        <span>Don't use <code class="font-mono text-gold-400 text-xs">https</code> for the redirect URI &mdash; it's localhost, <code class="font-mono text-gold-400 text-xs">http</code> is correct</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-red-400 mt-0.5">&#x2717;</span>
+                        <span>Don't use paid LinkedIn MCP services (LiGo, Composio) &mdash; this free setup does the same thing</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-red-400 mt-0.5">&#x2717;</span>
+                        <span>Don't use cookie-based scrapers &mdash; they can't post and risk account bans</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-red-400 mt-0.5">&#x2717;</span>
+                        <span>Don't generate a new client secret unless the old one is compromised &mdash; it invalidates the old one</span>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Architecture -->
+            <section id="architecture" class="mb-12">
+                <h2 class="text-2xl font-bold text-white mb-4">Architecture</h2>
+                <div class="code-block relative">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>You type in Claude Code
+        |
+        v
+Claude calls mcp__linkedin__create_post
+        |
+        v
+LinkedIn MCP Server (npx linkedin-mcp-server)
+  - Reads token from ~/.linkedin-mcp/tokens_default.json
+  - Calls LinkedIn REST API with Bearer token
+  - Returns result to Claude
+        |
+        v
+Claude shows you the result</code></pre>
+                </div>
+                <p class="text-dark-300 text-sm leading-relaxed mt-4">
+                    The token lives locally on your machine. No cloud. No third-party servers. No lock-in. The MCP server is an npm package you can replace anytime.
+                </p>
+            </section>
+
+            <hr class="border-dark-700/30 mb-10">
+
+            <!-- CTA -->
+            <section class="bg-dark-800/40 border border-gold-500/10 rounded-2xl p-8 text-center">
+                <h3 class="text-xl font-bold text-white mb-2">Built with LifeAtlas</h3>
+                <p class="text-dark-300 text-sm mb-4">
+                    We use this exact setup daily to manage content, engage with our network, and automate outreach &mdash; all from the terminal.
+                </p>
+                <div class="flex items-center justify-center gap-4">
+                    <a href="../../" class="px-5 py-2.5 bg-gradient-to-r from-gold-600 to-gold-500 text-dark-900 text-sm font-semibold rounded-lg hover:from-gold-500 hover:to-gold-400 transition-all">
+                        Explore the Course
+                    </a>
+                    <a href="./" class="px-5 py-2.5 border border-dark-600 text-dark-200 text-sm font-medium rounded-lg hover:border-gold-500/30 hover:text-gold-400 transition-all">
+                        More Guides
+                    </a>
+                </div>
+            </section>
+
+        </article>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-dark-700/30 py-8 px-6">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-dark-400 text-sm">&copy; 2026 LifeAtlas. Built with intensity.</p>
+            <div class="flex items-center gap-6">
+                <a href="https://www.linkedin.com/in/nicolaswaern/" target="_blank" class="text-dark-400 hover:text-gold-400 text-sm transition-colors">LinkedIn</a>
+                <a href="../../" class="text-dark-400 hover:text-gold-400 text-sm transition-colors">Course</a>
+                <a href="./" class="text-dark-400 hover:text-gold-400 text-sm transition-colors">Guides</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Copy to Clipboard -->
+    <script>
+        function copyCode(btn) {
+            const code = btn.parentElement.querySelector('code');
+            const text = code.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                btn.textContent = 'Copied!';
+                setTimeout(() => btn.textContent = 'Copy', 2000);
+            });
+        }
+
+        // TOC active state
+        const sections = document.querySelectorAll('section[id]');
+        const tocLinks = document.querySelectorAll('.toc-link');
+        const observerToc = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    tocLinks.forEach(l => {
+                        l.classList.remove('text-gold-400', 'border-gold-500');
+                        l.classList.add('text-dark-300', 'border-dark-700');
+                    });
+                    const active = document.querySelector('.toc-link[href="#' + entry.target.id + '"]');
+                    if (active) {
+                        active.classList.remove('text-dark-300', 'border-dark-700');
+                        active.classList.add('text-gold-400', 'border-gold-500');
+                    }
+                }
+            });
+        }, { rootMargin: '-20% 0px -60% 0px' });
+        sections.forEach(s => observerToc.observe(s));
+    </script>
+</body>
+</html>
