@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="sv" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tjänster — Digitala Tvillingar &amp; AI-Agenter | Nicolas Waern</title>
+    <meta name="description" content="Digitala tvillingar och AI-agenter — två sidor av samma mynt. Förstå båda. Led förändringen. Inspirationsföreläsningar, workshops och strategisk rådgivning.">
+    <meta property="og:title" content="Tjänster — Digitala Tvillingar &amp; AI-Agenter | Nicolas Waern">
+    <meta property="og:description" content="Framtidens teknik. Ditt försprång. Digitala tvillingar och AI-agenter som fungerar tillsammans för att simulera verkligheten och agera autonomt på den.">
+    <meta property="og:type" content="website">
+
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@graph":[
+      {"@type":"Organization","@id":"https://life-atlas.github.io/digital-twin-course/#org","name":"Winniio AB","url":"https://life-atlas.github.io/digital-twin-course/"},
+      {"@type":"Person","@id":"https://life-atlas.github.io/digital-twin-course/#person","name":"Nicolas Waern","jobTitle":"Digital Twin Expert & CEO","url":"https://www.linkedin.com/in/nicolaswaern/"},
+      {"@type":"Service","@id":"https://life-atlas.github.io/digital-twin-course/tjanster.html#dt-service","name":"Digitala Tvillingar — Konsulttjänster","description":"S.M.I.L.E.-metodiken tillämpad på digitala tvillingar för byggnader, hälsa, städer och industri. 25+ års erfarenhet, 7 branscher.","provider":{"@id":"https://life-atlas.github.io/digital-twin-course/#org"},"areaServed":"Worldwide"},
+      {"@type":"Service","@id":"https://life-atlas.github.io/digital-twin-course/tjanster.html#ai-service","name":"AI-Agenter — Autonoma System","description":"31 specialiserade AI-agenter som percieverar, planerar, agerar och reflekterar. Edge-native, suveränt, ingen vendor lock-in.","provider":{"@id":"https://life-atlas.github.io/digital-twin-course/#org"},"areaServed":"Worldwide"},
+      {"@type":"ProfessionalService","name":"Nicolas Waern — Digitala Tvillingar &amp; AI-Agenter","description":"Inspirationsföreläsningar, workshops och strategisk rådgivning kring digitala tvillingar och AI-agenter.","provider":{"@id":"https://life-atlas.github.io/digital-twin-course/#org"},"hasOfferCatalog":{"@type":"OfferCatalog","name":"Tjänstekatalog","itemListElement":[
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Gratis Inspelning","description":"60 min inspelning — digitala tvillingar för 300 studenter, 7 branscher."},"price":"0","priceCurrency":"SEK"},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Inspirationsföreläsning","description":"60 min + Q&A, branschanpassad, mognadsbedömning, roadmap, 30 dagars uppföljning."},"price":"35000","priceCurrency":"SEK","url":"https://buy.stripe.com/28EbJ0gHP77rdjO1QVejK00"},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Halvdags Workshop","description":"S.M.I.L.E. Phase 1 mapping, MVT-design, implementeringsroadmap."},"price":"55000","priceCurrency":"SEK"},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Strategisk Rådgivning","description":"3-6 månaders löpande rådgivning, full implementering av digitala tvillingar och AI-agenter."}}
+      ]}}
+    ]}
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: { 50:'#fdf8e8',100:'#f9edc4',200:'#f3db8a',300:'#ebc54f',400:'#d4a832',500:'#c9a84c',600:'#a8872a',700:'#876a1e',800:'#6b5318',900:'#4a3a11' },
+                        dark: { 50:'#f5f5f5',100:'#e0e0e0',200:'#bdbdbd',300:'#9e9e9e',400:'#757575',500:'#616161',600:'#424242',700:'#1e1e1e',800:'#141414',900:'#0a0a0a',950:'#050505' }
+                    },
+                    fontFamily: { 'display': ['Playfair Display','serif'], 'body': ['Inter','sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Playfair Display', serif; }
+        .gradient-text { background: linear-gradient(135deg, #c9a84c 0%, #f3db8a 50%, #c9a84c 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .gold-glow { box-shadow: 0 0 60px rgba(201,168,76,0.15), 0 0 120px rgba(201,168,76,0.05); }
+        .card-hover { transition: all 0.4s cubic-bezier(0.4,0,0.2,1); }
+        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 0 40px rgba(201,168,76,0.15); }
+        .grid-bg { background-image: linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px); background-size: 60px 60px; }
+        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .pricing-featured { background: linear-gradient(180deg, rgba(201,168,76,0.08) 0%, rgba(10,10,10,1) 100%); border: 1px solid rgba(201,168,76,0.3); }
+        .connector-line { position: relative; }
+        .connector-line::after { content: ''; position: absolute; top: 50%; left: 100%; width: 40px; height: 2px; background: linear-gradient(90deg, #c9a84c, transparent); transform: translateY(-50%); }
+        .pillar-dt { border-color: rgba(201,168,76,0.3); background: linear-gradient(180deg, rgba(201,168,76,0.06) 0%, rgba(20,20,20,0.8) 100%); }
+        .pillar-ai { border-color: rgba(100,160,255,0.2); background: linear-gradient(180deg, rgba(100,160,255,0.04) 0%, rgba(20,20,20,0.8) 100%); }
+        .agent-badge { background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.15); }
+        .scroll-progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, #c9a84c, #f3db8a); z-index: 100; transition: width 0.1s linear; }
+    </style>
+</head>
+<body class="bg-dark-900 text-white antialiased grid-bg">
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ========== NAV ========== -->
+<nav class="fixed top-0 w-full z-50 bg-dark-900/80 backdrop-blur-xl border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+        <a href="index.html" class="font-display text-xl font-bold gradient-text">Nicolas Waern</a>
+        <div class="hidden md:flex items-center gap-8 text-sm text-dark-300">
+            <a href="index.html" class="hover:text-gold-400 transition-colors">Home</a>
+            <a href="tjanster.html" class="text-gold-400 transition-colors">Tjänster</a>
+            <a href="book.html" class="hover:text-gold-400 transition-colors">Föreläsning</a>
+            <a href="#contact" class="hover:text-gold-400 transition-colors">Kontakt</a>
+        </div>
+        <a href="book.html" class="bg-gold-500 hover:bg-gold-400 text-dark-950 font-semibold text-sm px-5 py-2 rounded-lg transition-all">Boka Nu</a>
+    </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section class="relative pt-32 pb-20 sm:pt-44 sm:pb-32 overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[900px] h-[900px] rounded-full bg-gold-500/5 blur-[140px]"></div>
+    </div>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
+        <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase fade-in">Tjänster</span>
+
+        <h1 class="font-display text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight mt-6 mb-8 fade-in">
+            Framtidens Teknik.<br><span class="gradient-text">Ditt Försprång.</span>
+        </h1>
+
+        <p class="text-dark-200 text-lg sm:text-xl max-w-2xl mx-auto mb-6 leading-relaxed fade-in">
+            Digitala tvillingar och AI-agenter — två sidor av samma mynt. Förstå båda. Led förändringen.
+        </p>
+
+        <p class="text-dark-300 text-base max-w-xl mx-auto mb-12 leading-relaxed fade-in">
+            System som förstår verkligheten. System som agerar på den. Det är skillnaden mellan att reagera och att leda.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 fade-in">
+            <a href="#erbjudanden" class="bg-gold-500 hover:bg-gold-400 text-dark-950 font-bold px-8 py-4 rounded-xl transition-all hover:shadow-lg hover:shadow-gold-500/20 text-lg">
+                Se Erbjudanden
+            </a>
+            <a href="#pillars" class="border border-white/20 hover:border-gold-400 text-white font-semibold px-8 py-4 rounded-xl transition-all text-lg">
+                Utforska Tekniken
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ========== SOCIAL PROOF ========== -->
+<section class="border-y border-white/5 py-8 bg-dark-800/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div class="fade-in">
+                <div class="text-3xl font-bold gradient-text">25+</div>
+                <div class="text-dark-400 text-sm mt-1">Års erfarenhet</div>
+            </div>
+            <div class="fade-in">
+                <div class="text-3xl font-bold gradient-text">7</div>
+                <div class="text-dark-400 text-sm mt-1">Branscher</div>
+            </div>
+            <div class="fade-in">
+                <div class="text-3xl font-bold gradient-text">31</div>
+                <div class="text-dark-400 text-sm mt-1">Specialiserade AI-agenter</div>
+            </div>
+            <div class="fade-in">
+                <div class="text-3xl font-bold gradient-text">100%</div>
+                <div class="text-dark-400 text-sm mt-1">JHU Hjärttvillings-studie</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== TWO PILLARS ========== -->
+<section id="pillars" class="py-20 sm:py-28">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+            <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase">Två teknologier. En vision.</span>
+            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">
+                Fundamenten för<br><span class="gradient-text">morgondagens organisation.</span>
+            </h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 fade-in">
+            <!-- Digital Twins -->
+            <div class="pillar-dt rounded-2xl border p-8 card-hover">
+                <div class="w-14 h-14 rounded-xl bg-gold-500/10 flex items-center justify-center mb-6">
+                    <!-- Twin/mirror icon -->
+                    <svg class="w-7 h-7 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18M3 12h18M5.636 5.636l12.728 12.728M18.364 5.636L5.636 18.364"/>
+                    </svg>
+                </div>
+                <span class="text-gold-400 text-xs font-semibold tracking-widest uppercase">Pelare 1</span>
+                <h3 class="font-display text-2xl font-bold mt-3 mb-4">Digitala Tvillingar</h3>
+                <p class="text-gold-300 font-semibold text-sm mb-5 italic">"Simulera verkligheten innan du agerar"</p>
+                <p class="text-dark-300 leading-relaxed mb-6">
+                    Realtidsmodeller av byggnader, biologiska system och städer. Se vad som händer nu, simulera vad som händer härnäst, fatta beslut med full vetskap om konsekvenserna.
+                </p>
+                <ul class="space-y-3">
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-gold-400 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-200 text-sm">S.M.I.L.E.-metodiken — 5 faser, beprövad i 7 vertikaler</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-gold-400 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-200 text-sm">Från byggnaders 231 radiatorer till biologiska tvillingar</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-gold-400 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-200 text-sm">25+ års erfarenhet · Oxford · DT Consortium</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- AI Agents -->
+            <div class="pillar-ai rounded-2xl border p-8 card-hover">
+                <div class="w-14 h-14 rounded-xl bg-blue-500/10 flex items-center justify-center mb-6">
+                    <!-- Network/agent icon -->
+                    <svg class="w-7 h-7 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z"/>
+                    </svg>
+                </div>
+                <span class="text-blue-400 text-xs font-semibold tracking-widest uppercase">Pelare 2</span>
+                <h3 class="font-display text-2xl font-bold mt-3 mb-4">AI-Agenter</h3>
+                <p class="text-blue-300 font-semibold text-sm mb-5 italic">"Autonoma system som agerar åt dig"</p>
+                <p class="text-dark-300 leading-relaxed mb-6">
+                    31 specialiserade agenter som perciperar, planerar, agerar och reflekterar. Inte chatbotar — autonoma beslutsfattare. Edge-native, suveräna, ingen vendor lock-in.
+                </p>
+                <ul class="space-y-3">
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-blue-400 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-200 text-sm">MAGS-loop: Perceive / Plan / Act / Reflect</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-blue-400 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-200 text-sm">Executive, business, teknik, rådgivning, PESTLE-analys</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-blue-400 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-200 text-sm">Byt AI-leverantör utan att förlora din data eller logik</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== HOW THEY CONNECT ========== -->
+<section class="py-20 sm:py-28 bg-dark-800/20">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+            <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase">Synergin</span>
+            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">
+                Digitala tvillingar + AI-agenter<br><span class="gradient-text">= Helheten.</span>
+            </h2>
+        </div>
+
+        <!-- Visual connector -->
+        <div class="fade-in">
+            <div class="grid md:grid-cols-3 gap-0 items-center mb-16">
+                <!-- DT box -->
+                <div class="bg-dark-800/60 rounded-2xl border border-gold-500/20 p-6 text-center">
+                    <div class="w-12 h-12 rounded-xl bg-gold-500/10 flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-6 h-6 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5"/>
+                        </svg>
+                    </div>
+                    <h4 class="font-semibold text-gold-300 mb-2">Digitala Tvillingar</h4>
+                    <p class="text-dark-400 text-sm">Ger dig modellen. Verklighetens spegel i realtid.</p>
+                </div>
+
+                <!-- Arrow -->
+                <div class="flex items-center justify-center py-8 md:py-0">
+                    <div class="flex flex-col items-center gap-3">
+                        <div class="hidden md:flex items-center gap-2">
+                            <div class="w-16 h-px bg-gradient-to-r from-gold-500 to-blue-400"></div>
+                            <div class="w-3 h-3 rounded-full bg-gradient-to-br from-gold-400 to-blue-400 gold-glow"></div>
+                            <div class="w-16 h-px bg-gradient-to-r from-blue-400 to-gold-500"></div>
+                        </div>
+                        <span class="text-xs font-semibold text-dark-400 uppercase tracking-widest">Kombinerat</span>
+                        <div class="bg-gradient-to-br from-gold-500/10 to-blue-500/10 border border-gold-500/20 rounded-xl px-4 py-2">
+                            <span class="gradient-text font-bold text-sm">Fullständig bild</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Agents box -->
+                <div class="bg-dark-800/60 rounded-2xl border border-blue-500/20 p-6 text-center">
+                    <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/>
+                        </svg>
+                    </div>
+                    <h4 class="font-semibold text-blue-300 mb-2">AI-Agenter</h4>
+                    <p class="text-dark-400 text-sm">Ger dig handlingskraften. Autonoma beslut i realtid.</p>
+                </div>
+            </div>
+
+            <!-- Quote row -->
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-dark-800/40 rounded-xl border border-gold-500/10 p-6">
+                    <div class="flex items-start gap-4">
+                        <div class="w-1 h-full min-h-[40px] bg-gold-500/40 rounded flex-shrink-0"></div>
+                        <div>
+                            <p class="text-dark-200 leading-relaxed">"Digitala tvillingar ger dig modellen. AI-agenter ger dig handlingskraften."</p>
+                            <p class="text-dark-500 text-sm mt-3">Tillsammans: system som förstår verkligheten OCH agerar på den autonomt.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-dark-800/40 rounded-xl border border-blue-500/10 p-6">
+                    <div class="flex items-start gap-4">
+                        <div class="w-1 h-full min-h-[40px] bg-blue-500/40 rounded flex-shrink-0"></div>
+                        <div>
+                            <p class="text-dark-200 leading-relaxed">"Alla bygger ett bättre bibliotek. Life Atlas bygger ett laboratorium."</p>
+                            <p class="text-dark-500 text-sm mt-3">LQMs — Large Quantitative Models — inte bara statistik. Fysik.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== ERBJUDANDEN ========== -->
+<section id="erbjudanden" class="py-20 sm:py-28">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+            <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase">Investering</span>
+            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">
+                Tydligt. Inga dolda kostnader.<br><span class="gradient-text">Välj din ingångspunkt.</span>
+            </h2>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 fade-in">
+
+            <!-- Free Recording -->
+            <div class="bg-dark-800/60 rounded-2xl border border-white/5 p-6 card-hover flex flex-col">
+                <div class="mb-4">
+                    <span class="text-xs text-dark-400 font-semibold tracking-widest uppercase">Kom igång</span>
+                    <h3 class="font-display text-xl font-bold mt-2 mb-1">Gratis Inspelning</h3>
+                    <p class="text-dark-500 text-xs">Föreläsningen för 300 studenter</p>
+                </div>
+                <div class="mb-5">
+                    <span class="text-3xl font-bold">0</span>
+                    <span class="text-dark-400 text-base ml-1">SEK</span>
+                </div>
+                <ul class="space-y-2 mb-6 flex-1">
+                    <li class="flex items-start gap-2">
+                        <svg class="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-300 text-xs">60 min inspelning — DT från A till Ö</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <svg class="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-300 text-xs">Case från 7 branscher</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <svg class="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-300 text-xs">300 studenter, Indien</span>
+                    </li>
+                </ul>
+                <div id="recording" class="space-y-2 mt-auto">
+                    <input type="email" id="free-email-input" placeholder="Din e-post" class="w-full bg-dark-700 border border-white/10 rounded-lg px-3 py-3 text-white text-sm placeholder-dark-500 focus:border-gold-400 focus:outline-none transition-colors">
+                    <button onclick="handleFreeRecording()" class="w-full border border-emerald-500/40 text-emerald-400 hover:bg-emerald-500 hover:text-dark-950 font-semibold py-3 rounded-lg transition-all text-sm text-center">
+                        Skicka Inspelningen
+                    </button>
+                </div>
+            </div>
+
+            <!-- Inspirationsföreläsning — FEATURED -->
+            <div class="pricing-featured rounded-2xl p-6 card-hover relative flex flex-col">
+                <span class="absolute top-4 right-4 text-xs text-gold-400 bg-gold-500/10 px-2 py-1 rounded-full font-medium">Populärast</span>
+                <div class="mb-4">
+                    <span class="text-xs text-gold-400 font-semibold tracking-widest uppercase">Föreläsning</span>
+                    <h3 class="font-display text-xl font-bold mt-2 mb-1">Inspirationsföreläsning</h3>
+                    <p class="text-dark-500 text-xs">Den kompletta paketeringen</p>
+                </div>
+                <div class="mb-5">
+                    <span class="text-3xl font-bold">35 000</span>
+                    <span class="text-dark-400 text-base ml-1">SEK</span>
+                    <span class="text-dark-600 text-xs ml-1">ex. moms</span>
+                </div>
+                <ul class="space-y-2 mb-6 flex-1">
+                    <li class="flex items-start gap-2">
+                        <svg class="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-200 text-xs">60 min + Q&amp;A, branschanpassad</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <svg class="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-200 text-xs">DT + AI-agent mognadsbedömning</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <svg class="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-200 text-xs">Personlig roadmap (PDF) — 3 steg</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <svg class="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-200 text-xs">30 dagars uppföljningssamtal</span>
+                    </li>
+                </ul>
+                <div class="space-y-2 mt-auto">
+                    <a href="https://buy.stripe.com/28EbJ0gHP77rdjO1QVejK00" target="_blank" rel="noopener noreferrer" class="block w-full bg-gold-500 hover:bg-gold-400 text-dark-950 font-bold py-3 rounded-xl transition-all text-center text-sm">
+                        Boka via Stripe
+                    </a>
+                    <a href="https://calendly.com/futurecreation" target="_blank" rel="noopener noreferrer" class="block w-full border border-gold-500/40 text-gold-400 hover:bg-gold-500/10 font-semibold py-3 rounded-xl transition-all text-center text-sm">
+                        Boka via Calendly
+                    </a>
+                </div>
+            </div>
+
+            <!-- Halvdags Workshop -->
+            <div class="bg-dark-800/60 rounded-2xl border border-white/5 p-6 card-hover flex flex-col">
+                <div class="mb-4">
+                    <span class="text-xs text-dark-400 font-semibold tracking-widest uppercase">Workshop</span>
+                    <h3 class="font-display text-xl font-bold mt-2 mb-1">Halvdags Workshop</h3>
+                    <p class="text-dark-500 text-xs">Hands-on S.M.I.L.E. kartläggning</p>
+                </div>
+                <div class="mb-5">
+                    <span class="text-3xl font-bold">55 000</span>
+                    <span class="text-dark-400 text-base ml-1">SEK</span>
+                    <span class="text-dark-600 text-xs ml-1">ex. moms</span>
+                </div>
+                <ul class="space-y-2 mb-6 flex-1">
+                    <li class="flex items-start gap-2">
+                        <svg class="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-300 text-xs">S.M.I.L.E. Phase 1 kartläggning</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <svg class="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-300 text-xs">MVT-design (Minimal Viable Twin)</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <svg class="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-300 text-xs">Implementeringsroadmap med tidplan</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <svg class="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-300 text-xs">AI-agent integrationsplan</span>
+                    </li>
+                </ul>
+                <a href="mailto:nicolas@lifeatlas.online?subject=Intresse%3A%20Halvdags%20Workshop&body=Hej%20Nicolas%2C%0A%0AJag%20%C3%A4r%20intresserad%20av%20Halvdags%20Workshop.%0A%0AMvh" class="block w-full border border-white/20 hover:border-gold-400 text-white hover:text-gold-300 font-semibold py-3 rounded-xl transition-all text-center text-sm mt-auto">
+                    Kontakta Nicolas
+                </a>
+            </div>
+
+            <!-- Strategisk Rådgivning -->
+            <div class="bg-dark-800/60 rounded-2xl border border-white/5 p-6 card-hover flex flex-col">
+                <div class="mb-4">
+                    <span class="text-xs text-dark-400 font-semibold tracking-widest uppercase">Rådgivning</span>
+                    <h3 class="font-display text-xl font-bold mt-2 mb-1">Strategisk Rådgivning</h3>
+                    <p class="text-dark-500 text-xs">Full implementering, löpande</p>
+                </div>
+                <div class="mb-5">
+                    <span class="text-3xl font-bold gradient-text">Offert</span>
+                </div>
+                <ul class="space-y-2 mb-6 flex-1">
+                    <li class="flex items-start gap-2">
+                        <svg class="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-300 text-xs">3–6 månader, löpande engagemang</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <svg class="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-300 text-xs">Full DT + AI-agent implementering</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <svg class="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-300 text-xs">Dedikerat team + agent-fabric setup</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <svg class="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-300 text-xs">Mätbara KPI:er, full transparens</span>
+                    </li>
+                </ul>
+                <a href="mailto:nicolas@lifeatlas.online?subject=Intresse%3A%20Strategisk%20R%C3%A5dgivning&body=Hej%20Nicolas%2C%0A%0AJag%20%C3%A4r%20intresserad%20av%20strategisk%20r%C3%A5dgivning.%0A%0AMvh" class="block w-full border border-gold-500/30 text-gold-400 hover:bg-gold-500/10 font-semibold py-3 rounded-xl transition-all text-center text-sm mt-auto">
+                    Begär Offert
+                </a>
+            </div>
+
+        </div>
+
+        <p class="text-center text-dark-500 text-xs mt-8 fade-in">Alla priser exklusive moms. Resor &amp; logi tillkommer vid on-site uppdrag.</p>
+    </div>
+</section>
+
+<!-- ========== AI AGENTS DEEP DIVE ========== -->
+<section class="py-20 sm:py-28 bg-dark-800/20">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+            <span class="text-blue-400 text-sm font-semibold tracking-widest uppercase">AI-Agenter</span>
+            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">
+                31 specialiserade agenter —<br><span class="gradient-text">inte en chatbot.</span>
+            </h2>
+            <p class="text-dark-300 text-lg max-w-2xl mx-auto">
+                Varje agent har sin roll. Varje agent samarbetar. Precis som ett riktigt team.
+            </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 fade-in">
+
+            <div class="agent-badge rounded-xl p-5 card-hover">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-9 h-9 rounded-lg bg-gold-500/10 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/>
+                        </svg>
+                    </div>
+                    <h4 class="font-semibold">Executive (7)</h4>
+                </div>
+                <p class="text-dark-400 text-sm leading-relaxed">Strategi, vision och organisationsledarskap. Product Owner, CFO, Head of AI, Ethics Officer, Chief Data Officer.</p>
+            </div>
+
+            <div class="agent-badge rounded-xl p-5 card-hover">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-9 h-9 rounded-lg bg-gold-500/10 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75"/>
+                        </svg>
+                    </div>
+                    <h4 class="font-semibold">Business (4)</h4>
+                </div>
+                <p class="text-dark-400 text-sm leading-relaxed">Tillväxt och kundrelationer. Sales Lead, Marketing Lead, Customer Success, PESTLE Manager.</p>
+            </div>
+
+            <div class="agent-badge rounded-xl p-5 card-hover">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-9 h-9 rounded-lg bg-gold-500/10 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"/>
+                        </svg>
+                    </div>
+                    <h4 class="font-semibold">Teknisk (8)</h4>
+                </div>
+                <p class="text-dark-400 text-sm leading-relaxed">Arkitekt, backend- och frontend-developer, AI/ML, QA, säkerhet och DevOps. Hela ingenjörsteamet.</p>
+            </div>
+
+            <div class="agent-badge rounded-xl p-5 card-hover">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-9 h-9 rounded-lg bg-gold-500/10 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                    </div>
+                    <h4 class="font-semibold">Rådgivande (4)</h4>
+                </div>
+                <p class="text-dark-400 text-sm leading-relaxed">Oberoende granskning. Code Reviewer, Hostile VC, UX Designer, Ontology Expert. Kritiska perspektiv.</p>
+            </div>
+
+            <div class="agent-badge rounded-xl p-5 card-hover">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-9 h-9 rounded-lg bg-gold-500/10 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253"/>
+                        </svg>
+                    </div>
+                    <h4 class="font-semibold">Intelligens (8)</h4>
+                </div>
+                <p class="text-dark-400 text-sm leading-relaxed">PESTLE-teamet: Politisk, Ekonomisk, Social, Teknologisk, Miljö, Etisk, Juridisk, Demografisk analys.</p>
+            </div>
+
+            <div class="agent-badge rounded-xl p-5 card-hover">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-9 h-9 rounded-lg bg-gold-500/10 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75"/>
+                        </svg>
+                    </div>
+                    <h4 class="font-semibold">Orkestrering (4)</h4>
+                </div>
+                <p class="text-dark-400 text-sm leading-relaxed">Scrum Master och DevOps håller ihop arbetsflödet. Automatiserade sprintcyklar med Perceive/Plan/Act/Reflect.</p>
+            </div>
+
+        </div>
+
+        <div class="mt-12 text-center fade-in">
+            <p class="text-dark-400 text-sm max-w-lg mx-auto">
+                Hela agent-fabriket är MIT/Apache 2.0 licensierat. Noll leverantörsinlåsning. Byt AI-leverantör på en dag, inte månader.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ========== USE CASES ========== -->
+<section class="py-20 sm:py-28">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+            <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase">Verkliga scenarion</span>
+            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">
+                Inte teori.<br><span class="gradient-text">Konkreta resultat.</span>
+            </h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 fade-in">
+
+            <!-- Smart Buildings -->
+            <div class="bg-dark-800/60 rounded-2xl border border-white/5 p-7 card-hover">
+                <div class="w-12 h-12 rounded-xl bg-gold-500/10 flex items-center justify-center mb-5">
+                    <svg class="w-6 h-6 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21"/>
+                    </svg>
+                </div>
+                <span class="text-gold-400 text-xs font-semibold tracking-widest uppercase">Fastigheter</span>
+                <h3 class="font-semibold text-lg mt-2 mb-3">Smarta Byggnader</h3>
+                <p class="text-dark-300 text-sm leading-relaxed mb-4">
+                    Digital tvilling av 231 radiatorer i en kontorsbyggnad. AI-agenter optimerar energiförbrukningen autonomt, förutser fel innan de uppstår och justerar temperatur per zon i realtid.
+                </p>
+                <div class="pt-4 border-t border-white/5">
+                    <div class="flex justify-between text-xs">
+                        <span class="text-dark-500">Typisk energibesparing</span>
+                        <span class="text-gold-400 font-semibold">23–35%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Health/Longevity -->
+            <div class="bg-dark-800/60 rounded-2xl border border-white/5 p-7 card-hover">
+                <div class="w-12 h-12 rounded-xl bg-gold-500/10 flex items-center justify-center mb-5">
+                    <svg class="w-6 h-6 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
+                    </svg>
+                </div>
+                <span class="text-gold-400 text-xs font-semibold tracking-widest uppercase">Hälsa &amp; Longevity</span>
+                <h3 class="font-semibold text-lg mt-2 mb-3">Biologisk Digital Tvilling</h3>
+                <p class="text-dark-300 text-sm leading-relaxed mb-4">
+                    Biologisk tvilling som modellerar din fysiologi. AI-agenter orchestrerar hälsointerventioner — kost, träning, sömn — baserat på simulerade utfall, inte generiska råd.
+                </p>
+                <div class="pt-4 border-t border-white/5">
+                    <div class="flex justify-between text-xs">
+                        <span class="text-dark-500">JHU hjärttvilling-trial</span>
+                        <span class="text-gold-400 font-semibold">100% framgång</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enterprise Strategy -->
+            <div class="bg-dark-800/60 rounded-2xl border border-white/5 p-7 card-hover">
+                <div class="w-12 h-12 rounded-xl bg-gold-500/10 flex items-center justify-center mb-5">
+                    <svg class="w-6 h-6 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6.75v6.75"/>
+                    </svg>
+                </div>
+                <span class="text-gold-400 text-xs font-semibold tracking-widest uppercase">Enterprise</span>
+                <h3 class="font-semibold text-lg mt-2 mb-3">Strategisk PESTLE-analys</h3>
+                <p class="text-dark-300 text-sm leading-relaxed mb-4">
+                    8 PESTLE-agenter skapar kontinuerlig omvärldsbevakning. Digital tvilling av er marknadsposition identifierar hot och möjligheter månader innan konkurrenterna ser dem.
+                </p>
+                <div class="pt-4 border-t border-white/5">
+                    <div class="flex justify-between text-xs">
+                        <span class="text-dark-500">Analysdimensioner</span>
+                        <span class="text-gold-400 font-semibold">8 PESTLE-axlar</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ========== CREDIBILITY ========== -->
+<section class="py-20 sm:py-28 bg-dark-800/20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 fade-in">
+            <h2 class="font-display text-3xl sm:text-4xl font-bold mb-6">
+                25 år. 7 branscher.<br><span class="gradient-text">En metodik.</span>
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 fade-in">
+            <div class="bg-dark-800/40 border border-white/5 rounded-lg p-4 text-center card-hover">
+                <div class="w-8 h-8 mx-auto mb-2 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75"/>
+                    </svg>
+                </div>
+                <div class="text-sm font-medium">Byggnader</div>
+            </div>
+            <div class="bg-dark-800/40 border border-white/5 rounded-lg p-4 text-center card-hover">
+                <div class="w-8 h-8 mx-auto mb-2 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9 6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75"/>
+                    </svg>
+                </div>
+                <div class="text-sm font-medium">Automotive</div>
+            </div>
+            <div class="bg-dark-800/40 border border-white/5 rounded-lg p-4 text-center card-hover">
+                <div class="w-8 h-8 mx-auto mb-2 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
+                    </svg>
+                </div>
+                <div class="text-sm font-medium">Hälsa</div>
+            </div>
+            <div class="bg-dark-800/40 border border-white/5 rounded-lg p-4 text-center card-hover">
+                <div class="w-8 h-8 mx-auto mb-2 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z"/>
+                    </svg>
+                </div>
+                <div class="text-sm font-medium">Equestrian</div>
+            </div>
+            <div class="bg-dark-800/40 border border-white/5 rounded-lg p-4 text-center card-hover">
+                <div class="w-8 h-8 mx-auto mb-2 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7a6 6 0 00-5.84 7.38V15m2.7-2.7a14.927 14.927 0 01-2.58 5.84m2.699-5.84a14.926 14.926 0 015.841-2.58"/>
+                    </svg>
+                </div>
+                <div class="text-sm font-medium">Rymden</div>
+            </div>
+            <div class="bg-dark-800/40 border border-white/5 rounded-lg p-4 text-center card-hover">
+                <div class="w-8 h-8 mx-auto mb-2 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253"/>
+                    </svg>
+                </div>
+                <div class="text-sm font-medium">Smarta Städer</div>
+            </div>
+            <div class="bg-dark-800/40 border border-white/5 rounded-lg p-4 text-center card-hover">
+                <div class="w-8 h-8 mx-auto mb-2 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"/>
+                    </svg>
+                </div>
+                <div class="text-sm font-medium">Utbildning</div>
+            </div>
+            <div class="bg-dark-800/40 border border-gold-500/20 rounded-lg p-4 text-center card-hover">
+                <div class="w-8 h-8 mx-auto mb-2 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
+                    </svg>
+                </div>
+                <div class="text-sm font-medium text-gold-400">Din bransch?</div>
+            </div>
+        </div>
+
+        <div class="mt-12 text-center fade-in">
+            <p class="text-dark-400 text-sm max-w-lg mx-auto">
+                Oxford Guest Lecturer · Digital Twin Consortium Co-Chair · Swedish Energy Agency · Amity University · S.M.I.L.E. Methodology Creator
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ========== CTA ========== -->
+<section class="py-20 sm:py-28">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in">
+        <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
+            Redo att börja?<br><span class="gradient-text">Välj din väg.</span>
+        </h2>
+        <p class="text-dark-300 text-lg mb-10 max-w-xl mx-auto">
+            Från gratis inspelning till strategisk rådgivning — det finns en ingångspunkt för varje organisation.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="https://buy.stripe.com/28EbJ0gHP77rdjO1QVejK00" target="_blank" rel="noopener noreferrer" class="bg-gold-500 hover:bg-gold-400 text-dark-950 font-bold px-8 py-4 rounded-xl transition-all hover:shadow-lg hover:shadow-gold-500/20 text-lg">
+                Boka Föreläsning — 35 000 SEK
+            </a>
+            <a href="#recording" class="border border-white/20 hover:border-gold-400 text-white font-semibold px-8 py-4 rounded-xl transition-all text-lg">
+                Få Gratis Inspelning
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ========== QUOTE ========== -->
+<section class="py-16 bg-dark-800/20">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in">
+        <blockquote class="font-display text-2xl sm:text-3xl font-bold leading-relaxed mb-6">
+            "Alla bygger ett bättre bibliotek. <span class="gradient-text">Life Atlas bygger ett laboratorium.</span>"
+        </blockquote>
+        <p class="text-dark-400">— Nicolas Waern, CEO @ Life Atlas</p>
+    </div>
+</section>
+
+<!-- ========== CONTACT ========== -->
+<section id="contact" class="py-20 sm:py-28">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 fade-in">
+            <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase">Kontakt</span>
+            <h2 class="font-display text-3xl sm:text-4xl font-bold mt-4 mb-4">
+                Låt oss prata.<br><span class="gradient-text">Utan förpliktelser.</span>
+            </h2>
+            <p class="text-dark-300">
+                Har du frågor om digitala tvillingar, AI-agenter eller hur vi kan samarbeta? Fyll i formuläret nedan.
+            </p>
+        </div>
+
+        <form class="space-y-5 fade-in" onsubmit="handleContactForm(event)">
+            <div class="grid sm:grid-cols-2 gap-5">
+                <div>
+                    <label for="contact-name" class="block text-sm font-medium text-dark-300 mb-2">Namn</label>
+                    <input type="text" id="contact-name" name="name" placeholder="Ditt namn" required class="w-full bg-dark-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-dark-500 focus:border-gold-400 focus:outline-none transition-colors text-sm">
+                </div>
+                <div>
+                    <label for="contact-email" class="block text-sm font-medium text-dark-300 mb-2">E-post</label>
+                    <input type="email" id="contact-email" name="email" placeholder="din@email.se" required class="w-full bg-dark-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-dark-500 focus:border-gold-400 focus:outline-none transition-colors text-sm">
+                </div>
+            </div>
+            <div>
+                <label for="contact-company" class="block text-sm font-medium text-dark-300 mb-2">Företag</label>
+                <input type="text" id="contact-company" name="company" placeholder="Ditt företag" class="w-full bg-dark-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-dark-500 focus:border-gold-400 focus:outline-none transition-colors text-sm">
+            </div>
+            <div>
+                <label for="contact-message" class="block text-sm font-medium text-dark-300 mb-2">Meddelande</label>
+                <textarea id="contact-message" name="message" rows="5" placeholder="Berätta om din organisation och vad du vill uppnå..." class="w-full bg-dark-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-dark-500 focus:border-gold-400 focus:outline-none transition-colors text-sm resize-none"></textarea>
+            </div>
+            <button type="submit" class="w-full bg-gold-500 hover:bg-gold-400 text-dark-950 font-bold py-4 rounded-xl transition-all text-base">
+                Skicka Meddelande
+            </button>
+            <p class="text-dark-500 text-xs text-center">
+                Svar inom 24 timmar. Ingen spam. Aldrig.
+            </p>
+        </form>
+    </div>
+</section>
+
+<!-- ========== TAGLINE ========== -->
+<section class="py-16 border-t border-white/5">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in">
+        <p class="font-display text-xl sm:text-2xl font-bold gradient-text mb-4">
+            Your cloud. Your AI. Your rules.
+        </p>
+        <p class="text-dark-300 text-lg">
+            Your life without limits.
+        </p>
+    </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="py-8 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="text-dark-500 text-sm">
+            &copy; 2026 Winniio AB. Alla rättigheter förbehållna.
+        </div>
+        <div class="flex items-center gap-6 text-dark-500 text-sm">
+            <a href="https://www.linkedin.com/in/nicolaswaern/" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition-colors">LinkedIn</a>
+            <a href="index.html" class="hover:text-gold-400 transition-colors">Consulting</a>
+            <a href="book.html" class="hover:text-gold-400 transition-colors">Föreläsning</a>
+            <a href="privacy.html" class="hover:text-gold-400 transition-colors">Privacy</a>
+        </div>
+    </div>
+</footer>
+
+<!-- ========== SCRIPTS ========== -->
+<script>
+    // Scroll progress bar
+    window.addEventListener('scroll', () => {
+        const el = document.getElementById('scrollProgress');
+        if (!el) return;
+        const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+        el.style.width = scrolled + '%';
+    });
+
+    // Fade-in on scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Free recording handler
+    function handleFreeRecording() {
+        const emailInput = document.getElementById('free-email-input');
+        const email = emailInput ? emailInput.value.trim() : '';
+        if (!email || !email.includes('@')) {
+            if (emailInput) emailInput.style.borderColor = '#e74c3c';
+            return;
+        }
+        const subject = encodeURIComponent('Vill ha inspelningen — Digital Twin föreläsning');
+        const body = encodeURIComponent('Hej Nicolas,\n\nJag vill gärna ta del av inspelningen från din föreläsning om digitala tvillingar.\n\nMvh');
+        window.location.href = 'mailto:nicolas@lifeatlas.online?subject=' + subject + '&body=' + body;
+        const btn = document.querySelector('[onclick="handleFreeRecording()"]');
+        if (btn) {
+            btn.textContent = 'Tack! Kolla din mail.';
+            btn.classList.remove('border-emerald-500/40', 'text-emerald-400', 'hover:bg-emerald-500');
+            btn.classList.add('bg-emerald-500/20', 'text-emerald-400', 'border-emerald-500/30');
+        }
+    }
+
+    // Contact form handler
+    function handleContactForm(e) {
+        e.preventDefault();
+        const name = document.getElementById('contact-name').value.trim();
+        const email = document.getElementById('contact-email').value.trim();
+        const company = document.getElementById('contact-company').value.trim();
+        const message = document.getElementById('contact-message').value.trim();
+        const subject = encodeURIComponent('Kontaktformulär — Tjänster | ' + name);
+        const body = encodeURIComponent(
+            'Namn: ' + name + '\n' +
+            'E-post: ' + email + '\n' +
+            'Företag: ' + (company || 'Ej angivet') + '\n\n' +
+            'Meddelande:\n' + message
+        );
+        window.location.href = 'mailto:nicolas@lifeatlas.online?subject=' + subject + '&body=' + body;
+        const btn = e.target.querySelector('button[type="submit"]');
+        if (btn) {
+            btn.textContent = 'Skickat! Vi hör av oss inom 24h.';
+            btn.classList.remove('bg-gold-500', 'hover:bg-gold-400');
+            btn.classList.add('bg-emerald-500/30', 'text-emerald-300');
+            btn.disabled = true;
+        }
+    }
+</script>
+
+</body>
+</html>
