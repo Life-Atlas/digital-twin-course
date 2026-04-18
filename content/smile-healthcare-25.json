@@ -1,0 +1,366 @@
+{
+  "course": {
+    "id": "smile-healthcare-25",
+    "title": "SMILE in Healthcare — 25 Questions",
+    "description": "Apply SMILE methodology to healthcare and biological digital twin contexts — from personal health OS to clinical decision support, medical tourism, genomics, and biological simulation.",
+    "passingScore": 80,
+    "certificateTitle": "SMILE Healthcare Domain Practitioner",
+    "version": "1.0",
+    "domains": ["healthcare", "bio-digital-twin", "medical-tourism", "genomics"],
+    "doi": "10.5281/zenodo.19646374",
+    "author": "Nicolas Waern, WINNIIO AB",
+    "license": "CC-BY-4.0"
+  },
+  "questions": [
+    {
+      "id": 1,
+      "question": "In a SMILE healthcare deployment for a personal biological digital twin, what constitutes Phase 1's Reality Canvas?",
+      "options": [
+        "A list of all the patient's medications and diagnoses from their GP",
+        "A spatially and temporally grounded representation of the patient's health journey — WHO QoL 4-domain canvas, medical history timeline, care transition map, and identification of the patient as the persistent layer across all jurisdictions and institutions",
+        "The EHR export from the hospital's primary care system",
+        "A wearable sensor dashboard showing real-time vital signs"
+      ],
+      "correct": 1,
+      "explanation": "In healthcare SMILE, the Reality Canvas is not a data dump — it is the patient as a canonical entity across time and space. The WHO QoL 4-domain canvas (Physical Health, Psychological, Social Relationships, Environment) provides the boundary structure. The temporal map of care transitions — every institution, jurisdiction, and handover point — establishes where and when. Critically, the patient IS the persistent layer: unlike a building that stays in place, the patient's body moves across healthcare systems, and the Reality Canvas must follow. Phase 1's exit criterion requires that this canvas be confirmed as accurate by the patient (primary stakeholder) and at least one other community (e.g., clinical team). Without patient confirmation, no subsequent phase can produce trustworthy output.",
+      "phase": "phase-1",
+      "difficulty": "medium"
+    },
+    {
+      "id": 2,
+      "question": "A patient's health data is fragmented across 4 hospitals, 2 countries, 3 wearable apps, and 12 years of paper records. Applying SMILE's Actor-Network Theory framing, what is the key problem and what is the SMILE solution?",
+      "options": [
+        "The problem is insufficient data; the solution is to digitise all paper records first",
+        "The problem is that no obligatory passage point exists — no artefact through which all actors (patient, physicians, AI agents, caregivers) must pass to achieve their goals. The SMILE solution is a biological digital twin enrolled as the obligatory passage point, with the patient as the sovereign authority over their own data",
+        "The problem is incompatible data formats; the solution is to standardise on FHIR R4",
+        "The problem is insufficient cloud storage; the solution is a unified health data lake"
+      ],
+      "correct": 1,
+      "explanation": "This is SMILE's ANT framing of the health data fragmentation problem. Callon's four moments of translation apply: Problematisation (the patient's fragmented record is the problem, and the biological twin is positioned as the obligatory passage point); Interessement (the twin must serve each actor differently — the patient sees their health timeline, the physician sees clinical data contextualised by lifestyle, the AI sees structured reasoning substrate, the caregiver sees actionable guidance); Enrolment (the twin achieves obligatory passage point status when the physician references it during consultations and the patient checks it before health decisions); Mobilisation (decisions are made on the basis of the twin). FHIR standardisation is a Phase 3 deliverable, not the answer to a Phase 1 problem.",
+      "phase": "phase-1",
+      "difficulty": "medium"
+    },
+    {
+      "id": 3,
+      "question": "What is the Minimal Viable Twin (MVT) for a biological digital twin in Phase 2, and what makes it 'minimal'?",
+      "options": [
+        "The MVT is a comprehensive model of all body systems — minimal means 'essential for full clinical utility'",
+        "The MVT is defined by the outcome the patient wants to achieve — it is the smallest bio-digital representation that answers the specific outcome question (e.g., understanding insulin resistance patterns for a specific lifestyle goal), not the most complete imaginable model of human physiology",
+        "The MVT is the minimum number of sensors required for FDA approval",
+        "The MVT is a minimum viable product built by developers in 2-week sprints"
+      ],
+      "correct": 1,
+      "explanation": "SMILE's MVT principle applied to biology means scope is defined by desired outcome, not by available biomarker richness. A patient seeking to optimise endurance performance does not need a complete mechanistic model of all 37 trillion cells — they need a calibrated metabolic model covering the specific physiological pathways relevant to their goal. Every biomarker in scope must be traceable back through the Benefits Dependency Network to a specific outcome question. This prevents the 'biomarker sprawl' that afflicts many health platform deployments: collecting everything and discovering useful signals only if the budget survives long enough. In the SMILE corpus, the genomics startup case (Waern, 2026g) demonstrated this: the MVT was a compliance-configured data infrastructure for one batch end-to-end — not a full AI genomics platform. The three-month infrastructure validation phase IS the MVT.",
+      "phase": "phase-2",
+      "difficulty": "medium"
+    },
+    {
+      "id": 4,
+      "question": "In Phase 3 of a biological digital twin deployment, which ontology standards are most relevant, and why does SMILE require 'ontology before AI'?",
+      "options": [
+        "SQL schema standards are sufficient; AI can be deployed once the database is structured",
+        "FHIR, WHOQOL-BREF, SNOMED CT, and ICD-11 are the primary standards. Ontology before AI is required because an AI system without a structured knowledge graph reasons from unstructured data and produces outputs that cannot be traced to sources — in clinical contexts, an unexplainable AI recommendation is not just inconvenient, it is a patient safety risk",
+        "HL7 v2 is sufficient for all healthcare AI deployments",
+        "Healthcare AI does not require explicit ontology — modern foundation models handle semantic understanding automatically"
+      ],
+      "correct": 1,
+      "explanation": "SMILE Phase 3 in healthcare requires ontological alignment with domain standards: FHIR R4 (clinical record structure and API), WHOQOL-BREF (quality of life dimensions that define the outcome space), SNOMED CT (clinical terminology), and ICD-11 (diagnostic classification). The 'ontology before AI' principle is not bureaucratic sequencing — it is an epistemological prerequisite for explainability. In the Crucible trust layer terms: a clinical AI recommendation that cannot be traced to specific structured data points in the knowledge graph is, by definition, unexplainable. In high-stakes domains, unexplainable AI outputs are not a quality concern; they are a liability. The EU AI Act's high-risk classification of healthcare AI makes Crucible-compliant explainability not optional but regulatory.",
+      "phase": "phase-3",
+      "difficulty": "medium"
+    },
+    {
+      "id": 5,
+      "question": "A hospital deploys a Phase 4 biological digital twin. What does 'Contextual Intelligence' mean in this clinical setting, and what is the exit criterion?",
+      "options": [
+        "Phase 4 means the AI can autonomously discharge patients without physician review",
+        "Contextual Intelligence means the twin understands not just current vital signs but why they are what they are — integrating wearable data, calendar/social context, environmental data, and medical history into cross-domain queries. Exit criterion: a non-specialist clinician (e.g., a nurse at a transition point) can query the twin and receive an actionable response without a data scientist",
+        "Phase 4 means all patient data is accessible in a single cloud dashboard",
+        "Contextual Intelligence means the system has processed 12 months of historical data"
+      ],
+      "correct": 1,
+      "explanation": "Phase 4 Contextual Intelligence in healthcare is exemplified by queries like: 'Given that this patient is travelling to a high-altitude city next week, what does their metabolic model predict for insulin resistance during acclimatisation, and what protocol minimises the impact?' This cross-domain contextual response — integrating physiological model, calendar data, environmental data, and personal health history — is impossible without Phase 3's ontological integration. The exit criterion is deliberately measured through non-specialist access: a nurse at a care transition point should be able to query the patient's twin and receive actionable guidance without a physician or data scientist as intermediary. Pace layering applies: the physician sees clinical detail, the nurse sees care-relevant summaries, the patient sees goal-oriented guidance — all from the same twin at different temporal resolutions.",
+      "phase": "phase-4",
+      "difficulty": "medium"
+    },
+    {
+      "id": 6,
+      "question": "Why does SMILE distinguish between LQMs (Large Quantitative Models) and LLMs for biological digital twins, and what is the role of SQMs in edge health applications?",
+      "options": [
+        "LQMs are more expensive and are preferred for premium health plans; LLMs are for standard plans",
+        "LQMs reason from biological physics (pharmacokinetics, metabolic pathways, cardiovascular dynamics) and produce outputs with explicit uncertainty intervals; LLMs produce plausible health narratives that can be dangerous if mistaken for clinical reasoning. SQMs are LQMs reduced for on-device edge inference — enabling full biological modelling on a wearable or smartphone without cloud dependency",
+        "LQMs and LLMs are the same for health applications — both use neural networks trained on medical literature",
+        "SQMs are simplified survey-based questionnaires; LQMs are full diagnostic workups"
+      ],
+      "correct": 1,
+      "explanation": "This distinction is clinically critical. The human body is governed by physical laws — thermodynamics, pharmacokinetics, glucose homeostasis, cardiovascular dynamics. These are not statistical correlations; they are mechanistic relationships. LQMs (physics-based simulation from first principles) compute from these mechanisms and produce outputs with explicit uncertainty intervals: 'Insulin sensitivity is predicted to decrease by 15–25% during altitude acclimatisation given this patient's baseline HbA1c and current metabolic profile.' LLMs produce: 'You may experience changes in blood sugar at altitude.' The first is clinical reasoning; the second is plausible text. SQMs are the edge-deployment reduction of LQMs — compact, validated physics models that run on wearables or smartphones with millisecond latency, enabling full biological modelling without cloud connectivity. This is SMILE's data sovereignty principle applied to health: your biological model should not depend on network availability.",
+      "phase": "phase-5",
+      "difficulty": "hard"
+    },
+    {
+      "id": 7,
+      "question": "A patient sovereign data architecture in SMILE healthcare means what specifically, and which MIM layer governs it?",
+      "options": [
+        "Patient sovereignty means the patient owns their data in a theoretical sense but the hospital retains operational control",
+        "Patient sovereignty means the patient has functional control: they can grant time-limited access tokens to clinicians, revoke access, audit who has viewed their data, and carry their complete health record across jurisdictions. This is governed by the Sovereign MIM layer (data governance and access control), implemented in Phase 3.",
+        "Patient sovereignty is a GDPR compliance checkbox requiring a consent form signature",
+        "Patient sovereignty means patient data is stored on-premise at the hospital, not in the cloud"
+      ],
+      "correct": 1,
+      "explanation": "SMILE's data sovereignty principle — 'sovereignty is architecture, not policy' — means the patient's control must be implemented at the architectural level, not as a permissions setting that an administrator can override. In the medical tourism application (Waern, 2026e), the MVT was a FHIR-native personal health record with provenance signatures where the patient is the directory. At Phase 4 maturity, a clinician at any care transition point can query the patient's record via a time-limited access token that the patient granted — and the patient can see every access in their audit log. The Sovereign MIM layer is the Phase 3 architectural deliverable that makes this possible: it specifies the data governance framework, the access control schema, and the cryptographic provenance chain. Without the Sovereign MIM layer, 'patient ownership' is marketing language.",
+      "phase": "phase-3",
+      "difficulty": "hard"
+    },
+    {
+      "id": 8,
+      "question": "In the SMILE AI Journey for healthcare, what is the difference between 'AI-Infused' and 'AI-Ingrained', and why is the sequence important for patient safety?",
+      "options": [
+        "AI-Infused means AI is used in research only; AI-Ingrained means it is in clinical workflows. The sequence doesn't matter for safety.",
+        "AI-Infused means AI augments human clinical decisions with traceable recommendations that humans can override. AI-Ingrained means AI is embedded in operational workflows — autonomous decisions within governance-defined clinical boundaries. The sequence matters because AI-Ingrained is only safe after Phase 3 (explainability infrastructure) and Phase 4 (governance boundaries established by all stakeholder communities) are complete.",
+        "AI-Infused is for junior clinicians; AI-Ingrained is for consultants. Sequence is based on seniority.",
+        "AI-Infused and AI-Ingrained are marketing terms for the same capability at different price points."
+      ],
+      "correct": 1,
+      "explanation": "The AI Journey sequence in SMILE is not arbitrary — each stage has a safety prerequisite. AI-Infused (Phase 4 aligned): AI augments human judgment with predictions and recommendations. The critical requirement is Crucible compliance: every AI output must be explainable, traceable, and overridable — clinicians can reject recommendations and the system records and learns from overrides (overrides are knowledge inputs, not failure modes). AI-Ingrained (Phase 5 aligned): AI is embedded in operations — autonomous decisions within governance-defined boundaries. This is only clinically safe when: (a) Phase 3's ontology provides the explainability infrastructure; (b) Phase 4 has established and tested governance boundaries with all clinical communities; (c) anomaly detection baselines are established so deviations from expected behaviour are caught. Skipping to AI-Ingrained without this foundation is the mechanism behind autonomous AI failures in clinical settings.",
+      "phase": "ai-journey",
+      "difficulty": "hard"
+    },
+    {
+      "id": 9,
+      "question": "What is the 'biological twin as boundary object' concept in SMILE, and how does it resolve multi-stakeholder fragmentation in healthcare?",
+      "options": [
+        "A boundary object is a database schema that all systems can connect to via APIs",
+        "A biological twin as boundary object serves multiple clinical communities simultaneously — the patient reads their health timeline, the GP reads chronic condition management context, the specialist reads the relevant subsystem in detail, the AI agent reads structured data for pattern detection — all from the same physical referent (the patient's body), without any community needing to adopt another's vocabulary",
+        "Boundary objects are shared documents that all stakeholders must sign before the project can proceed",
+        "A boundary object is a regulatory framework that all healthcare providers must comply with"
+      ],
+      "correct": 1,
+      "explanation": "Star and Griesemer (1989) defined boundary objects as artefacts that inhabit multiple social worlds simultaneously, satisfying each community's requirements through interpretive flexibility while maintaining structural robustness for coordination. Applied to healthcare: the biological digital twin of a patient is a coincident boundary object. The GP reads chronic condition management context. The cardiologist reads cardiovascular subsystem detail. The patient reads goal-oriented health trajectory. The AI reads structured biomarker patterns. The insurer reads aggregate risk profiles (with appropriate anonymisation). None must abandon their domain vocabulary — all are reading the same physical referent: this specific patient's body across time. This resolves the coordination failure of multi-specialty care: instead of requiring all specialties to agree on a common data format before sharing (which never happens), SMILE requires only that each specialty can read the shared physical referent through their own lens.",
+      "phase": "theory",
+      "difficulty": "medium"
+    },
+    {
+      "id": 10,
+      "question": "A genomics startup wants to deploy AI for variant interpretation. They plan to immediately train machine learning models on their variant database. Which SMILE principle are they violating, and what should they do first?",
+      "options": [
+        "They are violating Phase 5's simulation requirement — they should run simulations before training",
+        "They are violating the ontology-before-AI principle. Before any AI model development, they need: Phase 1 (define the outcome chain — what clinical decisions will the variant interpretation assist?), Phase 2 (MVT specification — what is the minimum viable interpretation capability?), and Phase 3 (compliance-configured data infrastructure with provenance, ontology aligned to ClinVar, HGMD, and appropriate clinical standards, MIMs sovereign layer for patient data governance). Training AI on un-ontologised genomic data produces unexplainable outputs that cannot pass clinical regulatory review.",
+        "They are not violating any SMILE principle — data-first is appropriate for genomics because the data is objective",
+        "They are violating Phase 6 — they should first establish data sharing agreements with other genomics organisations"
+      ],
+      "correct": 1,
+      "explanation": "The genomics startup scenario from the SMILE corpus (Waern, 2026g) is instructive precisely because it illustrates the temptation of data-first deployment when the data appears scientific and objective. Genomic data is not 'objective' in the sense of being automatically meaningful — it requires interpretive context: which population, which phenotype, which clinical question, which evidence base. Without Phase 3 ontology (ontology aligned to ClinVar, ClinGen, HGMD; provenance tracking for each variant interpretation; MIMs sovereign layer for patient consent and data governance), AI variant interpretation produces outputs that: (a) cannot be traced to their evidence base; (b) cannot be audited for bias; (c) cannot pass MDR or FDA regulatory review. In the real case, a three-month infrastructure validation phase identified and resolved seven compliance configuration errors before any AI model development began — preventing an estimated three months of rework.",
+      "phase": "applied",
+      "difficulty": "hard"
+    },
+    {
+      "id": 11,
+      "question": "What does SMILE's Perpetual Wisdom phase mean for healthcare knowledge specifically, and what is the clinical knowledge transfer mechanism?",
+      "options": [
+        "Phase 6 in healthcare means publishing anonymised patient data for research purposes",
+        "Phase 6 in healthcare means that validated clinical models, calibrated biomarker baselines, and cross-domain ontology extensions from one deployment (e.g., equine metabolic monitoring) can transfer to related domains (e.g., human metabolic monitoring) because the underlying physics shares mathematical structure. Phoenix Strategies ensure clinical knowledge from retired systems is transferred to successors, not lost.",
+        "Phase 6 means the hospital digitises its historical paper records for posterity",
+        "Phase 6 is about training junior clinicians on the digital twin system"
+      ],
+      "correct": 1,
+      "explanation": "Phase 6 in healthcare is one of SMILE's most concretely demonstrated claims. The equine-to-human metabolic twin transfer (Waern, 2025b to Waern, 2026c) demonstrates it: the validated SQM architecture developed for equine metabolic monitoring transferred its edge-deployment architecture and model reduction methodology directly to human metabolic monitoring. The underlying physics — thermodynamics, glucose homeostasis, cardiovascular dynamics — shares mathematical structure across mammalian species. The second deployment began at a higher baseline because the architectural pattern (LQM cloud parameterisation → SQM on-device inference → LLM communication interface) had already been validated. This is not anecdote; it is Falsifiable Proposition 3: Phase 6 deployments should show a measurable reduction in time to reach Phase 4 capability in subsequent deployments.",
+      "phase": "phase-6",
+      "difficulty": "hard"
+    },
+    {
+      "id": 12,
+      "question": "A clinician trusts the digital twin system but finds AI recommendations arriving with no supporting explanation. She overrides them regularly. What does SMILE say about her overrides?",
+      "options": [
+        "Her overrides indicate the AI model needs retraining — she is a source of ground truth labels",
+        "Her overrides are a failure mode that should be reduced through better AI accuracy",
+        "Her overrides are knowledge inputs — the Crucible layer should record each override with the clinician's reasoning, so the system learns from human expertise. More importantly, the root cause is a Crucible failure: if recommendations arrive without traceable reasoning, the system has not met SMILE's explainability requirement and overrides without engagement are the expected result",
+        "Her overrides should be escalated to the clinical AI governance committee for review"
+      ],
+      "correct": 2,
+      "explanation": "SMILE makes two distinct points here. First, on overrides as knowledge: in the AI-Infused stage, human experts overriding AI outputs is not a failure mode — it is the mechanism by which domain expertise enriches the system. The override mechanism must record the clinician's reasoning, which becomes a structured knowledge input to the graph. Second, on the root cause: the absence of explanation is the core problem. Crucible requires that every AI output include a causal chain in domain language. 'Override without engagement' — rejecting a recommendation without being able to evaluate its reasoning — is the predictable result of Crucible non-compliance. The system has failed the clinician, not the reverse. Fixes include: adding source attribution to every alert, showing confidence intervals, providing the causal chain ('this alert is based on three converging biomarker trends: HRV decline over 14 days, sleep fragmentation increase, and elevated nocturnal cortisol proxy').",
+      "phase": "crucible",
+      "difficulty": "medium"
+    },
+    {
+      "id": 13,
+      "question": "In SMILE's AEST temporal model, what does it mean for a patient to 'Absorb the past' and 'Transcend the now'?",
+      "options": [
+        "Absorb means reviewing old medical records; Transcend means ignoring past diagnoses to start fresh",
+        "Absorb means the twin captures the patient's full historical health record — all past diagnoses, treatments, biomarker trends, lifestyle patterns — into a structured knowledge graph. Transcend means defining the desired future health state (e.g., five years of maintained metabolic health), reverse-engineering the path from that target back to today's actionable interventions, and beginning to build that future now.",
+        "Absorb means the patient accepts their diagnosis; Transcend means they seek alternative medicine",
+        "Absorb and Transcend are theoretical concepts that do not have practical clinical implementations yet"
+      ],
+      "correct": 1,
+      "explanation": "AEST's temporal model becomes deeply personal in the biological twin context. Absorb: the twin ingests all historical health data — not just EHR records but the full contextual picture: lifestyle patterns, environmental exposures, social determinants, previous interventions and their outcomes. This creates the institutional memory of the individual. The patient can 'converse with past versions of themselves,' reviewing decisions and symptoms that led to current outcomes. Transcend: the patient defines a sustainable future health state, then the system reverse-engineers the intervention path from there. This is structured reverse causation constrained by biological physics — not wishful thinking. The practical clinical application: instead of managing the current presenting problem, clinician and patient together define the five-year metabolic health trajectory and design today's protocol to serve that trajectory. The twin absorbs each day's data, continuously recalibrating the path.",
+      "phase": "aest",
+      "difficulty": "medium"
+    },
+    {
+      "id": 14,
+      "question": "Medical tourism involves patients travelling across borders for care. Which SMILE phase and element specifically addresses cross-border health data continuity?",
+      "options": [
+        "Phase 5 AI can infer missing data from the patient's demographics",
+        "Phase 2's MVT specification for medical tourism is a FHIR-native personal health record with provenance signatures where the patient is the directory. The Sovereign MIM layer enables time-limited access tokens so clinicians at any jurisdiction can query the patient's record, with the patient retaining cryptographic control.",
+        "The hospital's IT department handles cross-border data sharing through bilateral agreements",
+        "Cross-border health data is a regulatory issue handled by GDPR and not within SMILE's scope"
+      ],
+      "correct": 1,
+      "explanation": "Medical tourism is one of SMILE's eight validated domain applications (Waern, 2026e). The domain-specific application of Phase 2's MVT: rather than a complex EHR integration project, the MVT is a FHIR-native personal health record with institutional digital signatures where the patient is the directory — they carry their complete clinical history through every border crossing. Phase 3's Sovereign MIM layer implements the cross-border access architecture: time-limited, patient-granted access tokens allow any treating clinician anywhere to query the patient's record without requiring bilateral data sharing agreements between healthcare systems. Phase 4's contextual intelligence enables the receiving clinician to query: 'What does this patient's recent care history show about medication tolerance, known allergies, and treatment response patterns?' — answered in real time without the patient needing to remember and narrate their own medical history.",
+      "phase": "applied",
+      "difficulty": "medium"
+    },
+    {
+      "id": 15,
+      "question": "What is the role of differential privacy in a SMILE healthcare deployment at Phase 5–6 maturity?",
+      "options": [
+        "Differential privacy is an advanced encryption technique for securing data at rest",
+        "Differential privacy provides mathematical guarantees that aggregate population health insights cannot be used to reverse-engineer individual patient data — enabling federated learning across hospital networks and population health analytics while maintaining individual sovereignty. This is the privacy-as-protocol principle in SMILE's Phase 6 (Holographic Society) architecture.",
+        "Differential privacy is a regulatory requirement only for EU-based healthcare providers",
+        "Differential privacy slows AI training and is only used when legally required"
+      ],
+      "correct": 1,
+      "explanation": "Differential privacy is named explicitly in SMILE's Phase 6 Holographic Society architecture as one of the six convergent capabilities: 'mathematical guarantees that individual data cannot be reverse-engineered from aggregate insights; privacy as a protocol, not a promise.' In healthcare, this resolves a fundamental tension: population health learning requires aggregate data across patients, but individual sovereignty requires that your data cannot be extracted from that aggregate. Differential privacy provides the mathematical guarantee (epsilon-bounded privacy loss) that makes both possible simultaneously. At Phase 5–6 maturity, a SMILE healthcare deployment can: (a) train AI models across a hospital network without any individual patient's record leaving their originating institution (federated learning); (b) publish population health insights from the network without any individual being identifiable; (c) contribute to global health knowledge while maintaining individual data sovereignty. This is not aspirational — the partner DPella (Chalmers/BU spinout) in the LifeAtlas ecosystem provides this capability.",
+      "phase": "phase-6",
+      "difficulty": "hard"
+    },
+    {
+      "id": 16,
+      "question": "A hospital's digital twin reaches Phase 3 maturity with a rich clinical knowledge graph. The Phase 5 AI system then starts generating anomaly alerts for patient deterioration. A clinical safety review finds the alerts have high sensitivity but poor specificity — many false positives. What does SMILE prescribe?",
+      "options": [
+        "Retrain the AI model with more negative examples to improve specificity",
+        "Raise the alert threshold to reduce alert volume",
+        "Apply the Crucible review: each false positive alert must be traceable to its source data and causal chain. The review should identify which ontological gaps or calibration errors are producing false positives — this is a Phase 3 quality issue (incomplete ontology or uncalibrated sensor baselines) manifesting as Phase 5 noise. Fix the ontology and sensor calibration before adjusting model thresholds.",
+        "Shut down the AI alerting system until accuracy improves"
+      ],
+      "correct": 2,
+      "explanation": "SMILE's Crucible principle makes false positive analysis tractable in a way that black-box systems cannot. Each false positive alert must be traceable: which specific data points triggered it, what causal chain the system followed, what confidence level was assigned. When a clinical safety review finds systematic false positives, SMILE directs the investigation to Phase 3: what ontological gap or sensor calibration error is creating the false signal? The 'ontology before AI' principle means that Phase 5 output quality is directly dependent on Phase 3 quality. Common findings: vital sign sensors with uncorrected baseline drift, clinical terms mapped inconsistently in the ontology, missing context variables (post-operative state not being passed to the alerting model). The fix is Phase 3 quality improvement — not threshold adjustment, which treats the symptom rather than the cause.",
+      "phase": "applied",
+      "difficulty": "hard"
+    },
+    {
+      "id": 17,
+      "question": "What does SMILE's 'From Planet' perspective contribute specifically in a healthcare context, and why is it not redundant with 'From Systems'?",
+      "options": [
+        "From Planet in healthcare means including environmental sustainability goals in hospital operations strategy",
+        "From Planet in healthcare means the patient's body exists within physical reality that has independent properties — gravitational, atmospheric, electromagnetic, microbiome context — that shape biological state. Air quality, altitude, temperature, circadian light exposure, environmental toxin load are first-class clinical variables that must be in the Reality Canvas, not optional enrichment layers.",
+        "From Planet adds GIS data to the hospital campus layout for facility management",
+        "From Planet is not relevant to healthcare — it applies only to construction and smart city deployments"
+      ],
+      "correct": 1,
+      "explanation": "SMILE's 'From Planet' perspective is philosophically grounded in the claim that the planet is the physics-based anchor for all biological processes. In healthcare, this means: altitude and atmospheric pressure affect oxygen saturation, haemoglobin, and cardiovascular load. Air quality (PM2.5, NO2, ozone) directly affects respiratory and cardiovascular outcomes. Circadian light exposure governs hormonal cycles, sleep architecture, and metabolic timing. Temperature and humidity affect thermoregulatory load and inflammatory response. Microbiome diversity correlates with environmental biodiversity exposure. These are not 'social determinants of health' (a systems framing) — they are physical reality variables that have measurable causal effects on biological state. A biological digital twin that ignores the patient's physical environment is modelling a body that lives in a vacuum. From Systems handles the data infrastructure; From Planet insists that the physical world itself is a first-class actor in health outcomes.",
+      "phase": "perspective",
+      "difficulty": "medium"
+    },
+    {
+      "id": 18,
+      "question": "In the NUDEDA maturity model applied to a hospital's digital twin infrastructure, what does reaching 'Enabling' level mean in clinical practice?",
+      "options": [
+        "Enabling means the hospital has enabled staff to use the system — adoption is above 50%",
+        "Enabling means the digital twin infrastructure now enables new clinical capabilities that were impossible without it — for example, detecting multi-system deterioration patterns across patients that no single clinician could identify manually, or enabling cross-specialty consultation without in-person meetings by sharing the patient's real-time twin state",
+        "Enabling means the system has been enabled for use by external partners",
+        "Enabling is the level where regulatory approval is obtained for clinical use"
+      ],
+      "correct": 1,
+      "explanation": "NUDEDA's 'Enabling' level (SMILE Maturity Level 3 — Augmented Intelligence) is the threshold where infrastructure creates new clinical possibilities, not just improves existing ones. The Weill and Broadbent (1998) distinction is directional: Dependent infrastructure follows current clinical strategy (it makes what was already being done faster); Enabling infrastructure enables new clinical strategies (it makes possible what was structurally impossible before). In practice: a hospital reaching Enabling level can run cross-specialty patient monitoring that detects deterioration patterns spanning cardiology, nephrology, and endocrinology simultaneously — impossible when those departments shared data only through paper consultations. The AI's pattern recognition across integrated knowledge graph domains is the enabling capability. This is also where the AEST Simulate operation becomes available (partial): projecting forward patient state and testing intervention scenarios.",
+      "phase": "nudeda",
+      "difficulty": "medium"
+    },
+    {
+      "id": 19,
+      "question": "A health tech company has a personal health app with 2 million users and 5 years of lifestyle data. They want to build a biological digital twin service. Analysing through SMILE's four perspectives, which is the most common Phase 1 failure for consumer health apps attempting to become digital twins?",
+      "options": [
+        "From Systems: they lack sufficient API connections to clinical data sources",
+        "From AI: they need better ML models trained on clinical outcomes",
+        "From People: users were enrolled as data sources (interessement through gamification and streaks), not as sovereign stakeholders whose health outcomes drive the system scope. The Reality Canvas was never confirmed — there is no shared physical referent, only individual dashboards. At Phase 1 exit criterion: no multi-community confirmation exists because the app was designed for individual users without enrolling any clinical community.",
+        "From Planet: they lack environmental data integration"
+      ],
+      "correct": 2,
+      "explanation": "Consumer health apps have a structural ANT failure at Phase 1: they enrolled users as data sources — users provide data in exchange for gamification rewards (streaks, badges, leaderboards) — but not as sovereign stakeholders whose health outcomes define the system's scope. This means: (a) the data collection agenda is set by what is easy to collect (steps, sleep, heart rate), not by what the user's health outcomes require; (b) no clinical community has been enrolled, so clinical knowledge does not enrich the knowledge graph; (c) when users achieve their goals (lose weight, improve sleep), they often stop using the app — because the app never created an obligatory passage point, just a habit loop. The SMILE corrective: Phase 1 must define the health outcome the user wants to achieve, map the actor-network that serves it (including clinical community), and create a Reality Canvas that the user confirms as their authentic health picture — not a data dashboard.",
+      "phase": "applied",
+      "difficulty": "hard"
+    },
+    {
+      "id": 20,
+      "question": "What is the clinical significance of SMILE's 'Virtual First' principle in pharmaceutical development?",
+      "options": [
+        "Virtual First means conducting virtual conferences instead of in-person meetings for efficiency",
+        "Virtual First in pharma means validating pharmacokinetic and pharmacodynamic hypotheses in calibrated biological models (LQMs) before committing to animal studies or clinical trials — testing drug interaction hypotheses, dosing protocols, and adverse event risk profiles in simulation. This reduces trial failures attributable to incorrect Phase 2 assumptions.",
+        "Virtual First means replacing all physical labs with computer simulations by 2030",
+        "Virtual First is only applicable to software development methodologies adapted for pharma"
+      ],
+      "correct": 1,
+      "explanation": "SMILE's Virtual First principle — test everything in simulation before committing physical resources — has direct pharmaceutical application. Phase 2's MVT for a drug development programme includes: defining the clinical hypothesis (what outcome does this molecule target?), specifying the pharmacokinetic model that will be validated, and running hypothesis testing in calibrated biological simulation before initiating animal studies. The LQM distinction is critical here: pharmaceutical simulation requires physics-based models (pharmacokinetics, receptor binding, metabolic pathway modelling) — not statistical extrapolation from literature data. The SMILE corpus includes the 3D-printed medicine case where the Phase 6 endpoint is digital prescription: a patient's biological twin parameters calibrate the LQM, which determines the exact molecular formulation, dosage schedule, and delivery mechanism — 3D printed to specification. Virtual First at Phase 2 is the foundation that makes this Phase 6 endpoint achievable.",
+      "phase": "applied",
+      "difficulty": "hard"
+    },
+    {
+      "id": 21,
+      "question": "What does SMILE prescribe for edge deployment of a biological digital twin for a patient in a remote or low-connectivity environment?",
+      "options": [
+        "Delay deployment until connectivity improves — cloud dependency is non-negotiable for accuracy",
+        "SQMs (Small Quantitative Models) — reduced-form LQMs validated to run on local hardware (wearable, smartphone, edge device) with millisecond latency. Full biological modelling capability operates locally; cloud sync occurs when connectivity is available. Data sovereignty is maintained because the primary computation happens on the patient's own device.",
+        "Use LLMs on the edge as they are smaller and can be fine-tuned on patient data",
+        "Deploy a simplified rule-based system offline and sync to the full AI when connectivity returns"
+      ],
+      "correct": 1,
+      "explanation": "SMILE's edge-native architecture principle — 'edge capabilities same as the cloud' — is most consequential in healthcare for rural populations, disaster response, space medicine, and any context where connectivity cannot be guaranteed. SQMs are the operationalisation of this principle: take the validated LQM (physics-based biological model), apply model reduction techniques (parameter sensitivity analysis to identify which model components drive output variance, then reduce to the minimal parameterisation that preserves clinical accuracy), and deploy the reduced model on local hardware. The result: a wearable that computes insulin resistance projections, cardiovascular risk trajectory, and medication timing recommendations locally, without sending any health data to a cloud. Cloud sync occurs when available to update model parameters, not to perform the computation. This is the same principle that makes military digital twins work in communication-denied environments and why SMILE emphasises it as an architectural requirement, not an optional enhancement.",
+      "phase": "edge",
+      "difficulty": "medium"
+    },
+    {
+      "id": 22,
+      "question": "A national health authority wants to create a population health twin integrating data from 500 hospitals. They ask: should they start with data integration or outcomes definition? What does SMILE prescribe, and at what phase does the outcome definition work happen?",
+      "options": [
+        "Start with data integration — once the data is unified, the outcomes will become clear from analysis",
+        "SMILE prescribes starting with outcomes definition in Phase 1 and Phase 2: What population health improvements does the authority want to achieve? What decisions will the twin support? Then Phase 2 defines the MVT as the minimum data integration that answers the highest-priority outcome questions. The Benefits Dependency Network maps from desired population outcomes back through required insights to required data — this determines what to integrate, not the reverse.",
+        "Start with the largest hospitals first and add smaller ones iteratively",
+        "Outcomes definition and data integration should happen simultaneously in parallel workstreams"
+      ],
+      "correct": 1,
+      "explanation": "National population health twin projects are among the highest-risk SMILE anti-pattern deployments: large budgets, long timelines, data-first by default, and outcome accountability deferred until 'the data is in.' The Brynjolfsson productivity paradox at national scale: governments have invested billions in health data infrastructure that has not demonstrably improved population health outcomes. SMILE's Phase 1 and 2 prescribed sequence: (1) Define the population health outcome questions with specificity — not 'improve population health' but 'reduce preventable readmissions in the 65+ age group by X% within Y years'; (2) Map the Benefits Dependency Network for that specific outcome — what clinical decisions does it require? What data do those decisions require?; (3) Define the MVT as the minimum data integration that enables those decisions. This immediately scopes the 500-hospital integration problem down to the 3–4 data elements that are actually decision-relevant — typically a fraction of what a data-first approach would collect.",
+      "phase": "applied",
+      "difficulty": "hard"
+    },
+    {
+      "id": 23,
+      "question": "In SMILE's AEST model at maximum maturity (Level 5, Adaptive System), what does 'Transcend' look like for a biological digital twin in practice?",
+      "options": [
+        "Transcend means the AI replaces clinical decision-making entirely",
+        "Transcend means the system evolves its own scope — updating biological models, ontology extensions, and governance rules in response to observed outcomes within human-defined boundaries. The patient's twin becomes adaptive: learning which biomarker combinations are most predictive for this specific individual, suggesting new variables to track, and proposing protocol modifications based on outcome patterns — all with full provenance and human oversight.",
+        "Transcend means the patient's data is shared with research institutions for advancement of medical science",
+        "Transcend is a Phase 6 concept that applies only to knowledge transfer between institutions, not to individual patient twins"
+      ],
+      "correct": 1,
+      "explanation": "Level 5 (Adaptive System / NUDEDA-Autonomous) is where the biological twin exhibits what SMILE calls 'adaptive system' behaviour: the twin evolves its own scope within governance boundaries. For an individual patient, this means: the twin identifies that its current biomarker set has poor predictive power for this individual's specific phenotype, proposes adding a specific metabolic marker, and when the patient approves and the marker is added, the model updates its weighting schema accordingly. Governance boundaries ensure: all scope changes are proposed to the patient for approval, the reasoning for each proposal is explained in plain language (Crucible), and all changes are reversible with full audit trail. This is not science fiction — it is the architectural endpoint of SMILE's artefactual absorptive capacity concept: the twin's capacity to absorb new knowledge grows as it accumulates knowledge, and at Level 5 it begins directing its own knowledge acquisition.",
+      "phase": "applied",
+      "difficulty": "hard"
+    },
+    {
+      "id": 24,
+      "question": "A biotech company deploys SMILE for a precision medicine programme. After reaching Phase 4, they discover that different clinical specialties are getting inconsistent answers to similar queries because each specialty's portion of the ontology was built independently. What is the root cause and what does SMILE prescribe?",
+      "options": [
+        "The root cause is insufficient AI model training data; prescribe more data collection",
+        "The root cause is a Phase 3 failure: ontologies were built per-specialty instead of as a unified cross-specialty knowledge graph with shared semantic layer. SMILE prescribes the MIMs Semantic Interoperability layer: a shared metadata registry with common clinical terminology and relationship schema that all specialty-specific ontologies map to, enabling consistent cross-specialty queries.",
+        "The root cause is the technology stack — they need to migrate to a different database",
+        "The root cause is insufficient user training; prescribe more clinician education on query formulation"
+      ],
+      "correct": 1,
+      "explanation": "This is a MIMs Semantic Interoperability failure. SMILE's Phase 3 Minimal Interoperability Mechanisms define three layers, and the Semantic (Contextual) layer is the one at fault here: shared ontology and knowledge graph schema. When specialties build ontologies independently — cardiology using one set of terms, nephrology using another, endocrinology using a third — the knowledge graph has no shared semantic layer. Cross-specialty queries fail not because the data is missing but because the query traverses an ontological boundary where terms are not linked. The INSPIRE Directive analogy is exact: before INSPIRE, each EU member state's GIS data used different geographic classification schemes, making cross-border spatial queries produce nonsense answers. INSPIRE mandated shared ontology. SMILE Phase 3 mandates the same for any domain — all specialty ontologies must map to a shared clinical terminology layer (SNOMED CT, ICD-11) before Phase 4 cross-specialty queries can be trusted.",
+      "phase": "applied",
+      "difficulty": "hard"
+    },
+    {
+      "id": 25,
+      "question": "A hospital chain has successfully deployed SMILE across 3 hospitals (Phase 4 mature in each) and is planning a Phase 6 knowledge transfer to 20 new hospitals. What is the primary knowledge artefact that transfers, and what is the key risk to avoid?",
+      "options": [
+        "The primary artefact is the trained AI model; the risk is data privacy violations during transfer",
+        "The primary artefact is the validated ontology schema + calibrated clinical model parameters + Phase 3 MIMs implementation templates. The key risk is 'digital twin transplant rejection' — deploying Phase 4 artefacts into hospitals that have not completed their own Phase 1 (no Reality Canvas, no enrolled stakeholder communities). A sophisticated twin transplanted into an un-enrolled organisation creates dashboards nobody checks.",
+        "The primary artefact is the software platform; the risk is vendor lock-in",
+        "The primary artefact is anonymised patient data for model fine-tuning; the risk is re-identification of patients"
+      ],
+      "correct": 1,
+      "explanation": "Phase 6 knowledge transfer is not software deployment — it is the transfer of structured wisdom. The primary knowledge artefacts are: (a) validated ontology schemas aligned to SNOMED CT, FHIR, ICD-11 that the new hospitals can begin from rather than building from scratch; (b) calibrated clinical model parameters validated against the originating hospitals' patient populations (with appropriate domain transfer documentation); (c) Phase 3 MIMs implementation templates — the Contextual, Technical, and Sovereign layers already architected for healthcare contexts. The 'digital twin transplant rejection' risk is the Phase 6 failure mode SMILE most explicitly warns against: deploying sophisticated Phase 4–5 artefacts into organisations where Phase 1 exit criteria have not been met. No stakeholder enrolment = no obligatory passage point = the sophisticated twin sits unused because nobody in the new organisation has organised their work around it. The Phase 6 team must deploy Phase 1 facilitation first, using the existing ontology and templates to accelerate but not skip it.",
+      "phase": "applied",
+      "difficulty": "hard"
+    }
+  ]
+}

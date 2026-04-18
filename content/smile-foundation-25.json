@@ -1,0 +1,366 @@
+{
+  "course": {
+    "id": "smile-foundation-25",
+    "title": "SMILE Foundation — 25 Questions",
+    "description": "Test your understanding of the Sustainable Methodology for Impact Lifecycle Enablement. SMILE is the benefits-driven universal methodology that turns any project into a continuously learning digital twin.",
+    "passingScore": 80,
+    "certificateTitle": "SMILE Certified Foundation Practitioner",
+    "version": "1.0",
+    "domains": ["universal"],
+    "doi": "10.5281/zenodo.19646374",
+    "author": "Nicolas Waern, WINNIIO AB",
+    "license": "CC-BY-4.0"
+  },
+  "questions": [
+    {
+      "id": 1,
+      "question": "What does the acronym SMILE stand for?",
+      "options": [
+        "Sustainable Methodology for Impact Lifecycle Enablement",
+        "Systematic Model for Integrated Learning Environments",
+        "Scalable Management of Information Lifecycle Evolution",
+        "Strategic Methodology for Intelligent Lifecycle Engineering"
+      ],
+      "correct": 0,
+      "explanation": "SMILE stands for Sustainable Methodology for Impact Lifecycle Enablement. The name encodes its philosophy: it is sustainable (designed for perpetual, not bounded operation), focused on impact (outcomes first, data last), lifecycle-spanning (from first canvas to perpetual wisdom), and enabling (it enables digital twin creation as a natural consequence, not a forced objective).",
+      "phase": "general",
+      "difficulty": "easy"
+    },
+    {
+      "id": 2,
+      "question": "How many phases does SMILE have?",
+      "options": [
+        "Four phases: Plan, Build, Operate, Improve",
+        "Five phases: Emulate, Engineer, Connect, Analyse, Scale",
+        "Six phases: Reality Emulation, Concurrent Engineering, Collective Intelligence, Contextual Intelligence, Continuous Intelligence, Perpetual Wisdom",
+        "Three phases: Define, Deploy, Sustain"
+      ],
+      "correct": 2,
+      "explanation": "SMILE has six phases, each adding a layer of capability to the twin: (1) Reality Emulation — create the shared canvas; (2) Concurrent Engineering — define and validate the Minimal Viable Twin; (3) Collective Intelligence — build the ontology factory; (4) Contextual Intelligence — make the twin queryable in real time; (5) Continuous Intelligence — deploy the AI factory; (6) Perpetual Wisdom — transfer knowledge across contexts and generations. Critically, the phases are concentric, not linear — a Phase 5 twin is also simultaneously a Phase 1–4 twin.",
+      "phase": "general",
+      "difficulty": "easy"
+    },
+    {
+      "id": 3,
+      "question": "SMILE is applied through how many perspectives, and which are they?",
+      "options": [
+        "Three perspectives: Strategy, Operations, Technology",
+        "Four perspectives: From People, From Systems, From Planet, From AI",
+        "Two perspectives: From People, From Technology",
+        "Five perspectives: People, Systems, Planet, AI, and Governance"
+      ],
+      "correct": 1,
+      "explanation": "SMILE operates through four perspectives applied simultaneously at every phase: From People (organisation-agnostic stakeholder engagement, concurrent engineering, human-machine interaction), From Systems (standards identification, ontology alignment, metadata mastery, data fabric architecture), From Planet (GIS, BIM, CIM, satellite data, reality canvas, environmental sustainability), and From AI (LQM/SQM model selection, Crucible verification, explainability requirements, edge inference, trust boundary definition). AI is a perspective in its own right — not a tool within Systems — because AI agents are actants that transform the networks they participate in.",
+      "phase": "general",
+      "difficulty": "easy"
+    },
+    {
+      "id": 4,
+      "question": "What is SMILE's core principle, expressed as the inverted pyramid?",
+      "options": [
+        "Data first, insights last — start with what you have",
+        "Technology first, people last — build it and they will come",
+        "Impact first, data last — Outcome → Action → Insight → Information → Data",
+        "Process first, outcome last — optimise the method before the goal"
+      ],
+      "correct": 2,
+      "explanation": "SMILE's core principle is 'Impact first, data last.' The inverted pyramid — Outcome → Action → Insight → Information → Data — reverses the dominant data-first approach that has caused decades of digital twin project failures. Every data collection decision in SMILE must be justified by a traceable chain back to a desired outcome. This is not philosophical preference; it is the methodological response to the documented finding that digital twin failures are overwhelmingly non-technical: unclear business objectives, inability to demonstrate ROI, organisational resistance. Starting from the outcome eliminates these failure modes structurally.",
+      "phase": "general",
+      "difficulty": "easy"
+    },
+    {
+      "id": 5,
+      "question": "What does AEST stand for in SMILE's temporal architecture?",
+      "options": [
+        "Analyse, Execute, Synthesise, Transfer",
+        "Absorb, Emulate, Simulate, Transcend",
+        "Assess, Evaluate, Standardise, Transform",
+        "Archive, Extract, Store, Transmit"
+      ],
+      "correct": 1,
+      "explanation": "AEST represents SMILE's four temporal operations: Absorb (capture institutional memory, ingest historical data, learn from what happened — the past), Emulate (create a living representation of reality as it IS right now — the present), Simulate (explore what-if scenarios, predict outcomes, test interventions virtually before committing resources — the future), and Transcend (go beyond current constraints, generate cross-domain insights, evolve the system beyond its original design parameters — the sustainable future borrowed back to the present). SMILE is the only methodology that operates across all four temporal dimensions simultaneously rather than linearly.",
+      "phase": "general",
+      "difficulty": "medium"
+    },
+    {
+      "id": 6,
+      "question": "What is the primary deliverable and exit criterion of Phase 1 (Reality Emulation)?",
+      "options": [
+        "A completed database schema that all developers agree on",
+        "A project plan approved by the steering committee",
+        "A Reality Canvas — a spatially grounded, 3D+ representation confirmed as understandable by non-technical stakeholders from at least two distinct communities",
+        "A sensor deployment map covering all critical assets"
+      ],
+      "correct": 2,
+      "explanation": "Phase 1 exists to answer: 'In order to think outside the box, one must first define the box.' The Reality Canvas is a spatially and temporally grounded 3D+ representation of the shared physical referent — the scene that all subsequent activity will describe and enrich. The exit criterion is specific: the Reality Canvas must be confirmed as understandable and accurate by non-technical stakeholders from at least two distinct communities. This is an ANT-grounded requirement: without multi-community enrolment, the canvas is not yet an obligatory passage point and cannot absorb knowledge from all the actor communities who need to contribute.",
+      "phase": "phase",
+      "difficulty": "medium"
+    },
+    {
+      "id": 7,
+      "question": "What is the Minimal Viable Twin (MVT) and in which phase is it defined?",
+      "options": [
+        "The cheapest possible twin solution — defined in Phase 5",
+        "The first sensor deployed in the field — defined in Phase 3",
+        "The smallest twin that delivers value, with every scope element traceable to the outcome chain, validated virtually before physical deployment — defined in Phase 2",
+        "The final target twin at full maturity — defined in Phase 6"
+      ],
+      "correct": 2,
+      "explanation": "The Minimal Viable Twin (MVT) is SMILE's equivalent of the MVP (Minimum Viable Product) applied to digital twin scope. It is defined in Phase 2 (Concurrent Engineering) as the smallest twin that delivers the identified business value — not the most comprehensive imaginable twin. Every scope element in the MVT must be justified by a traceable hypothesis in the Benefits Dependency Network. Critically, the MVT must be validated virtually before any physical implementation begins. Phase 2's exit criterion requires that the MVT be specified at sufficient detail for two independent engineers to implement it the same way, and that at least one hypothesis has been tested virtually.",
+      "phase": "phase",
+      "difficulty": "medium"
+    },
+    {
+      "id": 8,
+      "question": "What is the entry criterion for Phase 3 (Collective Intelligence), and what is its most important architectural principle?",
+      "options": [
+        "Entry: Budget approved. Principle: Deploy as many sensors as possible.",
+        "Entry: MVT is deployed and physical sensors are operational. Principle: Ontology must be built before AI is activated.",
+        "Entry: Phase 4 dashboard is complete. Principle: Use cloud-first infrastructure for scalability.",
+        "Entry: Stakeholder sign-off received. Principle: Automate all data collection."
+      ],
+      "correct": 1,
+      "explanation": "Phase 3's entry criteria require that the MVT is deployed and physical sensors (or equivalent data streams) are operational. Its most critical architectural principle is 'ontology before AI' — the sequence Ontology Factory → Knowledge Graph → AI Factory is mandatory. An AI system operating without a structured knowledge graph reasons on unstructured data and produces unexplainable results. Phase 3 also introduces MIMs (Minimal Interoperability Mechanisms) across three layers: Contextual (shared ontology schema), Technical (API and transport standards), and Sovereign (data governance and access control). Without all three MIM layers, Phase 3 is incomplete regardless of sensor sophistication.",
+      "phase": "phase",
+      "difficulty": "medium"
+    },
+    {
+      "id": 9,
+      "question": "What distinguishes Phase 4 (Contextual Intelligence) from Phase 3, and what is Phase 4's exit criterion?",
+      "options": [
+        "Phase 4 adds more sensors; exit criterion is 100% sensor uptime",
+        "Phase 4 makes the twin queryable by non-specialists in real time; exit criterion is that non-technical stakeholders from at least two communities can query the twin and receive actionable responses without technical intermediation",
+        "Phase 4 publishes data to the cloud; exit criterion is successful cloud deployment",
+        "Phase 4 completes the AI training; exit criterion is model accuracy above 95%"
+      ],
+      "correct": 1,
+      "explanation": "Phase 3 builds the ontological infrastructure (collective intelligence accumulates into the knowledge graph). Phase 4 makes that intelligence queryable in real time — the 'contextual' dimension means the twin understands not just what is happening but why. The exit criterion is deliberately measured through non-specialist access: at least two distinct stakeholder communities must be able to query the twin and receive actionable responses without requiring a data scientist or engineer as intermediary. At least one operational decision must be documented as made on the basis of twin outputs. This democratisation of knowledge access is a design requirement, not a nice-to-have.",
+      "phase": "phase",
+      "difficulty": "medium"
+    },
+    {
+      "id": 10,
+      "question": "In Phase 5 (Continuous Intelligence), what is the key distinction between LQMs and LLMs, and which is appropriate for physical systems?",
+      "options": [
+        "LQMs are faster; LLMs are more accurate. Use LLMs for all physical systems.",
+        "LQMs (Large Quantitative Models) reason from physical laws and produce interpretable outputs with explicit uncertainty intervals; LLMs produce fluent text. LQMs are appropriate for systems governed by physics; LLMs serve as communication interfaces only.",
+        "LQMs are cloud-only; LLMs run on edge. Use LLMs where connectivity is limited.",
+        "LQMs and LLMs are interchangeable terms; both can simulate physical systems equally well."
+      ],
+      "correct": 1,
+      "explanation": "SMILE makes a critical distinction in Phase 5: for systems governed by physical laws (buildings, biological bodies, urban infrastructure, machines), the appropriate intelligence regime is Large Quantitative Models (LQMs) — physics-based simulation from first principles, not statistical pattern matching over historical data. LQMs compute from causal mechanisms and produce interpretable outputs with explicit uncertainty intervals. For edge deployment, LQMs reduce to Small Quantitative Models (SQMs) that run on local hardware with millisecond latency. LLMs retain a legitimate role as communication and coordination layers — translating model outputs into human language, accepting natural-language queries. LLMs must not be asked to simulate physics. This is the LQM > LLM principle for biology and physical systems.",
+      "phase": "phase",
+      "difficulty": "medium"
+    },
+    {
+      "id": 11,
+      "question": "What is Phase 6 (Perpetual Wisdom) and what are Phoenix Strategies?",
+      "options": [
+        "Phase 6 archives the project and closes all systems. Phoenix Strategies are disaster recovery procedures.",
+        "Phase 6 is about sharing impact globally and ensuring knowledge outlives its origin; Phoenix Strategies are the mechanism for transferring accumulated knowledge to successor systems when a twin is retired, rather than discarding it.",
+        "Phase 6 migrates everything to a new platform. Phoenix Strategies are migration scripts.",
+        "Phase 6 monetises the twin through licensing. Phoenix Strategies are pricing models."
+      ],
+      "correct": 1,
+      "explanation": "Phase 6 (Perpetual Wisdom) is what makes SMILE genuinely different from all other methodologies — TRIZ, PRINCE2, CRISP-DM, Agile all end at their deliverable. SMILE continues. Phase 6's core question: 'How do we ensure that knowledge created today is transferable, reusable, and contributes to planetary-scale impact?' Phoenix Strategies are the governance mechanism for knowledge continuity: when a twin reaches end of life, its accumulated ontological structure, calibrated model parameters, and cross-domain insights are transferred to successor systems in structured, documented form — so every next deployment begins at a higher baseline than the previous one. This is civilisational infrastructure, not project management.",
+      "phase": "phase",
+      "difficulty": "medium"
+    },
+    {
+      "id": 12,
+      "question": "What does the 'From People' perspective specifically contribute to a SMILE deployment?",
+      "options": [
+        "It manages HR and staffing plans for the project team",
+        "It ensures the organisation has a documented org chart before the project starts",
+        "It contributes organisation-agnostic stakeholder engagement, concurrent engineering facilitation, collective intelligence gathering, and human-machine interaction design — treating people as actors continuously transferring knowledge through the twin",
+        "It handles communication and marketing for the digital twin launch"
+      ],
+      "correct": 2,
+      "explanation": "The 'From People' perspective in SMILE is grounded in Actor-Network Theory: people are not passive users of a system, they are actors in sociotechnological ecosystems who continuously transfer knowledge through artefacts. The perspective contributes: stakeholder mapping (who needs to enrol and what motivates enrolment), organisation-agnostic methodology (SMILE works across organisational boundaries because it anchors to shared reality, not to any single organisation's structure), concurrent engineering (enabling all communities to work simultaneously rather than sequentially), collective intelligence (the ongoing knowledge contribution from people to the twin), and human-machine interaction design (ensuring the interface matches the cognition of the people using it, not just the data available).",
+      "phase": "perspective",
+      "difficulty": "medium"
+    },
+    {
+      "id": 13,
+      "question": "What is the role of the 'From Systems' perspective, and what does MIMs stand for?",
+      "options": [
+        "From Systems manages IT infrastructure procurement. MIMs stands for Managed Information Metadata Standards.",
+        "From Systems focuses on planetary scope, standards identification, ontology alignment, and metadata mastery to enable omni-interoperability. MIMs stands for Minimal Interoperability Mechanisms.",
+        "From Systems handles cloud architecture only. MIMs refers to the Microsoft Infrastructure Management Suite.",
+        "From Systems is concerned only with legacy system migration. MIMs stands for Migration and Integration Management Systems."
+      ],
+      "correct": 1,
+      "explanation": "The 'From Systems' perspective addresses the full planetary scope of technical integration: identifying applicable standards (ISO, IFC, CityGML, FHIR, SAREF, SNOMED), aligning ontologies across domain communities, achieving metadata mastery, designing the data fabric architecture, and integrating BIM/CIM/GIS layers. MIMs (Minimal Interoperability Mechanisms), developed by the Open and Agile Smart Cities initiative, define the minimum mechanisms for any two systems to exchange meaningful information. SMILE implements three core MIM layers: Contextual (shared ontology and knowledge graph schema), Technical (API and transport standards), and Sovereign (data governance and access control). The INSPIRE Directive — which mandated interoperable spatial data across all EU member states — is the best large-scale precedent for what MIMs achieve.",
+      "phase": "perspective",
+      "difficulty": "medium"
+    },
+    {
+      "id": 14,
+      "question": "Why is 'From Planet' a distinct perspective in SMILE, not merely part of 'From Systems'?",
+      "options": [
+        "It is not distinct — it is the same as From Systems but focused on environmental reporting",
+        "Physical reality — the planet — is the ground truth that all actors exist within, not around. It is the only referent all communities share regardless of vocabulary, jurisdiction, or discipline, making it the foundation for the Reality Canvas and the anchor for all subsequent knowledge",
+        "The Planet perspective handles only sustainability and ESG reporting requirements",
+        "It was added for marketing purposes to signal environmental commitment"
+      ],
+      "correct": 1,
+      "explanation": "The 'From Planet' perspective is philosophically foundational, not just technically distinct. Physical reality — the planet — is the one thing all communities share regardless of disciplinary vocabulary, institutional affiliation, or cultural background. SMILE's Reality Canvas operationalises this: the shared physical referent (captured via GIS, BIM, CIM, satellite data, drone photogrammetry) is the first deliverable of any SMILE deployment. The SPIN twinning framework (Space, Place, Interaction, Network) makes this concrete: Space is the objective physical environment — it has properties that exist independently of any community's description. The planet is not merely an environmental concern; it is the epistemological foundation of SMILE's explainability architecture. Reality is the boundary object that requires no translation.",
+      "phase": "perspective",
+      "difficulty": "medium"
+    },
+    {
+      "id": 15,
+      "question": "What makes 'From AI' a distinct perspective rather than a capability within 'From Systems'?",
+      "options": [
+        "AI runs on different hardware than other systems, requiring a separate infrastructure track",
+        "AI agents are actants (in the ANT sense) that transform the networks they participate in — they are not tools within Systems but independent actors with their own perspective requirements, including explainability, governance boundaries, trust layers, and temporal reasoning via AEST",
+        "From AI is where the machine learning team tracks model performance metrics",
+        "AI is separated out for regulatory compliance with the EU AI Act only"
+      ],
+      "correct": 1,
+      "explanation": "Separating 'From AI' as a perspective reflects Actor-Network Theory: AI agents are actants — non-human participants in networks that shape outcomes on equal footing with human actors. An AI agent is not a passive tool; it transforms the network by introducing autonomous decisions, pattern recognition at superhuman speed, and outputs that other actors trust and act upon. The 'From AI' perspective therefore requires specific inputs at every phase: LQM vs. LLM regime selection, Crucible trust layer verification, AI Act compliance, edge-native inference architecture, agent-to-agent knowledge transfer, AEST temporal reasoning capability, and trust boundary definition. Treating AI as merely a systems capability underestimates the actor-network implications of autonomous agents.",
+      "phase": "perspective",
+      "difficulty": "medium"
+    },
+    {
+      "id": 16,
+      "question": "In AEST, what does 'Absorb' mean in practice, and which SMILE phases correspond to it?",
+      "options": [
+        "Absorb means consuming all available data before starting; it corresponds to Phase 5",
+        "Absorb means capturing institutional memory, ingesting historical data, and structuring the accumulated knowledge of what has happened — corresponding to Phase 1 (Reality Emulation) and Phase 3 (Collective Intelligence)",
+        "Absorb means accepting all stakeholder feedback without filtering; it corresponds to Phase 2",
+        "Absorb means migrating data from legacy systems; it corresponds to Phase 4"
+      ],
+      "correct": 1,
+      "explanation": "AEST's Absorb operation is the temporal engagement with the past. It means: capture institutional memory that currently lives in people's heads or disconnected systems; ingest historical data and calibrate models against it; structure what has been learned so future phases can build on it rather than rediscovering it. In the maturity model, Absorb becomes fully available at Level 2 (System of Record), when the twin becomes the single authoritative source for its defined scope. Absorb corresponds primarily to Phase 1 (which creates the shared canvas that contextualises historical information) and Phase 3 (which builds the knowledge graph that structures accumulated knowledge). Without Absorb, the twin begins each interaction without memory — it cannot learn, only react.",
+      "phase": "aest",
+      "difficulty": "medium"
+    },
+    {
+      "id": 17,
+      "question": "What is the difference between 'Emulate' and 'Simulate' in AEST, and why does premature simulation produce unreliable results?",
+      "options": [
+        "Emulate is faster simulation; Simulate is more detailed. Premature simulation is fine if the model is sophisticated enough.",
+        "Emulate creates a living representation of reality as it IS right now (the present state); Simulate explores what-if futures. Premature simulation without adequate emulation produces hallucinated futures because the forward projections have no calibrated present-state model to project from.",
+        "Emulate copies data from one system to another; Simulate runs statistical models. Premature simulation wastes compute resources.",
+        "Emulate and Simulate are synonyms in SMILE; both refer to running predictive models."
+      ],
+      "correct": 1,
+      "explanation": "The Emulate/Simulate distinction is epistemologically critical. Emulate (present-state) creates a continuously calibrated mirror of reality as it IS — a living twin that is updated by real sensor data, human observations, and system events. Simulate (future-state) projects forward scenarios from that calibrated present. SMILE's maturity model makes this explicit: Simulate is only available at Level 3 (Augmented Intelligence), after Emulate has been established at Level 2. If you simulate without a calibrated Emulate layer, you are projecting forward from a guessed present — the simulation has no ground truth to constrain it. This is the mechanism behind 'hallucinated futures': statistically plausible outputs disconnected from physical reality. The Crucible trust layer exists precisely to prevent this.",
+      "phase": "aest",
+      "difficulty": "hard"
+    },
+    {
+      "id": 18,
+      "question": "What does 'Transcend' mean as a temporal operation in AEST, and at which maturity level does it fully activate?",
+      "options": [
+        "Transcend means exceeding project budget constraints; it activates at any maturity level",
+        "Transcend means adopting quantum computing; it activates at Level 3",
+        "Transcend means going beyond current constraints by reverse-engineering the path from a defined sustainable future state back to the present — borrowing from the future to build it now. It fully activates at Level 5 (Adaptive System / Autonomous NUDEDA)",
+        "Transcend means the project is complete and knowledge is archived; it activates at Phase 6 only"
+      ],
+      "correct": 2,
+      "explanation": "Transcend is SMILE's most philosophically distinctive temporal operation. It is not prediction (statistically extrapolating trends) or optimisation (improving within current parameters). Transcend is structured reverse causation: define the sustainable future state that is achievable given current physics and constraints, then reverse-engineer the path from NOW to THERE, and begin building it. As WINNIIO framed it: 'Companies and cities can simulate the future to transcend the now.' Transcendence in SMILE is always constrained by physical reality — it is not speculation. The maturity model requires Level 5 for full Transcend activation, because Transcend without validated Simulate produces untethered speculation — aspirational futures that ignore the physics of how to get there.",
+      "phase": "aest",
+      "difficulty": "hard"
+    },
+    {
+      "id": 19,
+      "question": "In SMILE's maturity model, what does 'AEST at the anchor' mean within the Zoom-Anchor-AEST interaction model?",
+      "options": [
+        "After zooming to any scale and anchoring on a specific entity, all four AEST temporal operations become available at that anchor point — past, present, future, and transcendent future can all be accessed for that specific entity",
+        "AEST is only available at city scale; individual entities require different tools",
+        "The anchor refers to the data storage location; AEST operations require cloud anchoring",
+        "Zoom-Anchor-AEST is a visualisation framework only, unrelated to the methodology phases"
+      ],
+      "correct": 0,
+      "explanation": "The Zoom-Anchor-AEST interaction model describes SMILE's scale-invariant operation: (1) ZOOM to any scale — from quantum to urban to planetary, the methodology does not change; (2) ANCHOR on a specific entity — this becomes the obligatory passage point (in ANT terms) around which the actor-network organises; (3) AEST activates at the anchor — at any anchor point, the practitioner can see the past (Absorb the institutional memory of this specific entity), see the now (Emulate the current state), see the future (Simulate forward scenarios), and borrow from the sustainable future (Transcend current constraints by reverse-engineering from the target state). A horse, a hospital room, a building, a city district — the scale of the anchor changes; the four temporal operations available at any anchor do not.",
+      "phase": "aest",
+      "difficulty": "hard"
+    },
+    {
+      "id": 20,
+      "question": "In SMILE's NUDEDA maturity framework, what does 'Dependent' infrastructure mean?",
+      "options": [
+        "Infrastructure that depends on external cloud providers and cannot operate locally",
+        "The twin exists but only follows current operational strategy — it is the single authoritative source for its defined scope, but it does not yet enable new capabilities beyond what was already possible. Corresponds to SMILE Maturity Level 2 (System of Record).",
+        "Dependent infrastructure means the organisation is dependent on a vendor and has no exit strategy",
+        "Dependent means the infrastructure requires manual data entry and cannot automate any processes"
+      ],
+      "correct": 1,
+      "explanation": "NUDEDA (None, Utility, Dependent, Enabling, Digital DNA, Autonomous) extends Weill and Broadbent's (1998) infrastructure investment framework with two author-proposed extensions. 'Dependent' is the third level: infrastructure follows strategy — the twin exists and is the authoritative record, but it does not yet enable strategies that were impossible without it. It corresponds to SMILE Level 2 (System of Record). The key distinction is directionality: Dependent infrastructure serves the current strategy; Enabling infrastructure enables new strategies. In practice: a Dependent twin answers the questions the organisation was already asking; an Enabling twin allows the organisation to ask questions it could not have formulated before the twin existed.",
+      "phase": "nudeda",
+      "difficulty": "medium"
+    },
+    {
+      "id": 21,
+      "question": "What distinguishes 'Digital DNA' from 'Enabling' in the NUDEDA maturity model?",
+      "options": [
+        "Digital DNA uses DNA sequencing for authentication; Enabling uses passwords. No meaningful distinction for methodology purposes.",
+        "Digital DNA (Level 4, Networked Value) means the infrastructure is self-describing, ontology-aware, and queryable across contexts — the twin's knowledge demonstrably improves outcomes in other deployments. Enabling (Level 3, Augmented Intelligence) means AI augments decisions within the originating context only.",
+        "Digital DNA is the highest level; Enabling is for organisations just starting digital transformation. They are sequential stages in any project.",
+        "Digital DNA refers to genomics data integration; Enabling refers to AI capability activation."
+      ],
+      "correct": 1,
+      "explanation": "Digital DNA and Autonomous are the two author-proposed extensions to Weill and Broadbent's original four-level framework. Digital DNA (NUDEDA Level 4, SMILE Maturity Level 4 — Networked Value) describes infrastructure that is self-describing and ontology-aware: the twin knows what it contains, can explain its own structure, and its accumulated knowledge has demonstrably improved outcomes in at least one other context beyond its origin. This is the 'cross-context' threshold. Enabling (Level 3) means AI augments decisions in the originating deployment with explainable outputs. The critical upgrade from Enabling to Digital DNA is not technical sophistication — it is cross-domain knowledge transfer. The twin at Digital DNA level has become infrastructure for others, not just for its creators.",
+      "phase": "nudeda",
+      "difficulty": "medium"
+    },
+    {
+      "id": 22,
+      "question": "A city government has deployed hundreds of sensors across its transport network and is collecting terabytes of data. After three years, the data sits largely unanalysed, operational decisions are still made by intuition, and there is significant stakeholder disagreement about what the data means. Which SMILE phase gap is most likely the root cause, and what should be done?",
+      "options": [
+        "Phase 5 gap — they need a better AI model to analyse the data automatically",
+        "Phase 4 gap — the dashboards need to be redesigned for better UX",
+        "Phase 1 and Phase 2 gap — the absence of a confirmed Reality Canvas and an explicit outcome-to-data chain means stakeholders have never agreed on what the data is supposed to answer. The solution is to stop adding sensors, create the Reality Canvas, and define the MVT with a Benefits Dependency Network before any further technical investment.",
+        "Phase 6 gap — they need to open-source their data to get community help analysing it"
+      ],
+      "correct": 2,
+      "explanation": "This scenario is the canonical SMILE anti-pattern: data-first deployment without impact-first design. The symptoms — stakeholder disagreement, unused data, intuition-driven decisions — are precisely the failure modes documented in Fuller et al. (2020) and traced to the 'wrong starting question.' The root cause is a Phase 1 gap (no shared reality canvas = no obligatory passage point around which stakeholders can organise) and Phase 2 gap (no MVT definition = no explicit connection between data and desired outcomes). Adding more AI (Phase 5 solution) to unframed data produces the same result at higher cost and speed. The Brynjolfsson productivity paradox applies: more technology without redesigning the work it serves produces no value gain. The correct intervention is to surface the Phase 1 and 2 work that was skipped.",
+      "phase": "applied",
+      "difficulty": "hard"
+    },
+    {
+      "id": 23,
+      "question": "A hospital has built a patient digital twin with real-time vital sign monitoring, predictive deterioration alerts, and an AI that recommends interventions. Clinicians frequently override the AI without recording why, and trust in the system is declining. Which SMILE framework element is missing, and what would fix it?",
+      "options": [
+        "The Phase 5 AI model needs retraining on more data to improve accuracy",
+        "The Crucible trust layer is missing or incomplete. Crucible requires that every AI output includes a source attribution, a confidence interval, and a causal chain explanation in domain language. Without this, clinicians cannot verify recommendations and override without engagement. Fix: implement full Crucible verification so every alert shows not just WHAT is recommended but WHY, traceable to specific data points.",
+        "The hospital should switch to a rules-based system instead of AI to increase predictability",
+        "The Phase 3 ontology needs to be rebuilt with more medical terminology"
+      ],
+      "correct": 1,
+      "explanation": "This is a Crucible failure. The Crucible trust layer governs every AI output in SMILE and enforces three requirements: (1) at the data level, every data point carries source, timestamp, confidence estimate, and validation status; (2) at the inference level, every AI output must be traceable to specific knowledge graph entries; (3) at the decision level, every recommendation must include a natural-language causal chain explanation that a clinician can verify or contest without technical intermediation. When clinicians override without recording why, it means the AI output is not providing the reasoning they need to engage with it — they reject the black box. The fix is not more training data; it is explainability architecture. SMILE states: 'An AI output that cannot be explained in domain language to a non-technical stakeholder has not passed the Crucible gate, regardless of its statistical accuracy.'",
+      "phase": "applied",
+      "difficulty": "hard"
+    },
+    {
+      "id": 24,
+      "question": "A manufacturing company successfully deployed a digital twin for energy optimisation in its main factory (reaching Phase 5 maturity). They now want to roll out the same twin to 12 other facilities across three countries. Which SMILE phase principle applies, and what is the key AEST operation they should leverage?",
+      "options": [
+        "Start from Phase 1 for each facility independently — each deployment must be treated as entirely new",
+        "Phase 6 (Perpetual Wisdom) applies — the existing twin's accumulated knowledge (calibrated energy models, validated ontology schemas, Phase 3 standards alignment) should transfer to subsequent deployments. The AEST operation to leverage is Transcend: reverse-engineer from the desired end state for all 12 facilities back to the minimal increment needed to accelerate each deployment, using the first twin's knowledge as the starting baseline.",
+        "Skip Phases 1–3 entirely for the new facilities since the methodology is already proven",
+        "Use Phase 5 AI directly on the new facilities' raw data — the trained model can generalise without additional phases"
+      ],
+      "correct": 1,
+      "explanation": "This scenario is precisely what Phase 6 (Perpetual Wisdom) and AEST's Transcend operation are designed for. The first twin has accumulated: calibrated energy models (validated SQMs), ontology schemas aligned to Haystack and Brick standards, MIMs implementation patterns, Phase 3 data governance templates, and lessons learned from Phase 1–4 failures. All of this transfers to subsequent deployments, which begin at a higher Phase 1 baseline than the original deployment did. Falsifiable Proposition 3 in the SMILE paper makes this claim explicit: Phase 6 deployments should show a statistically significant reduction in time to reach Phase 4 in their second deployment context. Transcend as a temporal operation means borrowing the sustainable multi-facility future and reverse-engineering the rollout path from there. The key practical implication: the cross-facility rollout team should document what transfers, what must be reparametrised, and what the shared ontology baseline looks like — these become the Phoenix Strategy artefacts.",
+      "phase": "applied",
+      "difficulty": "hard"
+    },
+    {
+      "id": 25,
+      "question": "A smart city project team has a strong technical team (excellent sensors, modern data platform, well-funded AI programme) but is struggling with adoption: departments won't share data, citizens distrust the system, and the elected council hasn't agreed on governance. Analysing this through all four SMILE perspectives, which perspective is most critically underdeveloped?",
+      "options": [
+        "From Planet — they need better GIS data and satellite imagery",
+        "From Systems — they need better API standards and data formats",
+        "From AI — they need better explainability in their AI models",
+        "From People — the Reality Canvas was never confirmed across communities, stakeholders were never genuinely enrolled as obligatory passage points, and governance (the legal/organisational MIM layer) was never established. The technical assets are sophisticated Phase 3–5 investments sitting on a missing Phase 1 foundation."
+      ],
+      "correct": 3,
+      "explanation": "This is the most common failure mode in public-sector digital twin programmes, and SMILE's four-perspective structure diagnoses it precisely. From Systems and From AI are well-developed (strong technical team, modern platform, AI programme). From Planet is adequate (sensor network exists). From People is the critical gap. Phase 1's exit criterion — Reality Canvas confirmed by all primary stakeholder communities — was never met. Departments who haven't agreed on data sharing have not been enrolled as obligatory passage points (ANT: without enrolment, no actor-network forms around the twin). Citizens who distrust the system were never enrolled as primary stakeholders during Phase 1's stakeholder mapping. The council's governance gap is a failure of the Legal/Organisational MIM layer, which is a Phase 3 deliverable that cannot be built without Phase 1 and 2 foundations. SMILE's ANT-grounded insight: the most expensive sensors in the world produce dashboards nobody checks if no actor-network has been organised around them.",
+      "phase": "applied",
+      "difficulty": "hard"
+    }
+  ]
+}
