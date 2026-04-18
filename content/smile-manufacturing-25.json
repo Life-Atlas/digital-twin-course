@@ -1,0 +1,366 @@
+{
+  "course": {
+    "id": "smile-manufacturing-25",
+    "title": "SMILE in Manufacturing & Industry 4.0 — 25 Questions",
+    "description": "Apply SMILE methodology to manufacturing, energy, industrial IoT, and Industry 4.0 contexts — from building energy optimisation to prescriptive maintenance, AI factories, and cross-facility knowledge transfer.",
+    "passingScore": 80,
+    "certificateTitle": "SMILE Manufacturing Domain Practitioner",
+    "version": "1.0",
+    "domains": ["manufacturing", "energy", "industry-4.0", "smart-buildings", "predictive-maintenance"],
+    "doi": "10.5281/zenodo.19646374",
+    "author": "Nicolas Waern, WINNIIO AB",
+    "license": "CC-BY-4.0"
+  },
+  "questions": [
+    {
+      "id": 1,
+      "question": "A manufacturing company wants to start a digital twin programme for their production facility. Their Head of IT says 'Let's connect all our machines to IoT sensors first, then we'll figure out the use cases.' What SMILE principle does this violate, and what should happen first?",
+      "options": [
+        "This violates Phase 5's AI factory deployment sequence — they should train AI models before sensors are deployed",
+        "This is the correct approach — sensor data enables discovery of unexpected use cases through analytics",
+        "This violates SMILE's impact-first principle. Before any sensor deployment, Phase 1 requires defining the desired outcome (what operational improvements are the target?) and Phase 2 requires defining the MVT — what is the minimum sensor coverage that delivers the identified outcome? Sensor deployment without outcome definition is the documented cause of 'data lakes that nobody drinks from.'",
+        "This violates Phase 3's ontology requirement — ontologies must be built before sensors are connected"
+      ],
+      "correct": 2,
+      "explanation": "SMILE's impact-first principle (Outcome → Action → Insight → Information → Data) is inverted by sensor-first deployment. The Brynjolfsson productivity paradox in manufacturing: organisations that added IoT sensors to existing operations without redesigning the work they were meant to serve produced dashboards their operators didn't use. SMILE's Phase 1 question is: what operational improvement are we trying to achieve, for whom, and how will we know we have achieved it? Phase 2 then defines the MVT as the minimum sensor coverage that answers the highest-priority outcome questions. In the SMILE corpus building energy case (Waern, 2025a, DOI: 10.5281/zenodo.17462962), the MVT was a single minimally instrumented room validated against published calibration standards — not the entire building portfolio. Scope was defined by outcome, not by available sensor budget.",
+      "phase": "phase-1",
+      "difficulty": "medium"
+    },
+    {
+      "id": 2,
+      "question": "What constitutes Phase 1's Reality Canvas in an industrial manufacturing context, and who must confirm it?",
+      "options": [
+        "A CAD drawing of the facility approved by the engineering team",
+        "A spatially grounded representation of the production system — factory layout, equipment positions, process flows, energy supply topology, and the key actors (operators, maintenance engineers, production managers, energy managers) — confirmed by at least two distinct stakeholder communities as accurately reflecting their understanding of the shared physical referent",
+        "A P&ID (Piping and Instrumentation Diagram) from the original facility design",
+        "A comprehensive BOM (Bill of Materials) for all production equipment"
+      ],
+      "correct": 1,
+      "explanation": "The Reality Canvas in manufacturing is not an engineering drawing — it is a shared understanding of the physical production reality anchored in 3D spatial context. The distinction matters because CAD drawings serve engineers, P&IDs serve process engineers, and neither is inherently understandable by operators or energy managers without translation. SMILE requires a representation that multiple communities can confirm simultaneously — this is the boundary object principle. Phase 1's exit criterion specifies: at least two distinct stakeholder communities must confirm the canvas reflects their understanding. In a factory context, this typically means operators (who know how the machines actually run, which differs from the design intent) and production managers (who see the process-level flow) both confirm the same representation. The Reality Canvas then becomes the single shared referent around which all subsequent technical and operational decisions are made.",
+      "phase": "phase-1",
+      "difficulty": "medium"
+    },
+    {
+      "id": 3,
+      "question": "In SMILE's Concurrent Engineering phase (Phase 2) for a predictive maintenance deployment, what is the Minimal Viable Twin and what defines 'minimal'?",
+      "options": [
+        "The MVT is the cheapest maintenance system available; 'minimal' means lowest cost",
+        "The MVT is a single asset type (e.g., a specific pump model) instrumented to detect the failure modes responsible for the highest downtime cost, validated virtually against historical failure data before physical sensor deployment. 'Minimal' is defined by the outcome chain — only the assets and sensor points required to answer the specific maintenance outcome question.",
+        "The MVT is a pilot deployment across 10% of assets selected randomly",
+        "The MVT is the minimum software system that passes the vendor's acceptance test"
+      ],
+      "correct": 1,
+      "explanation": "SMILE's MVT principle scopes the twin to the minimum that delivers the identified business value. In predictive maintenance, this means: (a) identify the failure modes responsible for the highest-cost unplanned downtime — not all failures, the highest-cost ones; (b) specify the sensor points and data streams that are causally predictive of those specific failure modes; (c) define the MVT as the minimum instrumentation of the minimum asset type that can demonstrate predictive capability for those specific failure modes. Virtual validation before physical deployment: test the predictive model against historical downtime records to verify signal-to-noise ratio before committing to sensor installation. In the SMILE buildings energy corpus case, the MVT was a single room with 3 temperature sensors and an occupancy sensor — not the 200-sensor full-building deployment proposed in the original scope. The scope reduction came directly from the Benefits Dependency Network: only one room's data was needed to validate the HVAC optimisation hypothesis.",
+      "phase": "phase-2",
+      "difficulty": "medium"
+    },
+    {
+      "id": 4,
+      "question": "What ontology standards are most relevant in Phase 3 of a manufacturing digital twin, and why does SMILE require ontology before AI?",
+      "options": [
+        "SQL table schemas are sufficient; modern AI handles semantic interpretation automatically",
+        "Haystack tagging and the Brick ontology are primary standards for building systems; ISO/IEC standards for equipment classification. Ontology before AI is mandatory because a machine learning model trained on untagged time series from a building HVAC system cannot distinguish whether a temperature deviation is a faulty sensor, an occupancy anomaly, or an equipment failure — without ontological context, all three look identical.",
+        "Each facility should develop its own proprietary ontology to protect competitive advantage",
+        "Ontology is only required for Phase 6 knowledge sharing; internal deployments can use raw data schemas"
+      ],
+      "correct": 1,
+      "explanation": "In manufacturing and building energy contexts, Haystack tagging and the Brick ontology provide the semantic layer that makes sensor data interpretable. A temperature reading becomes 'Supply air temperature from AHU-3 serving Zone B on Level 2' rather than 'tag_id: 7829 — value: 21.4.' The ontological context is what makes the following cross-domain query possible: 'Which rooms are consistently over-heated relative to their occupancy schedule?' (demonstrated in Waern, 2025a). Without ontology, answering this requires a data engineer to manually cross-reference three different tables. With ontology, it is a graph query. The 'ontology before AI' principle in manufacturing is not about bureaucracy — it is about the fact that prescriptive maintenance AI trained on properly ontologised data can explain its recommendations ('AHU-3 supply fan bearing is predicted to fail within 14 days based on vibration frequency shift pattern consistent with bearing wear in 23 similar past events'). AI trained on raw tag IDs cannot.",
+      "phase": "phase-3",
+      "difficulty": "medium"
+    },
+    {
+      "id": 5,
+      "question": "What does 'pace layering' mean in Phase 4 (Contextual Intelligence) of a manufacturing deployment, and why does it matter for operational technology (OT) and information technology (IT) integration?",
+      "options": [
+        "Pace layering means different network speeds for different systems — OT uses slower protocols than IT",
+        "Pace layering means different stakeholder communities interact with the twin at their natural temporal resolution: operators see seconds (real-time machine state), production managers see shifts/days (throughput, quality, downtime), energy managers see weeks/months (consumption trends, cost variance), strategy sees years (capex planning, production capacity). IT/OT integration matters because OT systems (SCADA, PLCs) generate data at millisecond resolution but business decisions happen at much longer time constants — the twin must serve both without conflict.",
+        "Pace layering is a network architecture pattern for separating corporate IT from production floor OT for security reasons",
+        "Pace layering means the digital twin project is delivered in multiple phases to match budget release cycles"
+      ],
+      "correct": 1,
+      "explanation": "Pace layering is one of SMILE Phase 4's key design principles. The originating concept (Brand, 1994) describes how complex systems have layers that change at different rates — in buildings, structure changes over centuries, services over decades, space plan over years, and furnishings over months. In manufacturing digital twins, the temporal resolution challenge is concrete: a SCADA system generates machine state data at 100ms intervals; a production manager wants to see shift performance; an energy manager wants monthly consumption trends; a CFO wants quarterly capacity utilisation. The digital twin must serve all of these from the same knowledge graph without the high-frequency data overwhelming the lower-frequency decision layers. IT/OT integration (SMILE Phase 4's 'interoperability alignment across layers') is the technical challenge of connecting OT systems (which were designed for real-time control, not data sharing) to IT systems (which were designed for data management, not real-time control) without creating security vulnerabilities or performance degradation in production systems.",
+      "phase": "phase-4",
+      "difficulty": "medium"
+    },
+    {
+      "id": 6,
+      "question": "A manufacturing facility has deployed a Phase 4 digital twin with real-time monitoring of 500 assets. The maintenance team wants to move from predictive to prescriptive maintenance. Which SMILE phase does prescriptive maintenance belong to, and what is the prerequisite?",
+      "options": [
+        "Prescriptive maintenance is a Phase 3 deliverable achievable as soon as sensors are connected",
+        "Prescriptive maintenance belongs to Phase 5 (Continuous Intelligence). The prerequisite is Phase 4 completion: anomaly detection baselines must be established, governance boundaries for autonomous recommendations must be agreed by operations and maintenance teams, and the AI system's recommendations must have been validated through Phase 4's AI-Infused stage (augmenting human decisions with explainable outputs) before autonomous prescriptions are activated.",
+        "Prescriptive maintenance is a Phase 2 deliverable defined in the MVT specification",
+        "Prescriptive maintenance can be deployed at any phase as long as the AI model is sufficiently accurate"
+      ],
+      "correct": 1,
+      "explanation": "Prescriptive maintenance — the twin prescribes interventions before failures occur, not just predicts them — is a Phase 5 capability because it requires the AI to autonomously generate actionable work orders within governance boundaries. The Phase 4 prerequisite is critical for safety: before any manufacturing AI system operates prescriptively (i.e., creates maintenance work orders without human initiation), SMILE requires that: (a) anomaly detection baselines have been established across all relevant assets (Phase 4 exit criterion); (b) governance boundaries have been formally agreed — which asset types can be prescribed for, what intervention types are within autonomous scope, what escalates to human review; (c) the prescriptive AI's recommendations have been validated against Phase 4 human-augmented decision records. The SMILE AI Journey maps this: AI-Infused (Phase 4 aligned) before AI-Ingrained (Phase 5). Skipping directly to prescriptive deployment without Phase 4 validation is the mechanism behind autonomous maintenance AI failures in critical production environments.",
+      "phase": "phase-5",
+      "difficulty": "hard"
+    },
+    {
+      "id": 7,
+      "question": "What are 'virtual sensors' in SMILE Phase 5, and when are they appropriate in a manufacturing context?",
+      "options": [
+        "Virtual sensors are augmented reality overlays that show operators simulated future machine states",
+        "Virtual sensors are model-generated estimates of unmeasured physical states, derived from calibrated physics models and correlated measured variables. They are appropriate when physical sensor installation is impossible (e.g., inside a running furnace), cost-prohibitive, or where the calibrated model has sufficient accuracy to fill the instrumentation gap within Crucible's confidence interval requirements.",
+        "Virtual sensors are software simulations used during development before hardware sensors are installed",
+        "Virtual sensors are IoT sensors installed in virtual reality environments for training purposes"
+      ],
+      "correct": 1,
+      "explanation": "Virtual sensors in SMILE Phase 5 are physics-model-derived estimates: the twin computes an unmeasured variable from a calibrated model of the physical system and correlated measured variables. Example in manufacturing: internal bearing temperature cannot be directly measured on a running production machine without stopping the line and drilling into the bearing housing. A virtual sensor computes bearing temperature from vibration signature, ambient temperature, load current, and a calibrated thermodynamic model of bearing friction. The Crucible requirement applies: every virtual sensor output must carry its confidence interval and the causal model that produced it. A virtual sensor with ±5% uncertainty is clinically acceptable for thermal management scheduling; the same uncertainty is not acceptable for safety-critical structural monitoring. SMILE Phase 5's governance boundaries must specify which decisions each virtual sensor's uncertainty level supports.",
+      "phase": "phase-5",
+      "difficulty": "hard"
+    },
+    {
+      "id": 8,
+      "question": "A production line has 5 years of sensor data but the maintenance team refuses to use the digital twin's AI recommendations. Analysis shows the team trusts their own experienced intuition over the AI. What does SMILE diagnose and prescribe?",
+      "options": [
+        "The maintenance team needs additional training and change management to overcome resistance",
+        "This is a Phase 1 enrolment failure — the maintenance team was never enrolled as primary stakeholders in Phase 1's Reality Canvas creation. Their operational knowledge was not incorporated into the system's design, so the AI's recommendations often contradict their experiential knowledge without explanation. SMILE prescribes: restart Phase 1 with maintenance staff as co-creators of the Reality Canvas, incorporate their failure mode knowledge into Phase 3's ontology, and rebuild the AI model with their expertise encoded in the knowledge graph.",
+        "The AI model needs to be retrained on 10 more years of data to match expert intuition",
+        "The maintenance team should be replaced with technicians who are more open to AI tools"
+      ],
+      "correct": 1,
+      "explanation": "This is the canonical Phase 1 ANT enrolment failure in industrial settings. ANT's four moments of translation: Problematisation (the digital twin was positioned as the solution to a problem the maintenance team wasn't asked to define), Interessement (the team was not shown how the twin serves their specific maintenance goals), Enrolment (without genuine interessement, there is no enrolment — the team never organised their work around the twin as an obligatory passage point), Mobilisation (consequently, recommendations don't mobilise action). The practical fix is not change management — it is retroactive Phase 1 work. Maintenance engineers have tacit knowledge of failure mode patterns that no data pipeline captures: 'That pump always sounds different when the downstream valve is partly closed' is a Phase 3 ontological element that only exists if maintenance staff were enrolled as knowledge contributors in Phase 1. Their resistance is not irrational — they have knowledge the AI doesn't, and the AI cannot explain why its recommendation differs from their experience because their experience was never encoded.",
+      "phase": "applied",
+      "difficulty": "hard"
+    },
+    {
+      "id": 9,
+      "question": "In SMILE's manufacturing context, what does the 'From Planet' perspective contribute at Phase 1, and how does it differ from what an environmental management system typically provides?",
+      "options": [
+        "From Planet adds carbon footprint calculations to the production dashboard",
+        "From Planet in manufacturing establishes the physical operating context that constrains the production system: local climate affecting thermal loads and HVAC energy demand, supply chain geography determining logistics carbon, material provenance affecting circular economy strategies, and spatial-temporal context anchoring the Reality Canvas to the plant's actual physical environment. This is not environmental reporting — it is the physics-based ground truth within which the production system operates.",
+        "From Planet provides ESG metrics for sustainability reporting to stakeholders",
+        "From Planet is handled by the EHS (Environmental Health and Safety) team and is outside the digital twin scope"
+      ],
+      "correct": 1,
+      "explanation": "The 'From Planet' perspective in manufacturing is grounded in the same epistemological principle as in healthcare: physical reality has properties that exist independently of any community's description of them, and those properties constrain what the production system can achieve. In manufacturing: ambient temperature and humidity affect thermal processes, material drying times, and HVAC energy consumption — these are first-class production variables, not environmental add-ons. Supply chain geography determines logistics emissions and inventory risk from climate events. The spatial position of the plant determines solar gain, wind exposure, and natural ventilation potential — all of which are energy modelling variables. An environmental management system (EMS) reports on environmental impacts; the 'From Planet' perspective makes environmental physics a first-class design input. The distinction: EMS describes what happened; From Planet determines what is possible.",
+      "phase": "perspective",
+      "difficulty": "medium"
+    },
+    {
+      "id": 10,
+      "question": "A manufacturer achieves Phase 5 (Continuous Intelligence) maturity with its AI factory running. What constitutes Phase 5's exit criterion, and what governance must be in place?",
+      "options": [
+        "Exit criterion: AI model achieves 95% prediction accuracy. Governance: ISO 27001 certification.",
+        "Exit criterion: the system identifies anomalies and generates actionable alerts without human initiation, within governance-approved boundaries, and at least one prescriptive intervention has been recommended and acted upon with documented outcome. Governance must include: defined asset types and intervention types within autonomous scope, escalation rules for out-of-scope events, and a human oversight mechanism that reviews autonomous decisions on a defined schedule.",
+        "Exit criterion: all planned sensors are connected and data is flowing continuously.",
+        "Exit criterion: the production team reports satisfaction with the AI recommendations."
+      ],
+      "correct": 1,
+      "explanation": "SMILE's Phase 5 exit criterion is deliberately outcome-oriented, not technical. 'The system identifies anomalies and generates actionable alerts without human initiation' — autonomous operation. 'Within governance-approved boundaries' — the governance specification is a Phase 5 entry criterion, not something figured out after deployment. 'At least one prescriptive intervention has been recommended and acted upon with documented outcome' — the loop must have closed at least once: the AI recommended an intervention, a human approved it, it was executed, and the outcome was measured and recorded. The governance requirements are non-negotiable for industrial AI safety: which assets can be autonomously maintained, which require human approval, which require engineering sign-off, and what happens when an anomaly falls outside the defined scope. Without these governance boundaries, Phase 5 autonomous operation in a manufacturing context is not safe deployment — it is uncontrolled experiment.",
+      "phase": "phase-5",
+      "difficulty": "medium"
+    },
+    {
+      "id": 11,
+      "question": "What does Omni-Interoperability mean in an Industry 4.0 manufacturing context, and how does SMILE's four-layer MIMs framework address it?",
+      "options": [
+        "Omni-Interoperability means connecting all machines to a single cloud platform via REST APIs",
+        "Omni-Interoperability means knowledge transfer between people, systems, and AI across four layers: Legal/Organisational (data ownership agreements between plants, divisions, suppliers), Semantic (shared ontology — Haystack, Brick, AAS), Syntactic (data format standards), and Technical (transport protocols: MQTT, REST, OPC-UA, 5G). SMILE's MIMs framework implements the minimum mechanisms across all four layers necessary for meaningful knowledge exchange.",
+        "Omni-Interoperability is a marketing term for full cloud integration",
+        "Omni-Interoperability refers to connecting IT and OT systems within a single factory"
+      ],
+      "correct": 1,
+      "explanation": "Omni-Interoperability is SMILE's architectural goal: knowledge transfer between people, systems, and AI regardless of whether they are human, machines, or autonomous agents. In Industry 4.0, the four layers have specific manufacturing manifestations. Legal/Organisational: data sharing agreements between a manufacturer and its tier-1 suppliers (who owns production data generated by a contractor's equipment in the manufacturer's facility?). Semantic: shared ontology using the Asset Administration Shell (AAS) standard for asset identity, Haystack for building systems, OPC-UA information models for machine communication. Syntactic: standardised data formats (ISA-95 for manufacturing operations management, B2MML for business-to-manufacturing). Technical: MQTT for IoT messaging, OPC-UA for machine communication, REST APIs for business system integration, 5G for mobile asset connectivity. SMILE Phase 3's MIMs implementation addresses all four layers. The INSPIRE Directive analogy: without shared ontology, every machine in a factory is an island — its data is technically accessible but semantically meaningless without bespoke integration for each pairing.",
+      "phase": "phase-3",
+      "difficulty": "hard"
+    },
+    {
+      "id": 12,
+      "question": "A steel manufacturer wants to apply SMILE to optimise energy consumption across three blast furnaces. Using SMILE's AEST framework, what does 'Simulate' enable that 'Emulate' alone cannot?",
+      "options": [
+        "Simulate enables real-time monitoring; Emulate is only for historical analysis",
+        "Simulate enables testing of energy optimisation interventions — changes to blast timing, heat recovery configurations, production scheduling — in a calibrated digital model before any physical changes are made. Emulate provides the current-state energy model; Simulate projects what the energy consumption would be under different operating scenarios, enabling virtual experimentation without production risk.",
+        "Simulate creates more accurate predictions than Emulate because it uses more data",
+        "Simulate and Emulate are interchangeable terms in manufacturing contexts"
+      ],
+      "correct": 1,
+      "explanation": "The Emulate/Simulate distinction is economically significant in heavy industry. Emulate (present-state): the digital twin continuously reflects the current operating state of the blast furnaces — actual energy consumption, temperature profiles, material flows, equipment states — calibrated against real measurements. This is Phase 4 capability. Simulate (forward-projection): using the calibrated Emulate model as the starting point, project what happens under different scenarios: 'If we shift the night-shift heat recovery cycle by 45 minutes to align with the off-peak electricity tariff window, what is the predicted energy cost reduction and what is the risk of thermal profile deviation?' Physical experimentation on a blast furnace costs hours of production downtime and risk of quality deviation. Virtual simulation on a calibrated digital model costs computation time. Phase 5's 'Simulate Everything' principle means every energy optimisation hypothesis is tested virtually before implementation — this is where the economic value of Phase 2's virtual-first commitment becomes fully apparent.",
+      "phase": "aest",
+      "difficulty": "medium"
+    },
+    {
+      "id": 13,
+      "question": "In SMILE's Phase 6 (Perpetual Wisdom) for a manufacturer with operations in 12 countries, what knowledge specifically transfers between factories, and what is the key governance requirement?",
+      "options": [
+        "The trained AI model weights transfer directly — all factories use the same model",
+        "Validated ontology schemas, calibrated physics model parameters (LQM/SQM configurations for specific equipment types), failure mode libraries with their ontological signatures, Phase 3 MIMs templates adapted for the specific standards context, and lessons-learned from Phase 1–4 deployments. Governance requirement: knowledge provenance must be maintained — which factory generated each knowledge artefact, what the validation evidence was, and what domain transfer conditions apply.",
+        "Raw sensor data from successful deployments transfers to seed training datasets for new factories",
+        "The software platform configuration transfers; knowledge transfer is handled by the vendor"
+      ],
+      "correct": 1,
+      "explanation": "Phase 6 knowledge transfer in manufacturing is the architectural mechanism for avoiding the 'wheel reinvention' cost at each new factory deployment. What transfers: (a) Ontology schemas — if 10 factories use the same Haystack+Brick+AAS schema, cross-factory queries work without renegotiation; (b) Calibrated physics model parameters — the LQM thermal model validated for a specific pump series contains generalised physics that applies to other installations of the same pump type, requiring only local calibration rather than ground-up model development; (c) Failure mode libraries — the ontological signature of bearing wear in a specific pump model (vibration frequency shift + temperature trend + current draw pattern) is transferable to other factories using the same equipment; (d) MIMs templates — the interoperability architecture pattern that works for IT/OT integration in Factory A should be a template for Factory B. Provenance is the governance requirement: each knowledge artefact must carry its origin, validation evidence, and transfer conditions (e.g., 'this thermal model was validated for 15–35°C ambient range; recalibrate for facilities outside this range').",
+      "phase": "phase-6",
+      "difficulty": "hard"
+    },
+    {
+      "id": 14,
+      "question": "A manufacturing company's production engineers question whether SMILE is necessary — they already have CRISP-DM for their data science projects and Agile for software development. What is SMILE's relationship to these methodologies?",
+      "options": [
+        "SMILE replaces both CRISP-DM and Agile — they are outdated approaches incompatible with digital twin thinking",
+        "SMILE is the lifecycle architecture envelope within which CRISP-DM and Agile operate as domain-specific methodologies: SMILE Phase 3 may invoke CRISP-DM for specific analytical workflows within the knowledge graph; SMILE Phase 5 may deliver AI factory capabilities through Agile sprints. SMILE provides the lifecycle structure (what must be built and in what sequence); CRISP-DM and Agile provide methods for specific activities within that structure.",
+        "SMILE and CRISP-DM are competitors — choose one based on whether the project is primarily a DT or analytics project",
+        "SMILE is for strategy; CRISP-DM and Agile are for execution — they operate at different levels and never interact"
+      ],
+      "correct": 1,
+      "explanation": "SMILE explicitly positions itself as a methodology envelope, not a replacement. The comparison with TRIZ and PRINCE2 is instructive: SMILE is to digital twin lifecycle what PRINCE2 is to project governance — neither tells you how to write code or analyse data, they tell you the lifecycle structure within which those activities must happen. Practically: SMILE Phase 2's MVT specification process might use Design Thinking techniques for hypothesis generation. SMILE Phase 3's data quality workflows might follow CRISP-DM's data preparation phases. SMILE Phase 5's AI factory deployment might use Agile sprints to deliver specific algorithm capabilities. The key difference from using CRISP-DM alone: CRISP-DM begins with 'Business Understanding' but immediately proceeds to data. CRISP-DM does not produce a Reality Canvas, does not require multi-community enrolment, and ends at deployment — it has no Phase 6 equivalent. A CRISP-DM project can exist within SMILE Phase 3–5; SMILE cannot be reduced to a CRISP-DM project.",
+      "phase": "comparison",
+      "difficulty": "medium"
+    },
+    {
+      "id": 15,
+      "question": "What is the 'Black Swan identification' capability in SMILE Phase 5, and why is it structurally different from standard predictive analytics?",
+      "options": [
+        "Black Swan identification is anomaly detection using statistical outlier algorithms on sensor data",
+        "Black Swan identification uses scenario simulation to explore tail-risk events that historical data does not represent — failures that have never happened in this specific facility but are physically possible given the system's properties. Standard predictive analytics extrapolates from historical patterns; Black Swan identification deliberately explores the possibility space beyond historical experience.",
+        "Black Swans are unpredictable by definition — SMILE acknowledges this and focuses only on predictable failure modes",
+        "Black Swan identification is a Phase 6 activity since it requires cross-domain knowledge accumulated over years"
+      ],
+      "correct": 1,
+      "explanation": "Nassim Taleb's Black Swan events — rare, high-impact events outside the range of historical experience — are by definition unpredictable from historical data extrapolation. Standard predictive analytics (which learns from historical failure patterns) cannot identify them. SMILE Phase 5's 'Simulate Everything' capability enables Black Swan identification through a different mechanism: calibrated physics-based simulation of the production system's possibility space, constrained by physical laws rather than historical patterns. If the calibrated LQM of a cooling system can simulate what happens at extreme thermal loads that have never been experienced (because climate change is producing them for the first time), it can identify failure modes before they occur in history. This requires Phase 3's ontological foundation (the model must have accurate physical parameters) and Phase 4's operational baselines (the simulation must start from a calibrated present state). A simulation model without calibration against the real system does not identify Black Swans — it generates fictional scenarios.",
+      "phase": "phase-5",
+      "difficulty": "hard"
+    },
+    {
+      "id": 16,
+      "question": "What does SMILE's 'edge-native' principle mean for an industrial manufacturer with production lines that cannot tolerate cloud connectivity interruptions?",
+      "options": [
+        "Edge-native means the manufacturer should build their own private cloud instead of using public cloud providers",
+        "Edge-native means the digital twin's full operational capability — monitoring, anomaly detection, prescriptive recommendations, simulation — operates on local edge hardware without cloud dependency. Cloud connectivity enhances but does not enable basic operation. Production-critical decisions never wait for a network response. This is data sovereignty as an architectural commitment: the manufacturing intelligence stays on the factory floor.",
+        "Edge-native means using 5G instead of ethernet for machine connectivity",
+        "Edge-native is aspirational — current AI capabilities require cloud scale and cannot be replicated at the edge"
+      ],
+      "correct": 1,
+      "explanation": "SMILE's edge-native architecture principle — 'edge capabilities same as the cloud' — is most consequential for manufacturing environments where production availability requirements (99.9% uptime) are incompatible with cloud-dependent decision systems. In practice: the SQM (Small Quantitative Model) suite for predictive maintenance, the anomaly detection algorithms, the prescriptive recommendation engine, and the operator-facing query interface all run on local edge infrastructure (edge servers, industrial PCs, programmable logic computers). Cloud connectivity is used for: model parameter updates, cross-facility knowledge synchronisation, long-term data archive, and executive reporting. Not for: real-time operational decisions. A network outage at the ISP level should produce no operational impact on the factory floor's digital twin capabilities. This is increasingly not aspirational — NVIDIA's industrial edge compute platforms, Siemens' Industrial Edge, and Rockwell Automation's SCADA/DCS architectures all support this model.",
+      "phase": "architecture",
+      "difficulty": "medium"
+    },
+    {
+      "id": 17,
+      "question": "A manufacturing CISO is concerned about deploying a digital twin connected to production OT systems. How does SMILE's Phase 3 address security, and what is the MIMs Sovereign layer in this context?",
+      "options": [
+        "SMILE addresses security only at Phase 5 after the system is operational",
+        "SMILE's Phase 3 requires the data governance architecture and access control schema to be specified before the first external actor contributes knowledge to the twin. The MIMs Sovereign layer implements: data ownership definitions (who owns production data generated by contractor equipment), access control schema (role-based access to specific knowledge graph segments), audit logging, and the governance boundary between IT and OT networks. Security is a Phase 3 deliverable, not a Phase 5 retrofit.",
+        "Security is a separate track handled by the CISO team independently of the digital twin project",
+        "The MIMs Sovereign layer is about GDPR compliance for employee personal data only"
+      ],
+      "correct": 1,
+      "explanation": "SMILE's 'security by design' principle mirrors its 'interoperability by design' principle: both are Phase 3 deliverables, not post-deployment retrofits. In manufacturing OT contexts, the MIMs Sovereign layer has specific security implications: (a) data ownership definitions — production data is often generated at the intersection of the manufacturer's process and a machine vendor's equipment; who owns the twin's knowledge graph? (b) OT/IT boundary governance — which data flows from OT (SCADA, PLCs, DCS) to IT (the knowledge graph), through what protocol, with what security inspection, and what is the reverse flow permitted? (c) third-party access control — supplier engineers accessing maintenance telemetry for their equipment should have time-limited, role-scoped tokens that the manufacturer's security team can revoke. The alternative — designing security after the knowledge graph architecture is built — is the retrofit trap: security architecture that constrains the knowledge flows it was supposed to protect, requiring expensive rearchitecting to make the twin secure without breaking its functionality.",
+      "phase": "phase-3",
+      "difficulty": "medium"
+    },
+    {
+      "id": 18,
+      "question": "A factory reaches Phase 4 (Contextual Intelligence). An operator queries: 'Why is Line 3 consuming 23% more energy than Line 2 this shift, even though they're running the same product?' What must the twin be able to do, and what knowledge graph structure makes this query answerable?",
+      "options": [
+        "The twin retrieves raw energy consumption data from both lines and displays it side by side",
+        "The twin must perform root cause analysis — tracing the 23% variance backward through the knowledge graph's causal chain to its probable origin (e.g., AHU-7 serving Line 3 is running with a 15% filter pressure drop above baseline, increasing fan energy draw by 18%, with the remaining 5% attributable to Line 3's older conveyor motors). This requires Phase 3's ontological structure: energy meters linked to equipment entities, equipment entities linked to maintenance state, maintenance state linked to calibration records.",
+        "The twin averages the two lines' energy consumption and flags the deviation for manual investigation",
+        "The twin displays all available sensor readings from both lines and lets the operator identify the cause manually"
+      ],
+      "correct": 1,
+      "explanation": "Phase 4's Contextual Intelligence means the twin understands not just WHAT is happening but WHY — this is the definitional distinction from Phase 3. The root cause analysis capability requires the Phase 3 ontological structure: a knowledge graph where energy consumption data is linked to the specific equipment entities consuming it, which are linked to their maintenance state (filter pressure, bearing condition, motor efficiency curves), which are linked to their calibration history and baseline performance specifications. The query 'Why is Line 3 consuming more energy?' traverses this graph: energy meter → AHU entity → filter entity → pressure sensor → current pressure reading → baseline pressure specification → deviation calculation → causal hypothesis. Without the ontological links, the query requires a data engineer to manually join multiple tables. With the ontological structure, it is a graph traversal that an operator interface can surface in natural language. This is also a Crucible compliance demonstration: the twin's answer must show the causal chain, not just the conclusion.",
+      "phase": "applied",
+      "difficulty": "hard"
+    },
+    {
+      "id": 19,
+      "question": "What is the NUDEDA 'Autonomous' level in manufacturing, and what distinguishes it from 'Digital DNA'?",
+      "options": [
+        "Autonomous means fully robot-operated factories with no human workers; Digital DNA means factories with digital records for all assets",
+        "Autonomous (NUDEDA Level 5, SMILE Level 5) means the digital twin infrastructure adapts its own configuration in response to observed outcomes within governance boundaries — the twin updates its own models, proposes ontology extensions, and recalibrates its own parameters based on outcome feedback. Digital DNA (Level 4) means the twin is self-describing and its knowledge demonstrably improves outcomes in other contexts, but it does not yet adapt its own scope.",
+        "Autonomous and Digital DNA are both proposed author extensions to Weill and Broadbent's framework; they describe the same phenomenon at different investment scales",
+        "Autonomous means the manufacturing plant can operate without external IT support; Digital DNA means the plant has documented all its digital assets"
+      ],
+      "correct": 1,
+      "explanation": "The Digital DNA / Autonomous distinction in NUDEDA is the SMILE maturity model's highest-resolution level. Digital DNA (Level 4, Networked Value): the twin is self-describing — it knows what it contains and can explain its own structure to other systems. Its knowledge has demonstrated cross-context value: a failure mode signature learned in one factory has demonstrably improved outcomes in another. The twin is an asset that generates value beyond its origin. Autonomous (Level 5, Adaptive System): the twin evolves its own scope — it identifies gaps in its own knowledge model, proposes new sensor points or ontology extensions, updates its own model parameters based on outcome feedback, and adjusts its own governance rules in response to observed edge cases — all within human-defined boundaries and with full audit trail. In manufacturing: an Autonomous twin that detects that its bearing failure model is systematically underperforming on a new pump series can propose a model update, document the evidence for the proposal, and implement it after human approval, without requiring a data science team intervention.",
+      "phase": "nudeda",
+      "difficulty": "hard"
+    },
+    {
+      "id": 20,
+      "question": "A manufacturing company's digital twin team is divided: the data science team wants to deploy a large foundation model for production optimisation; the engineering team insists physics-based models are more reliable. How does SMILE resolve this debate?",
+      "options": [
+        "SMILE recommends foundation models for all manufacturing AI as they are more general-purpose",
+        "SMILE resolves the debate with the LQM/LLM distinction: for systems governed by physical laws (heat transfer, fluid dynamics, mechanical stress, chemical reactions), LQMs (physics-based simulation from first principles) are the appropriate AI regime — they produce interpretable outputs with explicit uncertainty intervals. Foundation models (LLMs) serve as communication interfaces (natural language queries, narrative output). LLMs must not be asked to simulate physics — they cannot honour the laws of thermodynamics.",
+        "SMILE recommends the data science team's approach since more data always produces better results",
+        "SMILE is neutral on model selection — it is a methodology, not an AI architecture framework"
+      ],
+      "correct": 1,
+      "explanation": "This is SMILE's LQM > LLM principle applied to manufacturing. Physics-based models for physics-governed systems is not a preference — it is an epistemological requirement. A large language model trained on industrial text data (maintenance manuals, engineering reports, failure case studies) can generate plausible-sounding maintenance recommendations. But 'plausible-sounding' and 'physically accurate' are different properties. A thermal stress simulation requires computing heat transfer coefficients from material properties and boundary conditions — this requires a physics model, not a language model. The Crucible layer enforces this: an LLM output about bearing lifetime cannot provide the explicit uncertainty interval that a physics-based fatigue model can. In high-stakes manufacturing contexts — nuclear, chemical, aerospace — the difference between 'plausible' and 'accurate with known uncertainty bounds' is the difference between compliant operation and regulatory violation. LLMs have a legitimate role: translating the LQM's output into an operator-readable work order, accepting natural language queries from non-technical users, synthesising narrative summaries of system state. They must not replace the physics model.",
+      "phase": "ai-model-selection",
+      "difficulty": "hard"
+    },
+    {
+      "id": 21,
+      "question": "What is the Crucible trust layer's specific role when a manufacturing AI recommends an unplanned maintenance shutdown of a critical production asset?",
+      "options": [
+        "Crucible automatically approves shutdowns below a cost threshold and flags those above for human review",
+        "Crucible requires that the shutdown recommendation is traceable to its source data (specific sensor readings with timestamps), causal chain (the physics model's reasoning path from sensor data to failure prediction), confidence interval (predicted probability of failure within the specified time window), and that this is presented in language a production engineer can evaluate without data science intermediation. The engineer confirms or overrides with their reasoning recorded.",
+        "Crucible logs the recommendation for audit purposes but does not affect the decision process",
+        "Crucible is only active at Phase 6 — earlier phases operate without it"
+      ],
+      "correct": 1,
+      "explanation": "In manufacturing, an unplanned maintenance shutdown of a critical asset can cost $50,000–$500,000 per hour in lost production. A recommendation to shut down must be defensible at that cost level. Crucible's three levels in this context: (a) Data level — the specific sensor readings that triggered the recommendation are displayed with their timestamps, calibration status, and provenance: 'Vibration sensor VS-247 on Pump P-103, reading 8.7 mm/s at 14:23:07, calibrated 14 days ago, baseline 2.1 mm/s, upper alarm threshold 7.5 mm/s exceeded for 47 minutes'; (b) Inference level — the causal chain from the sensor reading to the recommendation: 'Pattern matches bearing inner race failure signature in 23 of 23 historical cases in the failure mode library'; (c) Decision level — the recommendation in production engineering language: 'Probability of bearing failure within the next 6-hour shift estimated at 85% (95% CI: 71–94%). Recommended intervention: scheduled controlled shutdown within 2 hours to replace bearing assembly. Consequence of no action: catastrophic failure with estimated production loss of $180,000 plus repair cost.' The production engineer can confirm with one click or override with documented reasoning.",
+      "phase": "crucible",
+      "difficulty": "hard"
+    },
+    {
+      "id": 22,
+      "question": "A SMILE deployment for industrial energy management wants to achieve ISO 50001 energy management system certification. How do SMILE's phases map to ISO 50001's PDCA cycle?",
+      "options": [
+        "They do not map — SMILE and ISO 50001 are incompatible frameworks and cannot be used together",
+        "SMILE's phases are the implementation methodology for ISO 50001's PDCA: Phase 1–2 (Plan — energy review, baseline, objectives), Phase 3–4 (Do — implement energy management plans, monitoring), Phase 4–5 (Check — monitoring, measurement, analysis, audits), Phase 5–6 (Act — corrective action, management review, continual improvement). SMILE produces the evidence and knowledge graph artefacts that ISO 50001 auditors verify.",
+        "SMILE replaces ISO 50001 — companies using SMILE do not need ISO certification",
+        "ISO 50001 handles all energy management requirements; SMILE adds no value in certified organisations"
+      ],
+      "correct": 1,
+      "explanation": "ISO 50001's PDCA cycle maps directly to SMILE's phase logic, which is one reason SMILE deployments are naturally compliance-aligned. Plan: ISO 50001 requires energy review (understanding current energy use and consumption) and identification of significant energy users — this is Phase 1 (Reality Canvas establishing energy topology) and Phase 2 (MVT scoped around significant energy users). Do: implementing energy management plans and operational controls — Phase 3 (sensor deployment, KPI establishment) and Phase 4 (connected everything, real-time monitoring). Check: monitoring, measurement, and analysis; internal audits — Phase 4 (contextual intelligence providing real-time consumption visibility) and Phase 5 (AI-driven anomaly detection and root cause analysis). Act: corrective and preventive actions, continual improvement — Phase 5 (prescriptive recommendations) and Phase 6 (knowledge transfer of validated energy optimisation patterns). The practical benefit: a SMILE Phase 3 knowledge graph with properly provenance-tracked energy data is the evidence base that ISO 50001 auditors need, already structured in the format they can verify.",
+      "phase": "applied",
+      "difficulty": "medium"
+    },
+    {
+      "id": 23,
+      "question": "A manufacturing conglomerate runs 50 factories globally. Each factory's digital twin team has developed their own ontology independently. The CTO wants cross-factory knowledge sharing. What is the SMILE diagnosis and what does Phase 6 prescribe?",
+      "options": [
+        "Each factory's ontology is valid for local use; cross-factory sharing requires a data warehouse to normalise the schemas",
+        "This is a MIMs Semantic layer failure at scale. Phase 6's cross-industry knowledge transfer capability requires Phase 3 ontological alignment as a prerequisite. SMILE prescribes: (a) audit all 50 ontologies for convergence on shared standards (Haystack, Brick, AAS); (b) establish a shared semantic layer — a core ontology that all factory-specific ontologies map to; (c) implement Phoenix Strategy governance for ontology evolution so future changes are coordinated. Phase 6's perpetual knowledge base is only possible if Phase 3 ontologies are interoperable.",
+        "The CTO should mandate one vendor platform across all factories to solve the ontology problem",
+        "Cross-factory knowledge sharing requires only data format standardisation, not ontology alignment"
+      ],
+      "correct": 1,
+      "explanation": "This scenario illustrates the cumulative cost of Phase 3 fragmentation at scale. Fifty independently developed ontologies in a single conglomerate means: a failure mode detected in Factory 7 cannot be cross-referenced with similar failure events in Factory 23, even if they involve identical equipment, because 'Pump' in one ontology does not link to 'CentrifugalPump' in another. The MIMs Semantic layer failure means knowledge is siloed precisely where the organisation needs it to flow. SMILE's Phase 6 prescription here is retroactive Phase 3 alignment: conduct an ontology audit across all 50 factories, identify the common equipment classes and process types, establish the shared semantic core that all factory ontologies must map to (AAS for asset identity, Haystack+Brick for building systems, ISA-95 for manufacturing operations), and implement governance for future ontology evolution. The Phoenix Strategy element: when factories undertake maintenance overhauls or system upgrades, ontology alignment is a mandatory scope element — not an optional enhancement. Each aligned factory becomes part of the knowledge network; each unaligned factory remains an island.",
+      "phase": "applied",
+      "difficulty": "hard"
+    },
+    {
+      "id": 24,
+      "question": "What does SMILE's 'From AI' perspective specifically require at Phase 3 in a manufacturing context, and why does it differ from what the IT team would specify?",
+      "options": [
+        "From AI at Phase 3 specifies the AI vendor and model selection — this is the same as what IT specifies",
+        "From AI at Phase 3 specifies: AI Act compliance classification for each AI use case (predictive maintenance is high-risk under certain conditions), explainability requirements per use case (which AI outputs require Crucible-level traceability vs. which can be statistical summaries), trust boundary definitions (which decisions the AI can make autonomously vs. which require human confirmation), and the ontology requirements from the AI's perspective (what knowledge graph structure does the AI need to reason over, not just what structure is technically convenient). IT specifies infrastructure; From AI specifies epistemology.",
+        "From AI at Phase 3 is identical to From Systems — both deal with technical architecture",
+        "From AI at Phase 3 is about hiring data scientists, not technical architecture"
+      ],
+      "correct": 1,
+      "explanation": "The 'From AI' perspective is distinct from 'From Systems' precisely because AI agents have different requirements than conventional software systems. From Systems specifies: what standards, what protocols, what schemas. From AI specifies: what knowledge structure does the AI need to reason reliably, what does it need to explain its conclusions, and what governance constraints does autonomous operation require. In manufacturing: the AI Act (EU, 2024) classifies AI systems used in safety-related decision-making (including some predictive maintenance applications) as high-risk, requiring technical documentation, human oversight mechanisms, and accuracy transparency. From AI at Phase 3 must specify which use cases fall under this classification and what additional ontology documentation is required (the AI Act mandates that high-risk AI systems' training data and model limitations be documented and queryable). The IT team does not ask 'what does the AI need to know to be explainable?' — they ask 'what data does the system need to be functional?' These are different questions with different Phase 3 implications.",
+      "phase": "perspective",
+      "difficulty": "hard"
+    },
+    {
+      "id": 25,
+      "question": "A supply chain manager says SMILE is appropriate for factories but not for the supply chain because supply chain problems are too complex and dynamic for a methodology designed for physical assets. How does SMILE respond?",
+      "options": [
+        "SMILE agrees — supply chain management requires specialised supply chain methodologies like SCOR",
+        "SMILE's universality claim applies directly: a supply chain is a sociotechnological ecosystem that (a) operates in physical reality (goods in physical locations at specific times), (b) has human actors whose alignment determines value delivery, (c) requires systems interoperability across organisational boundaries, (d) operates in a planetary context (climate disruption, geopolitical risk, logistics geography), and (e) benefits from AI-driven scenario simulation (Black Swan supply chain events). Phase 1's Reality Canvas for a supply chain is the supplier-to-customer network mapped in 3D spatial-temporal context. Phase 6's cross-domain knowledge transfer enables supply chain resilience patterns from one disruption to inform future disruption response.",
+        "SMILE acknowledges this limitation and positions itself for single-facility deployments only",
+        "Supply chain management is a Phase 6 activity in SMILE — it is appropriate only after the manufacturing twin reaches full maturity"
+      ],
+      "correct": 1,
+      "explanation": "The supply chain challenge is precisely where SMILE's universality claim is most testable. SPIN twinning in a supply chain context: Space (the physical locations of production facilities, distribution centres, logistics routes, and their geographic risk exposure), Place (the organisational meaning of those spatial elements — the supplier relationship, the contract boundary, the regulatory jurisdiction), Interaction (the ongoing exchange of purchase orders, delivery confirmations, quality reports, and risk signals between supply chain actors), Network (the ecosystem of interdependent supply chain actors within which any single company's supply chain is embedded). Phase 1's Reality Canvas for a supply chain is not a factory floor plan — it is a spatial-temporal map of the entire supply network with each node and link as a canonical entity. Phase 3's ontology for supply chain includes: ISO 28000 (supply chain security management), GS1 EPCIS (event tracking), and domain-specific risk ontologies. Phase 5's Black Swan identification is where supply chain simulation pays its highest dividend: exploring tail-risk scenarios (port closure, climate event, geopolitical disruption) that historical supply chain data does not represent.",
+      "phase": "applied",
+      "difficulty": "hard"
+    }
+  ]
+}
