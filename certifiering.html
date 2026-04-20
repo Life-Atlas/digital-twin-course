@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="sv" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certifiering — Digital Tvilling Professional | Nicolas Waern</title>
+    <meta name="description" content="Skaffa ett Digital Tvilling-certifikat från en praktiker med 25+ år och 7 branschvertikaler. Självstudier, praktikerassessment eller företagsprogram för team.">
+    <meta property="og:title" content="Digital Tvilling Certifieringar | Nicolas Waern">
+    <meta property="og:description" content="Bevisa din Digital Tvilling-kompetens. Tre nivåer — grunder, praktiker, företag. Direkta PDF-certifikat baserade på S.M.I.L.E.-metodiken.">
+    <meta property="og:type" content="website">
+
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@graph":[
+      {"@type":"Organization","@id":"https://life-atlas.github.io/digital-twin-course/#org","name":"Winniio AB","url":"https://life-atlas.github.io/digital-twin-course/"},
+      {"@type":"Person","@id":"https://life-atlas.github.io/digital-twin-course/#person","name":"Nicolas Waern","jobTitle":"Digital Twin Expert & VD"},
+      {"@type":"OfferCatalog","name":"Digital Tvilling Certifieringar","itemListElement":[
+        {"@type":"Offer","itemOffered":{"@type":"Course","name":"Digital Tvilling Grundcertifikat","description":"Självstudier, quizbaserad certifiering. Omedelbart PDF-certifikat vid godkänt."},"price":"1490","priceCurrency":"SEK"},
+        {"@type":"Offer","itemOffered":{"@type":"Course","name":"Digital Tvilling Praktikercertifikat","description":"Inkluderar 1 timmes konsultation med Nicolas plus strukturerat assessment."},"price":"4990","priceCurrency":"SEK"},
+        {"@type":"Offer","itemOffered":{"@type":"Course","name":"Företagscertifiering","description":"Upp till 10 personer. Workshop plus certifiering för alla deltagare."},"price":"24900","priceCurrency":"SEK"}
+      ]}
+    ]}
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: { 50:'#fdf8e8',100:'#f9edc4',200:'#f3db8a',300:'#ebc54f',400:'#d4a832',500:'#c9a84c',600:'#a8872a',700:'#876a1e',800:'#6b5318',900:'#4a3a11' },
+                        dark: { 50:'#f5f5f5',100:'#e0e0e0',200:'#bdbdbd',300:'#9e9e9e',400:'#757575',500:'#616161',600:'#424242',700:'#1e1e1e',800:'#141414',900:'#0a0a0a',950:'#050505' }
+                    },
+                    fontFamily: { 'display': ['Playfair Display','serif'], 'body': ['Inter','sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Playfair Display', serif; }
+        .gradient-text { background: linear-gradient(135deg, #c9a84c 0%, #f3db8a 50%, #c9a84c 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .gold-glow { box-shadow: 0 0 60px rgba(201,168,76,0.15), 0 0 120px rgba(201,168,76,0.05); }
+        .card-hover { transition: all 0.4s cubic-bezier(0.4,0,0.2,1); }
+        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 0 40px rgba(201,168,76,0.15); }
+        .grid-bg { background-image: linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px); background-size: 60px 60px; }
+        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .pricing-featured { background: linear-gradient(180deg, rgba(201,168,76,0.08) 0%, rgba(10,10,10,1) 100%); border: 1px solid rgba(201,168,76,0.3); }
+        .scroll-progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, #c9a84c, #f3db8a); z-index: 100; transition: width 0.1s linear; }
+        .cert-badge { background: rgba(201,168,76,0.06); border: 1px solid rgba(201,168,76,0.15); }
+        .cert-ribbon { background: linear-gradient(135deg, #c9a84c, #f3db8a); }
+    </style>
+</head>
+<body class="bg-dark-900 text-white antialiased grid-bg">
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ========== NAV ========== -->
+<nav class="fixed top-0 w-full z-50 bg-dark-900/80 backdrop-blur-xl border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+        <a href="index.html" class="font-display text-xl font-bold gradient-text">Nicolas Waern</a>
+        <div class="hidden md:flex items-center gap-8 text-sm text-dark-300">
+            <a href="index.html" class="hover:text-gold-400 transition-colors">Hem</a>
+            <a href="tjanster.html" class="hover:text-gold-400 transition-colors">Tjänster</a>
+            <a href="certifiering.html" class="text-gold-400 transition-colors">Certifiering</a>
+            <a href="forelasningar.html" class="hover:text-gold-400 transition-colors">Föreläsningar</a>
+            <a href="certify.html" class="hover:text-gold-400 transition-colors">
+                <span class="text-xs border border-white/20 px-2 py-0.5 rounded">EN</span>
+            </a>
+            <a href="book.html" class="hover:text-gold-400 transition-colors">Boka</a>
+        </div>
+        <a href="#certifieringar" class="bg-gold-500 hover:bg-gold-400 text-dark-950 font-semibold text-sm px-5 py-2 rounded-lg transition-all">Bli Certifierad</a>
+    </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section class="relative pt-32 pb-20 sm:pt-44 sm:pb-32 overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[900px] h-[900px] rounded-full bg-gold-500/5 blur-[140px]"></div>
+    </div>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
+        <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase fade-in">Professionella Certifieringar</span>
+
+        <h1 class="font-display text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight mt-6 mb-8 fade-in">
+            Bevisa vad du<br><span class="gradient-text">faktiskt kan.</span>
+        </h1>
+
+        <p class="text-dark-200 text-lg sm:text-xl max-w-2xl mx-auto mb-6 leading-relaxed fade-in">
+            Certifieringar grundade i verklig S.M.I.L.E.-metodik — inte leverantörsmarknadsföring. Från självstudier till företagsprogram för hela team.
+        </p>
+
+        <p class="text-dark-300 text-base max-w-xl mx-auto mb-12 leading-relaxed fade-in">
+            Utfärdat av en praktiker med 25+ år i 7 branschvertikaler. Erkänt inom byggnader, sjukvård, tillverkning, smarta städer och bortom.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 fade-in">
+            <a href="#certifieringar" class="bg-gold-500 hover:bg-gold-400 text-dark-950 font-bold px-8 py-4 rounded-xl transition-all hover:shadow-lg hover:shadow-gold-500/20 text-lg">
+                Se Program
+            </a>
+            <a href="#vad-du-far" class="border border-white/20 hover:border-gold-400 text-white font-semibold px-8 py-4 rounded-xl transition-all text-lg">
+                Vad Ingår
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ========== TRUST STRIP ========== -->
+<section class="border-y border-white/5 py-8 bg-dark-800/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div class="fade-in">
+                <div class="text-3xl font-bold gradient-text">25+</div>
+                <div class="text-dark-400 text-sm mt-1">Års praktikererfarenhet</div>
+            </div>
+            <div class="fade-in">
+                <div class="text-3xl font-bold gradient-text">7</div>
+                <div class="text-dark-400 text-sm mt-1">Branschvertikaler</div>
+            </div>
+            <div class="fade-in">
+                <div class="text-3xl font-bold gradient-text">S.M.I.L.E.</div>
+                <div class="text-dark-400 text-sm mt-1">Proprietär metodik</div>
+            </div>
+            <div class="fade-in">
+                <div class="text-3xl font-bold gradient-text">PDF</div>
+                <div class="text-dark-400 text-sm mt-1">Direkt certifikatleverans</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== WHAT YOU GET ========== -->
+<section id="vad-du-far" class="py-20 sm:py-28">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+            <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase">Varför Denna Certifiering</span>
+            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">
+                Inte ett leverantörsmärke.<br><span class="gradient-text">En praktikers stämpel.</span>
+            </h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 fade-in">
+            <div class="cert-badge rounded-2xl p-7 card-hover">
+                <div class="w-12 h-12 rounded-xl bg-gold-500/10 flex items-center justify-center mb-5">
+                    <svg class="w-6 h-6 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"/>
+                    </svg>
+                </div>
+                <h3 class="font-semibold text-lg mb-3">Metodikbaserad</h3>
+                <p class="text-dark-300 text-sm leading-relaxed">Varje fråga mappas till ett verkligt implementeringsbeslut inom S.M.I.L.E.-ramverket — Sense, Model, Integrate, Learn, Execute. Ingen trivia, ingen utantillärning.</p>
+            </div>
+
+            <div class="cert-badge rounded-2xl p-7 card-hover">
+                <div class="w-12 h-12 rounded-xl bg-gold-500/10 flex items-center justify-center mb-5">
+                    <svg class="w-6 h-6 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/>
+                    </svg>
+                </div>
+                <h3 class="font-semibold text-lg mb-3">Branschigenkänt</h3>
+                <p class="text-dark-300 text-sm leading-relaxed">Nicolas är Oxford Guest Lecturer, Digital Twin Consortium Co-Chair och rådgivare till Energimyndigheten. Ditt certifikat bär den trovärdigheten.</p>
+            </div>
+
+            <div class="cert-badge rounded-2xl p-7 card-hover">
+                <div class="w-12 h-12 rounded-xl bg-gold-500/10 flex items-center justify-center mb-5">
+                    <svg class="w-6 h-6 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
+                    </svg>
+                </div>
+                <h3 class="font-semibold text-lg mb-3">Direkt PDF-leverans</h3>
+                <p class="text-dark-300 text-sm leading-relaxed">Grund- och praktikercertifikat levereras som ett varumärkt PDF inom minuter efter genomfört assessment. Dela på LinkedIn samma dag.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== CERTIFICATION TIERS ========== -->
+<section id="certifieringar" class="py-20 sm:py-28 bg-dark-800/20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+            <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase">Tre Nivåer</span>
+            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">
+                Välj din<br><span class="gradient-text">ingångspunkt.</span>
+            </h2>
+            <p class="text-dark-300 text-lg max-w-xl mx-auto">
+                Individ eller team, självstudier eller guidad — det finns ett program byggt för din situation.
+            </p>
+        </div>
+
+        <div class="grid sm:grid-cols-1 lg:grid-cols-3 gap-6 fade-in">
+
+            <!-- Grundcertifikat -->
+            <div class="bg-dark-800/60 rounded-2xl border border-white/5 p-7 card-hover flex flex-col">
+                <div class="mb-5">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center flex-shrink-0">
+                            <svg class="w-5 h-5 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="text-xs text-dark-400 font-semibold tracking-widest uppercase">Nivå 1</span>
+                            <h3 class="font-display text-xl font-bold">Grundcertifikat</h3>
+                        </div>
+                    </div>
+                    <p class="text-dark-400 text-sm mb-6">Självstudier, quizbaserat. Täcker grundläggande Digital Tvilling-koncept, S.M.I.L.E.-faserna och branschapplikationer i 7 vertikaler.</p>
+                </div>
+
+                <div class="mb-6">
+                    <div class="flex items-baseline gap-1">
+                        <span class="text-4xl font-bold">1 490</span>
+                        <span class="text-dark-400 text-sm ml-1">SEK</span>
+                        <span class="text-dark-500 text-sm ml-1">engångskostnad</span>
+                    </div>
+                </div>
+
+                <ul class="space-y-3 mb-8 flex-1">
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-200 text-sm">40-frågors bevakat quiz</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-200 text-sm">S.M.I.L.E.-ramverksgenomgång</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-200 text-sm">Direkt varumärkt PDF-certifikat</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-200 text-sm">LinkedIn-delbart certifikat</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-200 text-sm">2 omtagsförsök ingår</span>
+                    </li>
+                </ul>
+
+                <a href="https://buy.stripe.com/PLACEHOLDER_FOUNDATIONS" target="_blank" rel="noopener noreferrer"
+                   class="block w-full border border-gold-500/40 hover:bg-gold-500/10 text-gold-400 font-bold py-3 rounded-xl transition-all text-center text-sm mt-auto">
+                    Anmäl dig — 1 490 SEK
+                </a>
+            </div>
+
+            <!-- Praktikercertifikat — FEATURED -->
+            <div class="pricing-featured rounded-2xl p-7 card-hover relative flex flex-col">
+                <span class="absolute -top-3 left-1/2 -translate-x-1/2 cert-ribbon text-dark-950 text-xs font-bold px-4 py-1 rounded-full tracking-wide whitespace-nowrap">Mest Populär</span>
+                <div class="mb-5">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-gold-500/15 flex items-center justify-center flex-shrink-0">
+                            <svg class="w-5 h-5 text-gold-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.562.562 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="text-xs text-gold-400 font-semibold tracking-widest uppercase">Nivå 2</span>
+                            <h3 class="font-display text-xl font-bold">Praktikercertifikat</h3>
+                        </div>
+                    </div>
+                    <p class="text-dark-300 text-sm mb-6">Strukturerat assessment plus en timmes konsultation med Nicolas. Djupdykning i ett verkligt projektscenario från din egen organisation.</p>
+                </div>
+
+                <div class="mb-6">
+                    <div class="flex items-baseline gap-1">
+                        <span class="text-4xl font-bold gradient-text">4 990</span>
+                        <span class="text-dark-400 text-sm ml-1">SEK</span>
+                        <span class="text-dark-500 text-sm ml-1">engångskostnad</span>
+                    </div>
+                </div>
+
+                <ul class="space-y-3 mb-8 flex-1">
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-200 text-sm">Allt i Grundcertifikatet</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-200 text-sm">1 timmes livekonsultation med Nicolas</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-200 text-sm">Fallbaserat skriftligt assessment</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-200 text-sm">Personlig beredskapsrapport (PDF)</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-200 text-sm">Signerat praktikercertifikat</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-200 text-sm">30 dagars uppföljnings-e-poståtkomst</span>
+                    </li>
+                </ul>
+
+                <div class="space-y-2 mt-auto">
+                    <a href="https://buy.stripe.com/PLACEHOLDER_PRACTITIONER" target="_blank" rel="noopener noreferrer"
+                       class="block w-full bg-gold-500 hover:bg-gold-400 text-dark-950 font-bold py-3 rounded-xl transition-all text-center text-sm">
+                        Anmäl dig — 4 990 SEK
+                    </a>
+                    <a href="https://calendly.com/futurecreation" target="_blank" rel="noopener noreferrer"
+                       class="block w-full border border-gold-500/40 text-gold-400 hover:bg-gold-500/10 font-semibold py-3 rounded-xl transition-all text-center text-sm">
+                        Boka Konsultation Först
+                    </a>
+                </div>
+            </div>
+
+            <!-- Företagscertifiering -->
+            <div class="bg-dark-800/60 rounded-2xl border border-white/5 p-7 card-hover flex flex-col">
+                <div class="mb-5">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center flex-shrink-0">
+                            <svg class="w-5 h-5 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="text-xs text-dark-400 font-semibold tracking-widest uppercase">Nivå 3</span>
+                            <h3 class="font-display text-xl font-bold">Företagscertifiering</h3>
+                        </div>
+                    </div>
+                    <p class="text-dark-400 text-sm mb-6">Workshop på plats eller digitalt för upp till 10 teammedlemmar, följt av gruppcertifiering. Inkluderar en skräddarsydd Digital Tvilling-roadmap för din organisation.</p>
+                </div>
+
+                <div class="mb-6">
+                    <div class="flex items-baseline gap-1">
+                        <span class="text-4xl font-bold">24 900</span>
+                        <span class="text-dark-400 text-sm ml-1">SEK</span>
+                        <span class="text-dark-500 text-sm ml-1">upp till 10 platser</span>
+                    </div>
+                    <p class="text-dark-600 text-xs mt-1">2 500 SEK per extra plats</p>
+                </div>
+
+                <ul class="space-y-3 mb-8 flex-1">
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-200 text-sm">Workshop (på plats eller digitalt)</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-200 text-sm">S.M.I.L.E. Fas 1 teamkartläggning</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-200 text-sm">Upp till 10 individuella certifikat</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-200 text-sm">Organisationsspecifik DT-roadmap</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-200 text-sm">90 dagars e-poståtkomst för teamet</span>
+                    </li>
+                </ul>
+
+                <div class="space-y-2 mt-auto">
+                    <a href="https://buy.stripe.com/PLACEHOLDER_ENTERPRISE" target="_blank" rel="noopener noreferrer"
+                       class="block w-full bg-gold-500 hover:bg-gold-400 text-dark-950 font-bold py-3 rounded-xl transition-all text-center text-sm">
+                        Anmäl dig — 24 900 SEK
+                    </a>
+                    <a href="mailto:nicolas@lifeatlas.online?subject=Företagscertifiering%20-%20Förfrågan&body=Hej%20Nicolas%2C%0A%0AVi%20är%20intresserade%20av%20Företagscertifieringsprogrammet%20för%20vårt%20team.%0A%0ATeamstorlek%3A%0ABransch%3A%0AÖnskat%20format%20(på%20plats%20%2F%20digitalt)%3A%0A%0ATack"
+                       class="block w-full border border-white/20 hover:border-gold-400 text-white hover:text-gold-300 font-semibold py-3 rounded-xl transition-all text-center text-sm">
+                        Kontakta för Offert
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <p class="text-center text-dark-500 text-xs mt-8 fade-in">Alla priser exklusive moms. Resor &amp; logi tillkommer för on-site företagsworkshops.</p>
+    </div>
+</section>
+
+<!-- ========== CURRICULUM OUTLINE ========== -->
+<section class="py-20 sm:py-28">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+            <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase">Kursinnehåll</span>
+            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">
+                Vad du faktiskt<br><span class="gradient-text">kommer att lära dig.</span>
+            </h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6 fade-in">
+
+            <div class="bg-dark-800/60 rounded-2xl border border-white/5 p-7">
+                <div class="flex items-center gap-3 mb-5">
+                    <div class="w-8 h-8 rounded-lg cert-ribbon flex items-center justify-center text-dark-950 font-bold text-sm flex-shrink-0">1</div>
+                    <h3 class="font-semibold">Vad en Digital Tvilling Faktiskt Är</h3>
+                </div>
+                <p class="text-dark-400 text-sm leading-relaxed">Skillnaden mellan en simulering, en digital skugga och en sann digital tvilling. Varför 80% av projekten misslyckas i definitionsfasen.</p>
+            </div>
+
+            <div class="bg-dark-800/60 rounded-2xl border border-white/5 p-7">
+                <div class="flex items-center gap-3 mb-5">
+                    <div class="w-8 h-8 rounded-lg cert-ribbon flex items-center justify-center text-dark-950 font-bold text-sm flex-shrink-0">2</div>
+                    <h3 class="font-semibold">S.M.I.L.E. Fem Faser</h3>
+                </div>
+                <p class="text-dark-400 text-sm leading-relaxed">Sense, Model, Integrate, Learn, Execute. Varje fas med konkreta leveranser, beslutsgrindar och felmönster i 7 vertikaler.</p>
+            </div>
+
+            <div class="bg-dark-800/60 rounded-2xl border border-white/5 p-7">
+                <div class="flex items-center gap-3 mb-5">
+                    <div class="w-8 h-8 rounded-lg cert-ribbon flex items-center justify-center text-dark-950 font-bold text-sm flex-shrink-0">3</div>
+                    <h3 class="font-semibold">Dataarkitektur &amp; Interoperabilitet</h3>
+                </div>
+                <p class="text-dark-400 text-sm leading-relaxed">Standards (IFC, ISO 23247, DTDL), semantisk modellering, ontologigrunder och hur man undviker vendor lock-in by design.</p>
+            </div>
+
+            <div class="bg-dark-800/60 rounded-2xl border border-white/5 p-7">
+                <div class="flex items-center gap-3 mb-5">
+                    <div class="w-8 h-8 rounded-lg cert-ribbon flex items-center justify-center text-dark-950 font-bold text-sm flex-shrink-0">4</div>
+                    <h3 class="font-semibold">AI-Agenter &amp; Autonom Drift</h3>
+                </div>
+                <p class="text-dark-400 text-sm leading-relaxed">Hur AI-agenter kopplar till digitala tvillingar för att gå från övervakning till autonom handling. Perceive / Plan / Act / Reflect-loopen i praktiken.</p>
+            </div>
+
+            <div class="bg-dark-800/60 rounded-2xl border border-white/5 p-7">
+                <div class="flex items-center gap-3 mb-5">
+                    <div class="w-8 h-8 rounded-lg cert-ribbon flex items-center justify-center text-dark-950 font-bold text-sm flex-shrink-0">5</div>
+                    <h3 class="font-semibold">Business Case &amp; ROI-inramning</h3>
+                </div>
+                <p class="text-dark-400 text-sm leading-relaxed">Hur man bygger ett business case på styrelsenivå. Verkliga siffror: 23–35% energibesparing, 51–76% prediktionsnoggrannhet, JHU hjärttvilling-utfall.</p>
+            </div>
+
+            <div class="bg-dark-800/60 rounded-2xl border border-white/5 p-7">
+                <div class="flex items-center gap-3 mb-5">
+                    <div class="w-8 h-8 rounded-lg cert-ribbon flex items-center justify-center text-dark-950 font-bold text-sm flex-shrink-0">6</div>
+                    <h3 class="font-semibold">Implementerings-Roadmap Design</h3>
+                </div>
+                <p class="text-dark-400 text-sm leading-relaxed">Minimal Viable Twin (MVT)-metoden. Hur man avgränsar ett förstaprojekt som levererar värde inom 90 dagar utan ett flerårsplattformsåtagande.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ========== CREDIBILITY ========== -->
+<section class="py-20 sm:py-28 bg-dark-800/20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 gap-12 items-center fade-in">
+            <div>
+                <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase">Din Instruktör</span>
+                <h2 class="font-display text-3xl sm:text-4xl font-bold mt-4 mb-6">
+                    Nicolas Waern<br><span class="gradient-text">Praktiker, inte teoretiker.</span>
+                </h2>
+                <p class="text-dark-300 leading-relaxed mb-5">
+                    25+ år av byggande och implementering av digitala tvillingar inom byggnader, automotive, sjukvård, equestrian, smarta städer, rymden och utbildning. Skapare av S.M.I.L.E.-metodiken.
+                </p>
+                <ul class="space-y-3">
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-gold-400 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-300 text-sm">Oxford Guest Lecturer — Digitala Tvillingar</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-gold-400 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-300 text-sm">Digital Twin Consortium Co-Chair</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-gold-400 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-300 text-sm">Rådgivare, Energimyndigheten</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-gold-400 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-300 text-sm">JHU Hjärtdigital Tvilling — 100% studieframgång</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-gold-400 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                        <span class="text-dark-300 text-sm">VD, Life Atlas — Autonomt Liv-OS</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="cert-badge rounded-2xl p-8">
+                <blockquote class="font-display text-xl font-bold leading-relaxed mb-6">
+                    "Alla bygger ett bättre bibliotek.<br>
+                    <span class="gradient-text">Life Atlas bygger ett laboratorium."</span>
+                </blockquote>
+                <p class="text-dark-400 text-sm">— Nicolas Waern, VD @ Life Atlas</p>
+                <div class="mt-6 pt-6 border-t border-white/5">
+                    <p class="text-dark-400 text-sm leading-relaxed">
+                        LQMs — Large Quantitative Models — inte bara statistik. Fysik. Den distinktionen skiljer konsulter som förstår digitala tvillingar från dem som bara säljer dem.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== CTA ========== -->
+<section class="py-20 sm:py-28">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in">
+        <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
+            Redo att bli<br><span class="gradient-text">certifierad?</span>
+        </h2>
+        <p class="text-dark-300 text-lg mb-10 max-w-xl mx-auto">
+            Börja med Grundcertifikatet idag eller boka en Praktiker-konsultation. Företagsprogram tillgängliga hela året.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="https://buy.stripe.com/PLACEHOLDER_FOUNDATIONS" target="_blank" rel="noopener noreferrer"
+               class="bg-gold-500 hover:bg-gold-400 text-dark-950 font-bold px-8 py-4 rounded-xl transition-all hover:shadow-lg hover:shadow-gold-500/20 text-lg">
+                Starta Grundcertifikat — 1 490 SEK
+            </a>
+            <a href="https://calendly.com/futurecreation" target="_blank" rel="noopener noreferrer"
+               class="border border-white/20 hover:border-gold-400 text-white font-semibold px-8 py-4 rounded-xl transition-all text-lg">
+                Boka Praktiker-konsultation
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="py-8 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="text-dark-500 text-sm">
+            &copy; 2026 Winniio AB. Alla rättigheter förbehållna.
+        </div>
+        <div class="flex items-center gap-6 text-dark-500 text-sm">
+            <a href="https://www.linkedin.com/in/nicolaswaern/" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition-colors">LinkedIn</a>
+            <a href="index.html" class="hover:text-gold-400 transition-colors">Hem</a>
+            <a href="forelasningar.html" class="hover:text-gold-400 transition-colors">Föreläsningar</a>
+            <a href="tjanster.html" class="hover:text-gold-400 transition-colors">Tjänster</a>
+            <a href="privacy.html" class="hover:text-gold-400 transition-colors">Privacy</a>
+        </div>
+    </div>
+</footer>
+
+<!-- ========== SCRIPTS ========== -->
+<script>
+    window.addEventListener('scroll', () => {
+        const el = document.getElementById('scrollProgress');
+        if (!el) return;
+        const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+        el.style.width = scrolled + '%';
+    });
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

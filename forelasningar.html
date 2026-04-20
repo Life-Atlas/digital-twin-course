@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="sv" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Föreläsningar — Digitala Tvillingar &amp; AI-Agenter | Nicolas Waern</title>
+    <meta name="description" content="Boka Nicolas Waern för din nästa keynote, workshop eller executive briefing om digitala tvillingar, AI-agenter och den suveräna kroppen. Från 30 000 SEK.">
+    <meta property="og:title" content="Föreläsningar — Nicolas Waern | Keynotes &amp; Workshops om Digitala Tvillingar">
+    <meta property="og:description" content="Keynotes som förflyttar organisationer. Workshops som producerar riktiga roadmaps. Executive briefings som förändrar strategi. Boka från 30 000 SEK.">
+    <meta property="og:type" content="website">
+
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@graph":[
+      {"@type":"Organization","@id":"https://life-atlas.github.io/digital-twin-course/#org","name":"Winniio AB","url":"https://life-atlas.github.io/digital-twin-course/"},
+      {"@type":"Person","@id":"https://life-atlas.github.io/digital-twin-course/#person","name":"Nicolas Waern","jobTitle":"Digital Twin Expert & VD, Keynote Speaker","url":"https://www.linkedin.com/in/nicolaswaern/"},
+      {"@type":"OfferCatalog","name":"Föreläsningar och Workshops","itemListElement":[
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Keynote: Den Suveräna Kroppen","description":"Digitala tvillingar bortom sjukvård. Från 50 000 SEK."},"priceSpecification":{"@type":"PriceSpecification","minPrice":"50000","priceCurrency":"SEK"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Workshop: Bygg Din Första Digitala Tvilling med SMILE","description":"Halvdags hands-on workshop. Från 80 000 SEK."},"priceSpecification":{"@type":"PriceSpecification","minPrice":"80000","priceCurrency":"SEK"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Executive Briefing: AI-Agenter Som Arbetar För Dig","description":"90 minuters strategisk briefing. Från 30 000 SEK."},"priceSpecification":{"@type":"PriceSpecification","minPrice":"30000","priceCurrency":"SEK"}}
+      ]}
+    ]}
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: { 50:'#fdf8e8',100:'#f9edc4',200:'#f3db8a',300:'#ebc54f',400:'#d4a832',500:'#c9a84c',600:'#a8872a',700:'#876a1e',800:'#6b5318',900:'#4a3a11' },
+                        dark: { 50:'#f5f5f5',100:'#e0e0e0',200:'#bdbdbd',300:'#9e9e9e',400:'#757575',500:'#616161',600:'#424242',700:'#1e1e1e',800:'#141414',900:'#0a0a0a',950:'#050505' }
+                    },
+                    fontFamily: { 'display': ['Playfair Display','serif'], 'body': ['Inter','sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Playfair Display', serif; }
+        .gradient-text { background: linear-gradient(135deg, #c9a84c 0%, #f3db8a 50%, #c9a84c 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .gold-glow { box-shadow: 0 0 60px rgba(201,168,76,0.15), 0 0 120px rgba(201,168,76,0.05); }
+        .card-hover { transition: all 0.4s cubic-bezier(0.4,0,0.2,1); }
+        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 0 40px rgba(201,168,76,0.15); }
+        .grid-bg { background-image: linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px); background-size: 60px 60px; }
+        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .pricing-featured { background: linear-gradient(180deg, rgba(201,168,76,0.08) 0%, rgba(10,10,10,1) 100%); border: 1px solid rgba(201,168,76,0.3); }
+        .scroll-progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, #c9a84c, #f3db8a); z-index: 100; transition: width 0.1s linear; }
+        .topic-card { background: rgba(201,168,76,0.04); border: 1px solid rgba(201,168,76,0.12); }
+        .engagement-pill { background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.15); }
+        .gold-ribbon { background: linear-gradient(135deg, #c9a84c, #f3db8a); }
+    </style>
+</head>
+<body class="bg-dark-900 text-white antialiased grid-bg">
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ========== NAV ========== -->
+<nav class="fixed top-0 w-full z-50 bg-dark-900/80 backdrop-blur-xl border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+        <a href="index.html" class="font-display text-xl font-bold gradient-text">Nicolas Waern</a>
+        <div class="hidden md:flex items-center gap-8 text-sm text-dark-300">
+            <a href="index.html" class="hover:text-gold-400 transition-colors">Hem</a>
+            <a href="tjanster.html" class="hover:text-gold-400 transition-colors">Tjänster</a>
+            <a href="certifiering.html" class="hover:text-gold-400 transition-colors">Certifiering</a>
+            <a href="forelasningar.html" class="text-gold-400 transition-colors">Föreläsningar</a>
+            <a href="speaking.html" class="hover:text-gold-400 transition-colors">
+                <span class="text-xs border border-white/20 px-2 py-0.5 rounded">EN</span>
+            </a>
+            <a href="book.html" class="hover:text-gold-400 transition-colors">Boka</a>
+        </div>
+        <a href="#bokning" class="bg-gold-500 hover:bg-gold-400 text-dark-950 font-semibold text-sm px-5 py-2 rounded-lg transition-all">Kolla Tillgänglighet</a>
+    </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section class="relative pt-32 pb-20 sm:pt-44 sm:pb-32 overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[900px] h-[900px] rounded-full bg-gold-500/5 blur-[140px]"></div>
+    </div>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
+        <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase fade-in">Keynote Speaker &amp; Workshop Facilitator</span>
+
+        <h1 class="font-display text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight mt-6 mb-8 fade-in">
+            Idéer som förflyttar<br><span class="gradient-text">organisationer.</span>
+        </h1>
+
+        <p class="text-dark-200 text-lg sm:text-xl max-w-2xl mx-auto mb-6 leading-relaxed fade-in">
+            Inte bilder om framtiden. Ramverk ditt team kan implementera på måndag. Digitala tvillingar och AI-agenter förklarade för ledare som behöver besluta, inte bara förstå.
+        </p>
+
+        <p class="text-dark-300 text-base max-w-xl mx-auto mb-12 leading-relaxed fade-in">
+            Oxford Guest Lecturer. Digital Twin Consortium Co-Chair. 25+ år. 7 branschvertikaler. Varje föreläsning branschanpassad.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 fade-in">
+            <a href="#amnen" class="bg-gold-500 hover:bg-gold-400 text-dark-950 font-bold px-8 py-4 rounded-xl transition-all hover:shadow-lg hover:shadow-gold-500/20 text-lg">
+                Se Ämnen
+            </a>
+            <a href="#bokning" class="border border-white/20 hover:border-gold-400 text-white font-semibold px-8 py-4 rounded-xl transition-all text-lg">
+                Kolla Tillgänglighet
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ========== TRUST STRIP ========== -->
+<section class="border-y border-white/5 py-8 bg-dark-800/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div class="fade-in">
+                <div class="text-3xl font-bold gradient-text">300+</div>
+                <div class="text-dark-400 text-sm mt-1">Studenter per föreläsning</div>
+            </div>
+            <div class="fade-in">
+                <div class="text-3xl font-bold gradient-text">7</div>
+                <div class="text-dark-400 text-sm mt-1">Branschanpassade spår</div>
+            </div>
+            <div class="fade-in">
+                <div class="text-3xl font-bold gradient-text">Oxford</div>
+                <div class="text-dark-400 text-sm mt-1">Guest Lecturer</div>
+            </div>
+            <div class="fade-in">
+                <div class="text-3xl font-bold gradient-text">Globalt</div>
+                <div class="text-dark-400 text-sm mt-1">On-site &amp; digitalt</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== SPEAKING TOPICS ========== -->
+<section id="amnen" class="py-20 sm:py-28">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+            <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase">Föreläsningsprogram</span>
+            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">
+                Tre format.<br><span class="gradient-text">En nivå av excellens.</span>
+            </h2>
+        </div>
+
+        <div class="space-y-8 fade-in">
+
+            <!-- Keynote -->
+            <div class="pricing-featured rounded-2xl p-8 sm:p-10 card-hover relative">
+                <span class="absolute top-6 right-6 text-xs text-gold-400 bg-gold-500/10 px-3 py-1 rounded-full font-medium">Keynote</span>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="md:col-span-2">
+                        <span class="text-gold-400 text-xs font-semibold tracking-widest uppercase">Signaturtal</span>
+                        <h3 class="font-display text-2xl sm:text-3xl font-bold mt-3 mb-4">
+                            "Den Suveräna Kroppen — Digitala Tvillingar Bortom Sjukvård"
+                        </h3>
+                        <p class="text-dark-300 leading-relaxed mb-6">
+                            Vad händer när en digital tvilling slutar vara en produktdashboard och blir ett genuint liv-OS? Den här keynoten förbinder biologi, teknik och suveränitet — med verkliga case från kliniska hjärttvillingar, hästprestation, rymdmedicin och longevity-vetenskap.
+                        </p>
+                        <p class="text-dark-400 text-sm leading-relaxed mb-6">
+                            Publiken lämnar med förståelsen för varför den riktiga konkurrensförde­len inte är bättre AI — det är att känna sitt eget system tillräckligt väl för att simulera det innan man agerar. En civilisatorisk inramning med konkreta organisatoriska slutsatser.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="engagement-pill text-xs text-gold-300 px-3 py-1 rounded-full">Sjukvård</span>
+                            <span class="engagement-pill text-xs text-gold-300 px-3 py-1 rounded-full">Life Sciences</span>
+                            <span class="engagement-pill text-xs text-gold-300 px-3 py-1 rounded-full">Exekutiv publik</span>
+                            <span class="engagement-pill text-xs text-gold-300 px-3 py-1 rounded-full">Innovationssummit</span>
+                            <span class="engagement-pill text-xs text-gold-300 px-3 py-1 rounded-full">Longevity-konferenser</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col justify-between">
+                        <div class="bg-dark-800/60 rounded-xl border border-gold-500/10 p-5 mb-5">
+                            <div class="text-dark-400 text-xs uppercase tracking-widest mb-2">Format</div>
+                            <ul class="space-y-2 text-sm text-dark-200">
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gold-400 flex-shrink-0"></span>
+                                    45–75 minuter + Q&amp;A
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gold-400 flex-shrink-0"></span>
+                                    Branschanpassad
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gold-400 flex-shrink-0"></span>
+                                    On-site eller digitalt
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gold-400 flex-shrink-0"></span>
+                                    Förberedande publik-brief
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="text-dark-500 text-xs uppercase tracking-widest mb-1">Från</div>
+                            <div class="text-3xl font-bold gradient-text mb-4">50 000 SEK</div>
+                            <a href="#bokning"
+                               class="block w-full bg-gold-500 hover:bg-gold-400 text-dark-950 font-bold py-3 rounded-xl transition-all text-center text-sm">
+                                Boka Denna Keynote
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Workshop -->
+            <div class="bg-dark-800/60 rounded-2xl border border-white/5 p-8 sm:p-10 card-hover">
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="md:col-span-2">
+                        <span class="text-dark-400 text-xs font-semibold tracking-widest uppercase">Halvdags Workshop</span>
+                        <h3 class="font-display text-2xl sm:text-3xl font-bold mt-3 mb-4">
+                            "Bygg Din Första Digitala Tvilling med S.M.I.L.E."
+                        </h3>
+                        <p class="text-dark-300 leading-relaxed mb-6">
+                            En strukturerad halvdag som tar ditt team från koncept till Minimal Viable Twin-design. Deltagarna kartlägger sina egna system med S.M.I.L.E. Fas 1, identifierar de mest värdefulla dataanslutningarna och lämnar med ett avgränsat förstaprojekt — redo att presentera för ledningen.
+                        </p>
+                        <p class="text-dark-400 text-sm leading-relaxed mb-6">
+                            Passar tekniska team, innovationsledare och tvärfunktionella grupper. Ingen tidigare erfarenhet av digitala tvillingar krävs. Maximalt 20 deltagare för fullt engagemang.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="engagement-pill text-xs text-dark-300 px-3 py-1 rounded-full">Tekniska team</span>
+                            <span class="engagement-pill text-xs text-dark-300 px-3 py-1 rounded-full">Innovationslabb</span>
+                            <span class="engagement-pill text-xs text-dark-300 px-3 py-1 rounded-full">Tillverkning</span>
+                            <span class="engagement-pill text-xs text-dark-300 px-3 py-1 rounded-full">Smarta byggnader</span>
+                            <span class="engagement-pill text-xs text-dark-300 px-3 py-1 rounded-full">Energi &amp; Utilities</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col justify-between">
+                        <div class="bg-dark-800/40 rounded-xl border border-white/5 p-5 mb-5">
+                            <div class="text-dark-400 text-xs uppercase tracking-widest mb-2">Format</div>
+                            <ul class="space-y-2 text-sm text-dark-200">
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gold-400 flex-shrink-0"></span>
+                                    3–4 timmar, faciliterat
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gold-400 flex-shrink-0"></span>
+                                    Upp till 20 deltagare
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gold-400 flex-shrink-0"></span>
+                                    Praktiska övningar
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gold-400 flex-shrink-0"></span>
+                                    MVT-leveransdokument
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="text-dark-500 text-xs uppercase tracking-widest mb-1">Från</div>
+                            <div class="text-3xl font-bold mb-4">80 000 SEK</div>
+                            <a href="#bokning"
+                               class="block w-full border border-gold-500/40 text-gold-400 hover:bg-gold-500/10 font-bold py-3 rounded-xl transition-all text-center text-sm">
+                                Boka Denna Workshop
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Executive Briefing -->
+            <div class="bg-dark-800/60 rounded-2xl border border-white/5 p-8 sm:p-10 card-hover">
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="md:col-span-2">
+                        <span class="text-dark-400 text-xs font-semibold tracking-widest uppercase">Executive Briefing</span>
+                        <h3 class="font-display text-2xl sm:text-3xl font-bold mt-3 mb-4">
+                            "AI-Agenter Som Arbetar För Dig"
+                        </h3>
+                        <p class="text-dark-300 leading-relaxed mb-6">
+                            En styrelserumsnivå 90-minuters briefing om arkitekturen för autonoma AI-agentsystem — inte chatbotar, inte co-pilots, utan genuina beslutsfattande agenter som opererar på verkliga data från dina egna digitala tvillingar. Täcker MAGS Perceive/Plan/Act/Reflect-cykeln, suveränitet som design och noll vendor lock-in.
+                        </p>
+                        <p class="text-dark-400 text-sm leading-relaxed mb-6">
+                            Riktar sig till C-suite och senior ledning. Nicolas har driftsatt 31 specialiserade agenter inom exekutiva, tekniska, affärsmässiga och underrättelsefunktioner. Den här briefingen visar hur det ser ut i praktiken och vad din organisation behöver bygga detsamma.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="engagement-pill text-xs text-dark-300 px-3 py-1 rounded-full">C-suite</span>
+                            <span class="engagement-pill text-xs text-dark-300 px-3 py-1 rounded-full">Styrelseoffsites</span>
+                            <span class="engagement-pill text-xs text-dark-300 px-3 py-1 rounded-full">Strategidagar</span>
+                            <span class="engagement-pill text-xs text-dark-300 px-3 py-1 rounded-full">Private Equity</span>
+                            <span class="engagement-pill text-xs text-dark-300 px-3 py-1 rounded-full">VC Portfolio-event</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col justify-between">
+                        <div class="bg-dark-800/40 rounded-xl border border-white/5 p-5 mb-5">
+                            <div class="text-dark-400 text-xs uppercase tracking-widest mb-2">Format</div>
+                            <ul class="space-y-2 text-sm text-dark-200">
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gold-400 flex-shrink-0"></span>
+                                    90 minuter + diskussion
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gold-400 flex-shrink-0"></span>
+                                    Upp till 15 chefer
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gold-400 flex-shrink-0"></span>
+                                    Förberedande intakesamtal
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gold-400 flex-shrink-0"></span>
+                                    Strategiskt memo i uppföljning
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="text-dark-500 text-xs uppercase tracking-widest mb-1">Från</div>
+                            <div class="text-3xl font-bold mb-4">30 000 SEK</div>
+                            <a href="#bokning"
+                               class="block w-full border border-gold-500/40 text-gold-400 hover:bg-gold-500/10 font-bold py-3 rounded-xl transition-all text-center text-sm">
+                                Boka Denna Briefing
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <p class="text-center text-dark-500 text-xs mt-8 fade-in">Alla priser exklusive moms. Resor och logi tillkommer för on-site uppdrag. Digitalt tillgängligt världen över.</p>
+    </div>
+</section>
+
+<!-- ========== BIO ========== -->
+<section class="py-20 sm:py-28 bg-dark-800/20">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+            <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase">Om Talaren</span>
+            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">
+                Praktikern<br><span class="gradient-text">bakom idéerna.</span>
+            </h2>
+        </div>
+
+        <div class="grid md:grid-cols-5 gap-12 fade-in">
+            <div class="md:col-span-3">
+                <p class="text-dark-200 text-lg leading-relaxed mb-5">
+                    Nicolas Waern har tillbringat 25+ år i skärningspunkten mellan fysiska system och digital representation — byggde digitala tvillingar innan termen existerade och orkestrerade AI-agentsystem innan verktygen hunnit ifatt.
+                </p>
+                <p class="text-dark-300 leading-relaxed mb-5">
+                    Han skapade S.M.I.L.E.-metodiken — ett femfasigt ramverk (Sense, Model, Integrate, Learn, Execute) som nu tillämpas i 7 branschvertikaler. Han är Oxford Guest Lecturer, Digital Twin Consortium Co-Chair och VD för Life Atlas, ett suveränt liv-OS som positionerar den biologiska digitala tvillingen som kronjuvelen i personlig intelligens.
+                </p>
+                <p class="text-dark-300 leading-relaxed mb-8">
+                    Nicolas talar i skärningspunkten mellan teknik, mänsklig suveränitet och civilisatorisk påverkan. Hans föreläsningar är täta med verkliga case, noll leverantörspromotion och en synvinkel som utmanar publiken att tänka tre nivåer djupare än konversationen de kom med.
+                </p>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-dark-800/60 border border-white/5 rounded-xl p-4">
+                        <div class="text-gold-400 font-bold text-lg mb-1">Oxford</div>
+                        <div class="text-dark-400 text-sm">Guest Lecturer, Digitala Tvillingar</div>
+                    </div>
+                    <div class="bg-dark-800/60 border border-white/5 rounded-xl p-4">
+                        <div class="text-gold-400 font-bold text-lg mb-1">DTC</div>
+                        <div class="text-dark-400 text-sm">Digital Twin Consortium Co-Chair</div>
+                    </div>
+                    <div class="bg-dark-800/60 border border-white/5 rounded-xl p-4">
+                        <div class="text-gold-400 font-bold text-lg mb-1">JHU</div>
+                        <div class="text-dark-400 text-sm">Hjärttvilling — 100% studieframgång</div>
+                    </div>
+                    <div class="bg-dark-800/60 border border-white/5 rounded-xl p-4">
+                        <div class="text-gold-400 font-bold text-lg mb-1">31</div>
+                        <div class="text-dark-400 text-sm">Specialiserade AI-agenter driftsatta</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="md:col-span-2 space-y-5">
+                <div class="bg-dark-800/60 border border-gold-500/10 rounded-2xl p-7">
+                    <blockquote class="font-display text-xl font-bold leading-relaxed mb-4">
+                        "Alla bygger ett bättre bibliotek. <span class="gradient-text">Life Atlas bygger ett laboratorium."</span>
+                    </blockquote>
+                    <p class="text-dark-500 text-sm">Meningen som öppnar varje executive-föreläsning.</p>
+                </div>
+
+                <div class="bg-dark-800/60 border border-white/5 rounded-2xl p-7">
+                    <div class="text-dark-400 text-xs uppercase tracking-widest mb-4">Branscherfarenhet</div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-dark-700 text-dark-300 text-xs px-3 py-1 rounded-full">Smarta Byggnader</span>
+                        <span class="bg-dark-700 text-dark-300 text-xs px-3 py-1 rounded-full">Sjukvård</span>
+                        <span class="bg-dark-700 text-dark-300 text-xs px-3 py-1 rounded-full">Tillverkning</span>
+                        <span class="bg-dark-700 text-dark-300 text-xs px-3 py-1 rounded-full">Automotive</span>
+                        <span class="bg-dark-700 text-dark-300 text-xs px-3 py-1 rounded-full">Smarta Städer</span>
+                        <span class="bg-dark-700 text-dark-300 text-xs px-3 py-1 rounded-full">Rymden</span>
+                        <span class="bg-dark-700 text-dark-300 text-xs px-3 py-1 rounded-full">Equestrian</span>
+                    </div>
+                </div>
+
+                <div class="bg-dark-800/60 border border-white/5 rounded-2xl p-7">
+                    <div class="text-dark-400 text-xs uppercase tracking-widest mb-4">Språk</div>
+                    <div class="flex gap-3">
+                        <span class="bg-dark-700 text-dark-300 text-xs px-3 py-1 rounded-full">Svenska</span>
+                        <span class="bg-dark-700 text-dark-300 text-xs px-3 py-1 rounded-full">Engelska</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== PAST ENGAGEMENTS ========== -->
+<section class="py-20 sm:py-28">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+            <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase">Tidigare Uppdrag</span>
+            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">
+                Scener och rum<br><span class="gradient-text">runt om i världen.</span>
+            </h2>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 fade-in">
+
+            <div class="bg-dark-800/60 border border-white/5 rounded-xl p-6 card-hover">
+                <div class="text-gold-400 font-bold mb-1">Amity University</div>
+                <div class="text-dark-300 text-sm mb-2">Digitala tvillingar för 300 studenter</div>
+                <div class="text-dark-500 text-xs">Indien — Keynote, 60 min</div>
+            </div>
+
+            <div class="bg-dark-800/60 border border-white/5 rounded-xl p-6 card-hover">
+                <div class="text-gold-400 font-bold mb-1">Oxford University</div>
+                <div class="text-dark-300 text-sm mb-2">Digital Twin Guest Lecture</div>
+                <div class="text-dark-500 text-xs">Storbritannien — Föreläsning</div>
+            </div>
+
+            <div class="bg-dark-800/60 border border-white/5 rounded-xl p-6 card-hover">
+                <div class="text-gold-400 font-bold mb-1">Digital Twin Consortium</div>
+                <div class="text-dark-300 text-sm mb-2">Co-Chair, Arbetsgrupper</div>
+                <div class="text-dark-500 text-xs">Globalt — Paneler &amp; Workshops</div>
+            </div>
+
+            <div class="bg-dark-800/60 border border-white/5 rounded-xl p-6 card-hover">
+                <div class="text-gold-400 font-bold mb-1">Energimyndigheten</div>
+                <div class="text-dark-300 text-sm mb-2">Smarta byggnader &amp; DT-strategi</div>
+                <div class="text-dark-500 text-xs">Sverige — Rådgivning &amp; Presentationer</div>
+            </div>
+
+            <div class="bg-dark-800/60 border border-white/5 rounded-xl p-6 card-hover">
+                <div class="text-gold-400 font-bold mb-1">Life Sciences Summit</div>
+                <div class="text-dark-300 text-sm mb-2">Biologiska digitala tvillingar</div>
+                <div class="text-dark-500 text-xs">Europa — Keynote</div>
+            </div>
+
+            <div class="bg-dark-800/60 border border-gold-500/10 rounded-xl p-6 card-hover">
+                <div class="text-gold-400 font-bold mb-1">Ditt Event</div>
+                <div class="text-dark-300 text-sm mb-2">Låt oss göra det möjligt</div>
+                <div class="text-dark-500 text-xs">Världen över — Alla format</div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ========== WHAT TO EXPECT ========== -->
+<section class="py-20 sm:py-28 bg-dark-800/20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+            <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase">Vad Kan Du Förvänta Dig</span>
+            <h2 class="font-display text-3xl sm:text-4xl font-bold mt-4 mb-6">
+                Föreläsningar som förändrar<br><span class="gradient-text">konversationen.</span>
+            </h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6 fade-in">
+            <div class="bg-dark-800/60 border border-white/5 rounded-2xl p-7">
+                <div class="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center mb-5">
+                    <svg class="w-5 h-5 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/>
+                    </svg>
+                </div>
+                <h3 class="font-semibold mb-3">Noll leverantörsbias</h3>
+                <p class="text-dark-400 text-sm leading-relaxed">Nicolas representerar inte en teknikleverantör. Varje rekommendation är plattformsoberoende och metodikdriven. Din publik får råd, inte en säljpitch.</p>
+            </div>
+
+            <div class="bg-dark-800/60 border border-white/5 rounded-2xl p-7">
+                <div class="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center mb-5">
+                    <svg class="w-5 h-5 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                </div>
+                <h3 class="font-semibold mb-3">Branschanpassning</h3>
+                <p class="text-dark-400 text-sm leading-relaxed">Varje uppdrag börjar med ett kort intakesamtal. Case, språk och exempel anpassas till din publiks vertikal — inte återanvänds från förra evenemanget.</p>
+            </div>
+
+            <div class="bg-dark-800/60 border border-white/5 rounded-2xl p-7">
+                <div class="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center mb-5">
+                    <svg class="w-5 h-5 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/>
+                    </svg>
+                </div>
+                <h3 class="font-semibold mb-3">Handlingsbara leveranser</h3>
+                <p class="text-dark-400 text-sm leading-relaxed">Keynotes avslutas med ett trestegssramverk din publik kan agera på direkt. Workshops avslutas med ett fysiskt leveransdokument — ett avgränsat MVT-dokument ditt team äger.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== BOOKING ========== -->
+<section id="bokning" class="py-20 sm:py-28">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 fade-in">
+            <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase">Boka Nicolas</span>
+            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">
+                Låt oss prata om<br><span class="gradient-text">ditt event.</span>
+            </h2>
+            <p class="text-dark-300 text-lg max-w-xl mx-auto">
+                Kolla tillgänglighet, diskutera format och få ett skräddarsytt offert. Svar inom 24 timmar.
+            </p>
+        </div>
+
+        <!-- Primary CTA: Calendly -->
+        <div class="bg-dark-800/60 border border-gold-500/20 rounded-2xl p-8 text-center mb-6 fade-in gold-glow">
+            <div class="w-14 h-14 rounded-xl bg-gold-500/10 flex items-center justify-center mx-auto mb-5">
+                <svg class="w-7 h-7 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 9v7.5m-9-6h.008v.008H12V9.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM12 12.75h.008v.008H12v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM12 15.75h.008v.008H12v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/>
+                </svg>
+            </div>
+            <h3 class="font-display text-2xl font-bold mb-3">Boka ett Discovery-samtal</h3>
+            <p class="text-dark-300 text-sm mb-6 max-w-sm mx-auto">
+                15 minuter. Inget åtagande. Vi fastställer format, publik, datum och logistik. Sedan skickar Nicolas ett skräddarsytt förslag.
+            </p>
+            <a href="https://calendly.com/futurecreation" target="_blank" rel="noopener noreferrer"
+               class="inline-block bg-gold-500 hover:bg-gold-400 text-dark-950 font-bold px-8 py-4 rounded-xl transition-all hover:shadow-lg hover:shadow-gold-500/20 text-base">
+                Schemalägg på Calendly
+            </a>
+        </div>
+
+        <!-- Email fallback -->
+        <div class="fade-in">
+            <p class="text-center text-dark-500 text-sm mb-4">Föredrar du e-post? Skicka eventdetaljer direkt.</p>
+            <form class="space-y-4" onsubmit="handleSpeakingForm(event)">
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <input type="text" id="sp-name" placeholder="Ditt namn" required
+                           class="w-full bg-dark-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-dark-500 focus:border-gold-400 focus:outline-none transition-colors text-sm">
+                    <input type="email" id="sp-email" placeholder="din@email.se" required
+                           class="w-full bg-dark-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-dark-500 focus:border-gold-400 focus:outline-none transition-colors text-sm">
+                </div>
+                <input type="text" id="sp-event" placeholder="Eventnamn &amp; datum (om känt)"
+                       class="w-full bg-dark-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-dark-500 focus:border-gold-400 focus:outline-none transition-colors text-sm">
+                <select id="sp-format" class="w-full bg-dark-800 border border-white/10 rounded-xl px-4 py-3 text-dark-300 focus:border-gold-400 focus:outline-none transition-colors text-sm">
+                    <option value="">Format (välj ett)</option>
+                    <option value="keynote">Keynote — Den Suveräna Kroppen (från 50 000 SEK)</option>
+                    <option value="workshop">Workshop — S.M.I.L.E. Halvdag (från 80 000 SEK)</option>
+                    <option value="briefing">Executive Briefing — AI-Agenter (från 30 000 SEK)</option>
+                    <option value="custom">Annat / Vet ej ännu</option>
+                </select>
+                <textarea id="sp-message" rows="4" placeholder="Berätta om din publik, eventmål och eventuella specifika vinklar du vill att Nicolas ska täcka..."
+                          class="w-full bg-dark-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-dark-500 focus:border-gold-400 focus:outline-none transition-colors text-sm resize-none"></textarea>
+                <button type="submit"
+                        class="w-full bg-gold-500 hover:bg-gold-400 text-dark-950 font-bold py-4 rounded-xl transition-all text-base">
+                    Skicka Förfrågan
+                </button>
+                <p class="text-dark-500 text-xs text-center">Svar inom 24 timmar. Ingen spam.</p>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- ========== TAGLINE ========== -->
+<section class="py-16 border-t border-white/5">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in">
+        <p class="font-display text-xl sm:text-2xl font-bold gradient-text mb-4">
+            Ditt moln. Din AI. Dina regler.
+        </p>
+        <p class="text-dark-300 text-lg">
+            Ditt liv utan gränser.
+        </p>
+    </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="py-8 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="text-dark-500 text-sm">
+            &copy; 2026 Winniio AB. Alla rättigheter förbehållna.
+        </div>
+        <div class="flex items-center gap-6 text-dark-500 text-sm">
+            <a href="https://www.linkedin.com/in/nicolaswaern/" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition-colors">LinkedIn</a>
+            <a href="index.html" class="hover:text-gold-400 transition-colors">Hem</a>
+            <a href="certifiering.html" class="hover:text-gold-400 transition-colors">Certifiering</a>
+            <a href="tjanster.html" class="hover:text-gold-400 transition-colors">Tjänster</a>
+            <a href="privacy.html" class="hover:text-gold-400 transition-colors">Privacy</a>
+        </div>
+    </div>
+</footer>
+
+<!-- ========== SCRIPTS ========== -->
+<script>
+    window.addEventListener('scroll', () => {
+        const el = document.getElementById('scrollProgress');
+        if (!el) return;
+        const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+        el.style.width = scrolled + '%';
+    });
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    function handleSpeakingForm(e) {
+        e.preventDefault();
+        const name = document.getElementById('sp-name').value.trim();
+        const email = document.getElementById('sp-email').value.trim();
+        const event = document.getElementById('sp-event').value.trim();
+        const format = document.getElementById('sp-format').value;
+        const message = document.getElementById('sp-message').value.trim();
+        const subject = encodeURIComponent('Föreläsningsförfrågan — ' + name);
+        const body = encodeURIComponent(
+            'Namn: ' + name + '\n' +
+            'E-post: ' + email + '\n' +
+            'Event: ' + (event || 'Ej angivet') + '\n' +
+            'Format: ' + (format || 'Ej angivet') + '\n\n' +
+            'Detaljer:\n' + message
+        );
+        window.location.href = 'mailto:nicolas@lifeatlas.online?subject=' + subject + '&body=' + body;
+        const btn = e.target.querySelector('button[type="submit"]');
+        if (btn) {
+            btn.textContent = 'Skickat! Vi hör av oss inom 24h.';
+            btn.classList.remove('bg-gold-500', 'hover:bg-gold-400');
+            btn.classList.add('bg-emerald-500/30', 'text-emerald-300');
+            btn.disabled = true;
+        }
+    }
+</script>
+
+</body>
+</html>
