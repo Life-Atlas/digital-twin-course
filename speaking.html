@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speaking — Digital Twins & AI Agents | Nicolas Waern</title>
+    <meta name="description" content="Book Nicolas Waern for your next keynote, workshop, or executive briefing on Digital Twins, AI Agents, and the Sovereign Body. From €3,000.">
+    <meta property="og:title" content="Speaking — Nicolas Waern | Digital Twin Keynotes & Workshops">
+    <meta property="og:description" content="Keynotes that move organisations. Workshops that produce real roadmaps. Executive briefings that change strategy. Book from €3,000.">
+    <meta property="og:type" content="website">
+
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@graph":[
+      {"@type":"Organization","@id":"https://life-atlas.github.io/digital-twin-course/#org","name":"Winniio AB","url":"https://life-atlas.github.io/digital-twin-course/"},
+      {"@type":"Person","@id":"https://life-atlas.github.io/digital-twin-course/#person","name":"Nicolas Waern","jobTitle":"Digital Twin Expert & CEO, Keynote Speaker","url":"https://www.linkedin.com/in/nicolaswaern/"},
+      {"@type":"OfferCatalog","name":"Speaking Engagements","itemListElement":[
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Keynote: The Sovereign Body","description":"Digital Twins Beyond Healthcare. From €5,000."},"priceSpecification":{"@type":"PriceSpecification","minPrice":"5000","priceCurrency":"EUR"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Workshop: Building Your First Digital Twin with SMILE","description":"Half-day hands-on workshop. From €8,000."},"priceSpecification":{"@type":"PriceSpecification","minPrice":"8000","priceCurrency":"EUR"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Executive Briefing: AI Agents That Work For You","description":"90-minute strategic briefing. From €3,000."},"priceSpecification":{"@type":"PriceSpecification","minPrice":"3000","priceCurrency":"EUR"}}
+      ]}
+    ]}
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: { 50:'#fdf8e8',100:'#f9edc4',200:'#f3db8a',300:'#ebc54f',400:'#d4a832',500:'#c9a84c',600:'#a8872a',700:'#876a1e',800:'#6b5318',900:'#4a3a11' },
+                        dark: { 50:'#f5f5f5',100:'#e0e0e0',200:'#bdbdbd',300:'#9e9e9e',400:'#757575',500:'#616161',600:'#424242',700:'#1e1e1e',800:'#141414',900:'#0a0a0a',950:'#050505' }
+                    },
+                    fontFamily: { 'display': ['Playfair Display','serif'], 'body': ['Inter','sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Playfair Display', serif; }
+        .gradient-text { background: linear-gradient(135deg, #c9a84c 0%, #f3db8a 50%, #c9a84c 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .gold-glow { box-shadow: 0 0 60px rgba(201,168,76,0.15), 0 0 120px rgba(201,168,76,0.05); }
+        .card-hover { transition: all 0.4s cubic-bezier(0.4,0,0.2,1); }
+        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 0 40px rgba(201,168,76,0.15); }
+        .grid-bg { background-image: linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px); background-size: 60px 60px; }
+        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .pricing-featured { background: linear-gradient(180deg, rgba(201,168,76,0.08) 0%, rgba(10,10,10,1) 100%); border: 1px solid rgba(201,168,76,0.3); }
+        .scroll-progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, #c9a84c, #f3db8a); z-index: 100; transition: width 0.1s linear; }
+        .topic-card { background: rgba(201,168,76,0.04); border: 1px solid rgba(201,168,76,0.12); }
+        .engagement-pill { background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.15); }
+        .gold-ribbon { background: linear-gradient(135deg, #c9a84c, #f3db8a); }
+    </style>
+</head>
+<body class="bg-dark-900 text-white antialiased grid-bg">
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ========== NAV ========== -->
+<nav class="fixed top-0 w-full z-50 bg-dark-900/80 backdrop-blur-xl border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+        <a href="index.html" class="font-display text-xl font-bold gradient-text">Nicolas Waern</a>
+        <div class="hidden md:flex items-center gap-8 text-sm text-dark-300">
+            <a href="index.html" class="hover:text-gold-400 transition-colors">Home</a>
+            <a href="certify.html" class="hover:text-gold-400 transition-colors">Certifications</a>
+            <a href="speaking.html" class="text-gold-400 transition-colors">Speaking</a>
+            <a href="tjanster.html" class="hover:text-gold-400 transition-colors">
+                <span class="text-xs border border-white/20 px-2 py-0.5 rounded">SV</span>
+            </a>
+            <a href="book.html" class="hover:text-gold-400 transition-colors">Book</a>
+        </div>
+        <a href="#booking" class="bg-gold-500 hover:bg-gold-400 text-dark-950 font-semibold text-sm px-5 py-2 rounded-lg transition-all">Check Availability</a>
+    </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section class="relative pt-32 pb-20 sm:pt-44 sm:pb-32 overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[900px] h-[900px] rounded-full bg-gold-500/5 blur-[140px]"></div>
+    </div>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
+        <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase fade-in">Keynote Speaker &amp; Workshop Facilitator</span>
+
+        <h1 class="font-display text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight mt-6 mb-8 fade-in">
+            Ideas that move<br><span class="gradient-text">organisations.</span>
+        </h1>
+
+        <p class="text-dark-200 text-lg sm:text-xl max-w-2xl mx-auto mb-6 leading-relaxed fade-in">
+            Not slides about the future. Frameworks your team can implement on Monday. Digital twins and AI agents explained for leaders who need to decide, not just understand.
+        </p>
+
+        <p class="text-dark-300 text-base max-w-xl mx-auto mb-12 leading-relaxed fade-in">
+            Oxford Guest Lecturer. Digital Twin Consortium Co-Chair. 25+ years. 7 industry verticals. Every talk industry-customised.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 fade-in">
+            <a href="#topics" class="bg-gold-500 hover:bg-gold-400 text-dark-950 font-bold px-8 py-4 rounded-xl transition-all hover:shadow-lg hover:shadow-gold-500/20 text-lg">
+                See Topics
+            </a>
+            <a href="#booking" class="border border-white/20 hover:border-gold-400 text-white font-semibold px-8 py-4 rounded-xl transition-all text-lg">
+                Check Availability
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ========== TRUST STRIP ========== -->
+<section class="border-y border-white/5 py-8 bg-dark-800/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div class="fade-in">
+                <div class="text-3xl font-bold gradient-text">300+</div>
+                <div class="text-dark-400 text-sm mt-1">Students reached per lecture</div>
+            </div>
+            <div class="fade-in">
+                <div class="text-3xl font-bold gradient-text">7</div>
+                <div class="text-dark-400 text-sm mt-1">Customised industry tracks</div>
+            </div>
+            <div class="fade-in">
+                <div class="text-3xl font-bold gradient-text">Oxford</div>
+                <div class="text-dark-400 text-sm mt-1">Guest Lecturer</div>
+            </div>
+            <div class="fade-in">
+                <div class="text-3xl font-bold gradient-text">Global</div>
+                <div class="text-dark-400 text-sm mt-1">On-site &amp; virtual</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== SPEAKING TOPICS ========== -->
+<section id="topics" class="py-20 sm:py-28">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+            <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase">Speaking Programs</span>
+            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">
+                Three formats.<br><span class="gradient-text">One standard of excellence.</span>
+            </h2>
+        </div>
+
+        <div class="space-y-8 fade-in">
+
+            <!-- Keynote 1 -->
+            <div class="pricing-featured rounded-2xl p-8 sm:p-10 card-hover relative">
+                <span class="absolute top-6 right-6 text-xs text-gold-400 bg-gold-500/10 px-3 py-1 rounded-full font-medium">Keynote</span>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="md:col-span-2">
+                        <span class="text-gold-400 text-xs font-semibold tracking-widest uppercase">Signature Talk</span>
+                        <h3 class="font-display text-2xl sm:text-3xl font-bold mt-3 mb-4">
+                            "The Sovereign Body — Digital Twins Beyond Healthcare"
+                        </h3>
+                        <p class="text-dark-300 leading-relaxed mb-6">
+                            What happens when a digital twin stops being a product dashboard and becomes a genuine life OS? This keynote bridges biology, technology, and sovereignty — using real-world cases from clinical cardiac twins, equestrian performance, space medicine, and longevity science.
+                        </p>
+                        <p class="text-dark-400 text-sm leading-relaxed mb-6">
+                            Audiences leave understanding why the real competitive advantage is not better AI — it is knowing your own system well enough to simulate it before acting on it. A civilisational framing with concrete organisational takeaways.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="engagement-pill text-xs text-gold-300 px-3 py-1 rounded-full">Healthcare</span>
+                            <span class="engagement-pill text-xs text-gold-300 px-3 py-1 rounded-full">Life Sciences</span>
+                            <span class="engagement-pill text-xs text-gold-300 px-3 py-1 rounded-full">Executive Audiences</span>
+                            <span class="engagement-pill text-xs text-gold-300 px-3 py-1 rounded-full">Innovation Summits</span>
+                            <span class="engagement-pill text-xs text-gold-300 px-3 py-1 rounded-full">Longevity Conferences</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col justify-between">
+                        <div class="bg-dark-800/60 rounded-xl border border-gold-500/10 p-5 mb-5">
+                            <div class="text-dark-400 text-xs uppercase tracking-widest mb-2">Format</div>
+                            <ul class="space-y-2 text-sm text-dark-200">
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gold-400 flex-shrink-0"></span>
+                                    45–75 minutes + Q&amp;A
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gold-400 flex-shrink-0"></span>
+                                    Industry-customised
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gold-400 flex-shrink-0"></span>
+                                    On-site or virtual
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gold-400 flex-shrink-0"></span>
+                                    Pre-event audience brief
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="text-dark-500 text-xs uppercase tracking-widest mb-1">Starting from</div>
+                            <div class="text-3xl font-bold gradient-text mb-4">€5,000</div>
+                            <a href="#booking"
+                               class="block w-full bg-gold-500 hover:bg-gold-400 text-dark-950 font-bold py-3 rounded-xl transition-all text-center text-sm">
+                                Book This Keynote
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Workshop -->
+            <div class="bg-dark-800/60 rounded-2xl border border-white/5 p-8 sm:p-10 card-hover">
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="md:col-span-2">
+                        <span class="text-dark-400 text-xs font-semibold tracking-widest uppercase">Half-Day Workshop</span>
+                        <h3 class="font-display text-2xl sm:text-3xl font-bold mt-3 mb-4">
+                            "Building Your First Digital Twin with S.M.I.L.E."
+                        </h3>
+                        <p class="text-dark-300 leading-relaxed mb-6">
+                            A structured half-day that takes your team from concept to Minimal Viable Twin design. Participants map their own systems using S.M.I.L.E. Phase 1, identify the highest-value data connections, and leave with a scoped first project — ready to present to leadership.
+                        </p>
+                        <p class="text-dark-400 text-sm leading-relaxed mb-6">
+                            Suitable for technical teams, innovation leads, and cross-functional groups. No prior digital twin experience required. Maximum 20 participants for full engagement.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="engagement-pill text-xs text-dark-300 px-3 py-1 rounded-full">Technical Teams</span>
+                            <span class="engagement-pill text-xs text-dark-300 px-3 py-1 rounded-full">Innovation Labs</span>
+                            <span class="engagement-pill text-xs text-dark-300 px-3 py-1 rounded-full">Manufacturing</span>
+                            <span class="engagement-pill text-xs text-dark-300 px-3 py-1 rounded-full">Smart Buildings</span>
+                            <span class="engagement-pill text-xs text-dark-300 px-3 py-1 rounded-full">Energy &amp; Utilities</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col justify-between">
+                        <div class="bg-dark-800/40 rounded-xl border border-white/5 p-5 mb-5">
+                            <div class="text-dark-400 text-xs uppercase tracking-widest mb-2">Format</div>
+                            <ul class="space-y-2 text-sm text-dark-200">
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gold-400 flex-shrink-0"></span>
+                                    3–4 hours, facilitated
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gold-400 flex-shrink-0"></span>
+                                    Up to 20 participants
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gold-400 flex-shrink-0"></span>
+                                    Hands-on exercises
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gold-400 flex-shrink-0"></span>
+                                    MVT output document
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="text-dark-500 text-xs uppercase tracking-widest mb-1">Starting from</div>
+                            <div class="text-3xl font-bold mb-4">€8,000</div>
+                            <a href="#booking"
+                               class="block w-full border border-gold-500/40 text-gold-400 hover:bg-gold-500/10 font-bold py-3 rounded-xl transition-all text-center text-sm">
+                                Book This Workshop
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Executive Briefing -->
+            <div class="bg-dark-800/60 rounded-2xl border border-white/5 p-8 sm:p-10 card-hover">
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="md:col-span-2">
+                        <span class="text-dark-400 text-xs font-semibold tracking-widest uppercase">Executive Briefing</span>
+                        <h3 class="font-display text-2xl sm:text-3xl font-bold mt-3 mb-4">
+                            "AI Agents That Work For You"
+                        </h3>
+                        <p class="text-dark-300 leading-relaxed mb-6">
+                            A boardroom-grade 90-minute briefing on the architecture of autonomous AI agent systems — not chatbots, not co-pilots, but genuine decision-making agents that operate on real data from your own digital twins. Covers the MAGS Perceive/Plan/Act/Reflect cycle, sovereignty by design, and zero vendor lock-in.
+                        </p>
+                        <p class="text-dark-400 text-sm leading-relaxed mb-6">
+                            Targeted at C-suite and senior leadership. Nicolas has deployed 31 specialised agents across executive, technical, business, and intelligence functions. This briefing shows what that looks like in practice and what your organisation needs to build the same.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="engagement-pill text-xs text-dark-300 px-3 py-1 rounded-full">C-Suite</span>
+                            <span class="engagement-pill text-xs text-dark-300 px-3 py-1 rounded-full">Board Offsites</span>
+                            <span class="engagement-pill text-xs text-dark-300 px-3 py-1 rounded-full">Strategy Days</span>
+                            <span class="engagement-pill text-xs text-dark-300 px-3 py-1 rounded-full">Private Equity</span>
+                            <span class="engagement-pill text-xs text-dark-300 px-3 py-1 rounded-full">VC Portfolio Events</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col justify-between">
+                        <div class="bg-dark-800/40 rounded-xl border border-white/5 p-5 mb-5">
+                            <div class="text-dark-400 text-xs uppercase tracking-widest mb-2">Format</div>
+                            <ul class="space-y-2 text-sm text-dark-200">
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gold-400 flex-shrink-0"></span>
+                                    90 minutes + discussion
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gold-400 flex-shrink-0"></span>
+                                    Up to 15 executives
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gold-400 flex-shrink-0"></span>
+                                    Pre-brief intake call
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gold-400 flex-shrink-0"></span>
+                                    Strategic memo follow-up
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="text-dark-500 text-xs uppercase tracking-widest mb-1">Starting from</div>
+                            <div class="text-3xl font-bold mb-4">€3,000</div>
+                            <a href="#booking"
+                               class="block w-full border border-gold-500/40 text-gold-400 hover:bg-gold-500/10 font-bold py-3 rounded-xl transition-all text-center text-sm">
+                                Book This Briefing
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <p class="text-center text-dark-500 text-xs mt-8 fade-in">All fees exclude VAT. Travel and accommodation billed at cost for on-site engagements. Virtual delivery available worldwide.</p>
+    </div>
+</section>
+
+<!-- ========== BIO ========== -->
+<section class="py-20 sm:py-28 bg-dark-800/20">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+            <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase">About the Speaker</span>
+            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">
+                The practitioner<br><span class="gradient-text">behind the ideas.</span>
+            </h2>
+        </div>
+
+        <div class="grid md:grid-cols-5 gap-12 fade-in">
+            <div class="md:col-span-3">
+                <p class="text-dark-200 text-lg leading-relaxed mb-5">
+                    Nicolas Waern has spent 25+ years at the intersection of physical systems and digital representation — building digital twins before the term existed, and orchestrating AI agent systems before the tooling caught up.
+                </p>
+                <p class="text-dark-300 leading-relaxed mb-5">
+                    He created the S.M.I.L.E. methodology — a five-phase framework (Sense, Model, Integrate, Learn, Execute) now applied across 7 industry verticals. He is an Oxford Guest Lecturer, Digital Twin Consortium Co-Chair, and the CEO of Life Atlas, a sovereign life operating system that positions the biological digital twin as the crown jewel of personal intelligence.
+                </p>
+                <p class="text-dark-300 leading-relaxed mb-8">
+                    Nicolas speaks at the intersection of technology, human sovereignty, and civilisational impact. His talks are dense with real cases, zero vendor promotion, and a point of view that challenges audiences to think three levels deeper than the conversation they arrived with.
+                </p>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-dark-800/60 border border-white/5 rounded-xl p-4">
+                        <div class="text-gold-400 font-bold text-lg mb-1">Oxford</div>
+                        <div class="text-dark-400 text-sm">Guest Lecturer, Digital Twins</div>
+                    </div>
+                    <div class="bg-dark-800/60 border border-white/5 rounded-xl p-4">
+                        <div class="text-gold-400 font-bold text-lg mb-1">DTC</div>
+                        <div class="text-dark-400 text-sm">Digital Twin Consortium Co-Chair</div>
+                    </div>
+                    <div class="bg-dark-800/60 border border-white/5 rounded-xl p-4">
+                        <div class="text-gold-400 font-bold text-lg mb-1">JHU</div>
+                        <div class="text-dark-400 text-sm">Cardiac Twin — 100% trial success</div>
+                    </div>
+                    <div class="bg-dark-800/60 border border-white/5 rounded-xl p-4">
+                        <div class="text-gold-400 font-bold text-lg mb-1">31</div>
+                        <div class="text-dark-400 text-sm">Specialised AI agents deployed</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="md:col-span-2 space-y-5">
+                <div class="bg-dark-800/60 border border-gold-500/10 rounded-2xl p-7">
+                    <blockquote class="font-display text-xl font-bold leading-relaxed mb-4">
+                        "Everyone is building a better library. <span class="gradient-text">Life Atlas is building a laboratory."</span>
+                    </blockquote>
+                    <p class="text-dark-500 text-sm">The line that opens every executive talk.</p>
+                </div>
+
+                <div class="bg-dark-800/60 border border-white/5 rounded-2xl p-7">
+                    <div class="text-dark-400 text-xs uppercase tracking-widest mb-4">Industry Experience</div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-dark-700 text-dark-300 text-xs px-3 py-1 rounded-full">Smart Buildings</span>
+                        <span class="bg-dark-700 text-dark-300 text-xs px-3 py-1 rounded-full">Healthcare</span>
+                        <span class="bg-dark-700 text-dark-300 text-xs px-3 py-1 rounded-full">Manufacturing</span>
+                        <span class="bg-dark-700 text-dark-300 text-xs px-3 py-1 rounded-full">Automotive</span>
+                        <span class="bg-dark-700 text-dark-300 text-xs px-3 py-1 rounded-full">Smart Cities</span>
+                        <span class="bg-dark-700 text-dark-300 text-xs px-3 py-1 rounded-full">Space</span>
+                        <span class="bg-dark-700 text-dark-300 text-xs px-3 py-1 rounded-full">Equestrian</span>
+                    </div>
+                </div>
+
+                <div class="bg-dark-800/60 border border-white/5 rounded-2xl p-7">
+                    <div class="text-dark-400 text-xs uppercase tracking-widest mb-4">Languages</div>
+                    <div class="flex gap-3">
+                        <span class="bg-dark-700 text-dark-300 text-xs px-3 py-1 rounded-full">English</span>
+                        <span class="bg-dark-700 text-dark-300 text-xs px-3 py-1 rounded-full">Swedish</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== PAST ENGAGEMENTS ========== -->
+<section class="py-20 sm:py-28">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+            <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase">Past Engagements</span>
+            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">
+                Stages and rooms<br><span class="gradient-text">across the world.</span>
+            </h2>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 fade-in">
+
+            <div class="bg-dark-800/60 border border-white/5 rounded-xl p-6 card-hover">
+                <div class="text-gold-400 font-bold mb-1">Amity University</div>
+                <div class="text-dark-300 text-sm mb-2">Digital Twins for 300 Students</div>
+                <div class="text-dark-500 text-xs">India — Keynote, 60 min</div>
+            </div>
+
+            <div class="bg-dark-800/60 border border-white/5 rounded-xl p-6 card-hover">
+                <div class="text-gold-400 font-bold mb-1">Oxford University</div>
+                <div class="text-dark-300 text-sm mb-2">Digital Twin Guest Lecture</div>
+                <div class="text-dark-500 text-xs">United Kingdom — Lecture</div>
+            </div>
+
+            <div class="bg-dark-800/60 border border-white/5 rounded-xl p-6 card-hover">
+                <div class="text-gold-400 font-bold mb-1">Digital Twin Consortium</div>
+                <div class="text-dark-300 text-sm mb-2">Co-Chair, Working Groups</div>
+                <div class="text-dark-500 text-xs">Global — Panels &amp; Workshops</div>
+            </div>
+
+            <div class="bg-dark-800/60 border border-white/5 rounded-xl p-6 card-hover">
+                <div class="text-gold-400 font-bold mb-1">Swedish Energy Agency</div>
+                <div class="text-dark-300 text-sm mb-2">Smart Buildings &amp; DT Strategy</div>
+                <div class="text-dark-500 text-xs">Sweden — Advisory &amp; Presentations</div>
+            </div>
+
+            <div class="bg-dark-800/60 border border-white/5 rounded-xl p-6 card-hover">
+                <div class="text-gold-400 font-bold mb-1">Life Sciences Summit</div>
+                <div class="text-dark-300 text-sm mb-2">Biological Digital Twins</div>
+                <div class="text-dark-500 text-xs">Europe — Keynote</div>
+            </div>
+
+            <div class="bg-dark-800/60 border border-gold-500/10 rounded-xl p-6 card-hover">
+                <div class="text-gold-400 font-bold mb-1">Your Event</div>
+                <div class="text-dark-300 text-sm mb-2">Let's make it happen</div>
+                <div class="text-dark-500 text-xs">Worldwide — All formats</div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ========== WHAT ORGANISERS SAY ========== -->
+<section class="py-20 sm:py-28 bg-dark-800/20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+            <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase">What to Expect</span>
+            <h2 class="font-display text-3xl sm:text-4xl font-bold mt-4 mb-6">
+                Talks that change<br><span class="gradient-text">the conversation.</span>
+            </h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6 fade-in">
+            <div class="bg-dark-800/60 border border-white/5 rounded-2xl p-7">
+                <div class="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center mb-5">
+                    <svg class="w-5 h-5 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/>
+                    </svg>
+                </div>
+                <h3 class="font-semibold mb-3">Zero Vendor Bias</h3>
+                <p class="text-dark-400 text-sm leading-relaxed">Nicolas does not represent a technology vendor. Every recommendation is platform-agnostic and methodology-driven. Your audience gets advice, not a sales pitch.</p>
+            </div>
+
+            <div class="bg-dark-800/60 border border-white/5 rounded-2xl p-7">
+                <div class="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center mb-5">
+                    <svg class="w-5 h-5 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                </div>
+                <h3 class="font-semibold mb-3">Industry Customisation</h3>
+                <p class="text-dark-400 text-sm leading-relaxed">Every engagement begins with a brief intake call. Case studies, language, and examples are adapted to your audience's vertical — not recycled from the last event.</p>
+            </div>
+
+            <div class="bg-dark-800/60 border border-white/5 rounded-2xl p-7">
+                <div class="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center mb-5">
+                    <svg class="w-5 h-5 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/>
+                    </svg>
+                </div>
+                <h3 class="font-semibold mb-3">Actionable Output</h3>
+                <p class="text-dark-400 text-sm leading-relaxed">Keynotes end with a three-step framework your audience can act on immediately. Workshops end with a physical deliverable — a scoped MVT document your team owns.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== BOOKING ========== -->
+<section id="booking" class="py-20 sm:py-28">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 fade-in">
+            <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase">Book Nicolas</span>
+            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">
+                Let's talk about<br><span class="gradient-text">your event.</span>
+            </h2>
+            <p class="text-dark-300 text-lg max-w-xl mx-auto">
+                Check availability, discuss format, and get a custom quote. Response within 24 hours.
+            </p>
+        </div>
+
+        <!-- Primary CTA: Calendly -->
+        <div class="bg-dark-800/60 border border-gold-500/20 rounded-2xl p-8 text-center mb-6 fade-in gold-glow">
+            <div class="w-14 h-14 rounded-xl bg-gold-500/10 flex items-center justify-center mx-auto mb-5">
+                <svg class="w-7 h-7 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 9v7.5m-9-6h.008v.008H12V9.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM12 12.75h.008v.008H12v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM12 15.75h.008v.008H12v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/>
+                </svg>
+            </div>
+            <h3 class="font-display text-2xl font-bold mb-3">Book a Discovery Call</h3>
+            <p class="text-dark-300 text-sm mb-6 max-w-sm mx-auto">
+                15 minutes. No commitment. We'll establish format, audience, date, and logistics. Then Nicolas will send a tailored proposal.
+            </p>
+            <a href="https://calendly.com/futurecreation" target="_blank" rel="noopener noreferrer"
+               class="inline-block bg-gold-500 hover:bg-gold-400 text-dark-950 font-bold px-8 py-4 rounded-xl transition-all hover:shadow-lg hover:shadow-gold-500/20 text-base">
+                Schedule on Calendly
+            </a>
+        </div>
+
+        <!-- Email fallback -->
+        <div class="fade-in">
+            <p class="text-center text-dark-500 text-sm mb-4">Prefer email? Send event details directly.</p>
+            <form class="space-y-4" onsubmit="handleSpeakingForm(event)">
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <input type="text" id="sp-name" placeholder="Your name" required
+                           class="w-full bg-dark-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-dark-500 focus:border-gold-400 focus:outline-none transition-colors text-sm">
+                    <input type="email" id="sp-email" placeholder="your@email.com" required
+                           class="w-full bg-dark-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-dark-500 focus:border-gold-400 focus:outline-none transition-colors text-sm">
+                </div>
+                <input type="text" id="sp-event" placeholder="Event name &amp; date (if known)"
+                       class="w-full bg-dark-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-dark-500 focus:border-gold-400 focus:outline-none transition-colors text-sm">
+                <select id="sp-format" class="w-full bg-dark-800 border border-white/10 rounded-xl px-4 py-3 text-dark-300 focus:border-gold-400 focus:outline-none transition-colors text-sm">
+                    <option value="">Format (select one)</option>
+                    <option value="keynote">Keynote — The Sovereign Body (from €5,000)</option>
+                    <option value="workshop">Workshop — S.M.I.L.E. Half-Day (from €8,000)</option>
+                    <option value="briefing">Executive Briefing — AI Agents (from €3,000)</option>
+                    <option value="custom">Custom / Not sure yet</option>
+                </select>
+                <textarea id="sp-message" rows="4" placeholder="Tell us about your audience, event goals, and any specific angles you'd like Nicolas to cover..."
+                          class="w-full bg-dark-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-dark-500 focus:border-gold-400 focus:outline-none transition-colors text-sm resize-none"></textarea>
+                <button type="submit"
+                        class="w-full bg-gold-500 hover:bg-gold-400 text-dark-950 font-bold py-4 rounded-xl transition-all text-base">
+                    Send Enquiry
+                </button>
+                <p class="text-dark-500 text-xs text-center">Response within 24 hours. No spam.</p>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- ========== TAGLINE ========== -->
+<section class="py-16 border-t border-white/5">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in">
+        <p class="font-display text-xl sm:text-2xl font-bold gradient-text mb-4">
+            Your cloud. Your AI. Your rules.
+        </p>
+        <p class="text-dark-300 text-lg">
+            Your life without limits.
+        </p>
+    </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="py-8 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="text-dark-500 text-sm">
+            &copy; 2026 Winniio AB. All rights reserved.
+        </div>
+        <div class="flex items-center gap-6 text-dark-500 text-sm">
+            <a href="https://www.linkedin.com/in/nicolaswaern/" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition-colors">LinkedIn</a>
+            <a href="index.html" class="hover:text-gold-400 transition-colors">Home</a>
+            <a href="certify.html" class="hover:text-gold-400 transition-colors">Certifications</a>
+            <a href="tjanster.html" class="hover:text-gold-400 transition-colors">Tjänster (SV)</a>
+            <a href="privacy.html" class="hover:text-gold-400 transition-colors">Privacy</a>
+        </div>
+    </div>
+</footer>
+
+<!-- ========== SCRIPTS ========== -->
+<script>
+    window.addEventListener('scroll', () => {
+        const el = document.getElementById('scrollProgress');
+        if (!el) return;
+        const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+        el.style.width = scrolled + '%';
+    });
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    function handleSpeakingForm(e) {
+        e.preventDefault();
+        const name = document.getElementById('sp-name').value.trim();
+        const email = document.getElementById('sp-email').value.trim();
+        const event = document.getElementById('sp-event').value.trim();
+        const format = document.getElementById('sp-format').value;
+        const message = document.getElementById('sp-message').value.trim();
+        const subject = encodeURIComponent('Speaking Enquiry — ' + name);
+        const body = encodeURIComponent(
+            'Name: ' + name + '\n' +
+            'Email: ' + email + '\n' +
+            'Event: ' + (event || 'Not specified') + '\n' +
+            'Format: ' + (format || 'Not specified') + '\n\n' +
+            'Details:\n' + message
+        );
+        window.location.href = 'mailto:nicolas@lifeatlas.online?subject=' + subject + '&body=' + body;
+        const btn = e.target.querySelector('button[type="submit"]');
+        if (btn) {
+            btn.textContent = 'Sent! We\'ll be in touch within 24h.';
+            btn.classList.remove('bg-gold-500', 'hover:bg-gold-400');
+            btn.classList.add('bg-emerald-500/30', 'text-emerald-300');
+            btn.disabled = true;
+        }
+    }
+</script>
+
+</body>
+</html>
