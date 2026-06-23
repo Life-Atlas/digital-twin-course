@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentinel Health Agent Demo — LifeAtlas Personal Digital Twin</title>
+    <meta name="description" content="See how the Sentinel AI agent analyzes your wearable data — sleep, HRV, training load, recovery — and delivers WHO-grounded, personalized wellness nudges. Module 8 & 9 demo.">
+    <meta property="og:title" content="Sentinel Health Agent Demo — LifeAtlas">
+    <meta property="og:description" content="Your data. Your context. Your Sentinel. A live demo of AI-powered personal health monitoring.">
+    <meta property="og:type" content="website">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            50: '#fdf8e8', 100: '#f9edc4', 200: '#f3db8a', 300: '#ebc54f',
+                            400: '#d4a832', 500: '#c9a84c', 600: '#a8872a', 700: '#876a1e',
+                            800: '#6b5318', 900: '#4a3a11',
+                        },
+                        dark: {
+                            50: '#f5f5f5', 100: '#e0e0e0', 200: '#bdbdbd', 300: '#9e9e9e',
+                            400: '#757575', 500: '#616161', 600: '#424242', 700: '#1e1e1e',
+                            800: '#141414', 900: '#0a0a0a', 950: '#050505',
+                        }
+                    },
+                    fontFamily: {
+                        'display': ['Playfair Display', 'serif'],
+                        'body': ['Inter', 'sans-serif'],
+                    },
+                    keyframes: {
+                        pulse_ring: {
+                            '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
+                            '50%': { opacity: '0.8', transform: 'scale(1.08)' }
+                        },
+                        count_up: {
+                            '0%': { opacity: '0', transform: 'translateY(8px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        slide_in: {
+                            '0%': { opacity: '0', transform: 'translateX(-16px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' }
+                        },
+                        fade_up: {
+                            '0%': { opacity: '0', transform: 'translateY(24px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        }
+                    },
+                    animation: {
+                        'pulse-ring': 'pulse_ring 2.4s ease-in-out infinite',
+                        'slide-in': 'slide_in 0.5s ease forwards',
+                        'fade-up': 'fade_up 0.6s ease forwards',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Playfair Display', serif; }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #c9a84c 0%, #f3db8a 50%, #c9a84c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .grid-bg {
+            background-image:
+                linear-gradient(rgba(201, 168, 76, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(201, 168, 76, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .gold-glow { box-shadow: 0 0 60px rgba(201, 168, 76, 0.15), 0 0 120px rgba(201, 168, 76, 0.05); }
+        .gold-glow-sm { box-shadow: 0 0 24px rgba(201, 168, 76, 0.12); }
+
+        .card-hover { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .card-hover:hover { transform: translateY(-3px); box-shadow: 0 0 32px rgba(201, 168, 76, 0.12); }
+
+        /* Animated ring for score circles */
+        .score-ring {
+            transition: stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Toggle track */
+        .toggle-track {
+            transition: background 0.3s ease;
+        }
+        .toggle-thumb {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Nudge card animations */
+        .nudge-card {
+            opacity: 0;
+            transform: translateX(-16px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .nudge-card.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Stat number roll */
+        .stat-val {
+            display: inline-block;
+            transition: all 0.4s ease;
+        }
+
+        /* Sentinel mode active glow */
+        .sentinel-active .metric-card {
+            border-color: rgba(201, 168, 76, 0.25);
+        }
+        .sentinel-active .nudge-card {
+            border-left-color: #c9a84c;
+        }
+
+        /* HRV trend sparkline bars */
+        .hrv-bar {
+            transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Fade in sections */
+        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        /* Scroll progress */
+        .scroll-progress {
+            position: fixed; top: 0; left: 0; height: 3px;
+            background: linear-gradient(90deg, #c9a84c, #f3db8a);
+            z-index: 100; transition: width 0.1s linear;
+        }
+
+        /* Email input */
+        .email-input:focus { outline: none; border-color: rgba(201, 168, 76, 0.6); box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.1); }
+
+        /* Alert severity colors */
+        .alert-warning { background: rgba(234, 179, 8, 0.08); border-left: 3px solid rgba(234, 179, 8, 0.6); }
+        .alert-info    { background: rgba(59, 130, 246, 0.08); border-left: 3px solid rgba(59, 130, 246, 0.5); }
+        .alert-critical{ background: rgba(239, 68, 68, 0.08); border-left: 3px solid rgba(239, 68, 68, 0.5); }
+        .alert-positive{ background: rgba(34, 197, 94, 0.08); border-left: 3px solid rgba(34, 197, 94, 0.5); }
+
+        /* Mode toggle glow effect */
+        @keyframes sentinel-pulse {
+            0%, 100% { box-shadow: 0 0 16px rgba(201, 168, 76, 0.3); }
+            50%       { box-shadow: 0 0 32px rgba(201, 168, 76, 0.6); }
+        }
+        .sentinel-pill-active {
+            animation: sentinel-pulse 2.8s ease-in-out infinite;
+        }
+
+        @keyframes live-blink {
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0.3; }
+        }
+        .live-dot { animation: live-blink 1.8s ease-in-out infinite; }
+    </style>
+</head>
+<body class="bg-dark-900 text-white antialiased grid-bg min-h-screen">
+
+<!-- Scroll Progress -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ========== NAV ========== -->
+<nav class="fixed top-0 w-full z-50 bg-dark-900/80 backdrop-blur-xl border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+        <a href="index.html" class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-gold-500 to-gold-700 flex items-center justify-center">
+                <span class="text-dark-900 font-bold text-sm">LA</span>
+            </div>
+            <span class="font-display text-lg font-bold gradient-text">LifeAtlas</span>
+        </a>
+        <div class="hidden md:flex items-center gap-6 text-sm text-dark-300">
+            <a href="index.html" class="hover:text-gold-400 transition-colors">Home</a>
+            <span class="text-dark-600">Module 8 &amp; 9</span>
+            <span class="text-gold-500 font-medium">Sentinel Demo</span>
+        </div>
+        <a href="#waitlist" class="bg-gold-500 hover:bg-gold-400 text-dark-950 font-semibold text-sm px-5 py-2 rounded-lg transition-all">Join Waitlist</a>
+    </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section class="relative pt-28 pb-10 sm:pt-36 sm:pb-14 overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full bg-gold-500/5 blur-[100px]"></div>
+    </div>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center relative">
+        <!-- Module badge -->
+        <div class="inline-flex items-center gap-2 bg-dark-800/60 border border-gold-500/20 rounded-full px-4 py-1.5 text-xs text-gold-400 font-medium mb-6 fade-in">
+            <span class="w-1.5 h-1.5 rounded-full bg-gold-500 live-dot"></span>
+            Module 8 &amp; 9 — Personal Digital Twin &amp; Precision Wellness
+        </div>
+
+        <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-5 fade-in">
+            Meet <span class="gradient-text">Sentinel</span>
+        </h1>
+        <p class="text-dark-200 text-lg sm:text-xl max-w-2xl mx-auto mb-4 leading-relaxed fade-in">
+            Your AI health agent that sees the full picture — not just last night's sleep,
+            but 8 days of patterns, 3 coffees, and a race on Saturday.
+        </p>
+        <p class="text-dark-400 text-sm max-w-xl mx-auto mb-10 fade-in">
+            This is a live simulation using realistic wearable data. Toggle between Generic AI and Sentinel mode to see the difference context makes.
+        </p>
+
+        <!-- Scroll cue -->
+        <div class="flex justify-center fade-in">
+            <a href="#demo" class="flex flex-col items-center gap-2 text-dark-500 hover:text-gold-500 transition-colors text-xs">
+                <span>Explore the demo</span>
+                <svg class="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ========== DEMO SECTION ========== -->
+<section id="demo" class="max-w-6xl mx-auto px-4 sm:px-6 pb-20 pt-4">
+
+    <!-- Mode Toggle -->
+    <div class="flex justify-center mb-10 fade-in">
+        <div class="relative bg-dark-800/50 border border-white/10 rounded-2xl p-1.5 flex items-center gap-1" id="modeToggle">
+
+            <!-- Generic AI pill -->
+            <button id="btnGeneric"
+                onclick="setMode('generic')"
+                class="mode-btn relative z-10 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 text-dark-300 hover:text-white"
+                aria-pressed="true">
+                <span class="flex items-center gap-2">
+                    <!-- Generic robot icon -->
+                    <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2v-4M9 21H5a2 2 0 01-2-2v-4m0 0h18"/>
+                    </svg>
+                    Generic AI
+                </span>
+            </button>
+
+            <!-- Sentinel pill -->
+            <button id="btnSentinel"
+                onclick="setMode('sentinel')"
+                class="mode-btn relative z-10 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 text-dark-300 hover:text-white"
+                aria-pressed="false">
+                <span class="flex items-center gap-2">
+                    <!-- Shield/sentinel icon -->
+                    <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                    </svg>
+                    Sentinel
+                </span>
+            </button>
+
+            <!-- Sliding background indicator -->
+            <div id="toggleSlider"
+                class="absolute top-1.5 left-1.5 h-[calc(100%-12px)] rounded-xl transition-all duration-300 ease-in-out"
+                style="width: calc(50% - 6px);">
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Grid -->
+    <div id="dashboardGrid" class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+
+        <!-- ===== LEFT COLUMN: Metric Cards ===== -->
+        <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+            <!-- Sleep Card -->
+            <div class="metric-card bg-dark-800/50 border border-white/8 rounded-2xl p-5 card-hover fade-in" style="transition-delay:0.05s">
+                <div class="flex items-start justify-between mb-4">
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                            </svg>
+                            <span class="text-xs font-semibold text-dark-400 uppercase tracking-wider">Sleep</span>
+                        </div>
+                        <div class="flex items-baseline gap-1.5">
+                            <span class="text-3xl font-bold text-white stat-val" id="sleepHours">4.5</span>
+                            <span class="text-dark-400 text-sm">hrs</span>
+                        </div>
+                    </div>
+                    <!-- Score ring -->
+                    <div class="relative w-14 h-14">
+                        <svg class="w-14 h-14 -rotate-90" viewBox="0 0 56 56">
+                            <circle cx="28" cy="28" r="22" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="4"/>
+                            <circle id="sleepRing" cx="28" cy="28" r="22" fill="none"
+                                stroke="#3b82f6" stroke-width="4"
+                                stroke-linecap="round"
+                                stroke-dasharray="138.2"
+                                stroke-dashoffset="97"
+                                class="score-ring"/>
+                        </svg>
+                        <span class="absolute inset-0 flex items-center justify-center text-xs font-bold text-blue-400" id="sleepScore">30</span>
+                    </div>
+                </div>
+                <div class="space-y-1.5 text-xs">
+                    <div class="flex justify-between text-dark-400">
+                        <span>Quality</span>
+                        <span class="text-white font-medium" id="sleepQuality">Poor</span>
+                    </div>
+                    <div class="flex justify-between text-dark-400">
+                        <span>Deep sleep</span>
+                        <span class="text-white font-medium">0.6 hrs</span>
+                    </div>
+                    <div class="flex justify-between text-dark-400">
+                        <span>REM</span>
+                        <span class="text-white font-medium">0.9 hrs</span>
+                    </div>
+                    <div class="w-full bg-dark-700 rounded-full h-1.5 mt-2">
+                        <div id="sleepBar" class="bg-blue-400 h-1.5 rounded-full transition-all duration-1000" style="width: 30%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HRV Card -->
+            <div class="metric-card bg-dark-800/50 border border-white/8 rounded-2xl p-5 card-hover fade-in" style="transition-delay:0.1s">
+                <div class="flex items-start justify-between mb-4">
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                            </svg>
+                            <span class="text-xs font-semibold text-dark-400 uppercase tracking-wider">HRV</span>
+                        </div>
+                        <div class="flex items-baseline gap-1.5">
+                            <span class="text-3xl font-bold text-white stat-val" id="hrvVal">42</span>
+                            <span class="text-dark-400 text-sm">ms</span>
+                        </div>
+                    </div>
+                    <div class="relative w-14 h-14">
+                        <svg class="w-14 h-14 -rotate-90" viewBox="0 0 56 56">
+                            <circle cx="28" cy="28" r="22" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="4"/>
+                            <circle id="hrvRing" cx="28" cy="28" r="22" fill="none"
+                                stroke="#10b981" stroke-width="4"
+                                stroke-linecap="round"
+                                stroke-dasharray="138.2"
+                                stroke-dashoffset="76"
+                                class="score-ring"/>
+                        </svg>
+                        <span class="absolute inset-0 flex items-center justify-center text-xs font-bold text-emerald-400" id="hrvScore">45</span>
+                    </div>
+                </div>
+                <!-- 7-day sparkline bars -->
+                <div class="flex items-end gap-1 h-8 mb-2">
+                    <!-- bars populated by JS -->
+                    <div id="hrvBars" class="flex items-end gap-1 w-full h-full"></div>
+                </div>
+                <div class="flex justify-between text-xs text-dark-500">
+                    <span>7 days ago</span>
+                    <span id="hrvTrend" class="text-yellow-400 font-medium">-15% trend</span>
+                    <span>Today</span>
+                </div>
+            </div>
+
+            <!-- Training Load Card -->
+            <div class="metric-card bg-dark-800/50 border border-white/8 rounded-2xl p-5 card-hover fade-in" style="transition-delay:0.15s">
+                <div class="flex items-start justify-between mb-4">
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                            <span class="text-xs font-semibold text-dark-400 uppercase tracking-wider">Training Load</span>
+                        </div>
+                        <div class="flex items-baseline gap-1.5">
+                            <span class="text-3xl font-bold text-white stat-val" id="strainVal">8.4</span>
+                            <span class="text-dark-400 text-sm">/10</span>
+                        </div>
+                    </div>
+                    <div class="relative w-14 h-14">
+                        <svg class="w-14 h-14 -rotate-90" viewBox="0 0 56 56">
+                            <circle cx="28" cy="28" r="22" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="4"/>
+                            <circle id="strainRing" cx="28" cy="28" r="22" fill="none"
+                                stroke="#f97316" stroke-width="4"
+                                stroke-linecap="round"
+                                stroke-dasharray="138.2"
+                                stroke-dashoffset="22"
+                                class="score-ring"/>
+                        </svg>
+                        <span class="absolute inset-0 flex items-center justify-center text-xs font-bold text-orange-400">84</span>
+                    </div>
+                </div>
+                <div class="space-y-1.5 text-xs">
+                    <div class="flex justify-between text-dark-400">
+                        <span>Steps today</span>
+                        <span class="text-white font-medium">11,240</span>
+                    </div>
+                    <div class="flex justify-between text-dark-400">
+                        <span>Active mins</span>
+                        <span class="text-white font-medium">68 min</span>
+                    </div>
+                    <div class="flex justify-between text-dark-400">
+                        <span>Days no rest</span>
+                        <span class="text-red-400 font-bold">8 days</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recovery Card -->
+            <div class="metric-card bg-dark-800/50 border border-white/8 rounded-2xl p-5 card-hover fade-in" style="transition-delay:0.2s">
+                <div class="flex items-start justify-between mb-4">
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                            </svg>
+                            <span class="text-xs font-semibold text-dark-400 uppercase tracking-wider">Recovery</span>
+                        </div>
+                        <div class="flex items-baseline gap-1.5">
+                            <span class="text-3xl font-bold text-white stat-val" id="recoveryVal">24</span>
+                            <span class="text-dark-400 text-sm">%</span>
+                        </div>
+                    </div>
+                    <div class="relative w-14 h-14">
+                        <svg class="w-14 h-14 -rotate-90" viewBox="0 0 56 56">
+                            <circle cx="28" cy="28" r="22" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="4"/>
+                            <circle id="recoveryRing" cx="28" cy="28" r="22" fill="none"
+                                stroke="#a855f7" stroke-width="4"
+                                stroke-linecap="round"
+                                stroke-dasharray="138.2"
+                                stroke-dashoffset="105"
+                                class="score-ring"/>
+                        </svg>
+                        <span class="absolute inset-0 flex items-center justify-center text-xs font-bold text-purple-400" id="recoveryScore">24</span>
+                    </div>
+                </div>
+                <div class="space-y-1.5 text-xs">
+                    <div class="flex justify-between text-dark-400">
+                        <span>Resting HR</span>
+                        <span class="text-white font-medium">71 bpm</span>
+                    </div>
+                    <div class="flex justify-between text-dark-400">
+                        <span>Readiness</span>
+                        <span class="text-red-400 font-bold">Low</span>
+                    </div>
+                    <div class="flex justify-between text-dark-400">
+                        <span>Streak</span>
+                        <span class="text-gold-400 font-bold">12 days</span>
+                    </div>
+                    <div class="w-full bg-dark-700 rounded-full h-1.5 mt-2">
+                        <div class="bg-purple-400 h-1.5 rounded-full transition-all duration-1000" style="width: 24%"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- end left column -->
+
+        <!-- ===== RIGHT COLUMN: Lifestyle Context ===== -->
+        <div class="space-y-4">
+
+            <!-- Context card -->
+            <div class="bg-dark-800/50 border border-white/8 rounded-2xl p-5 fade-in" style="transition-delay:0.25s">
+                <div class="flex items-center gap-2 mb-4">
+                    <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span class="text-xs font-semibold text-dark-400 uppercase tracking-wider">Today's Context</span>
+                </div>
+                <div class="space-y-3 text-sm">
+                    <!-- Coffee entries -->
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2.5 text-dark-300">
+                            <span class="text-base">☕</span>
+                            <span>Coffees logged</span>
+                        </div>
+                        <div class="flex gap-1">
+                            <span class="w-5 h-5 rounded-full bg-gold-500/20 border border-gold-500/40 flex items-center justify-center text-xs text-gold-400">3</span>
+                        </div>
+                    </div>
+                    <!-- Water -->
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2.5 text-dark-300">
+                            <span class="text-base">💧</span>
+                            <span>Water intake</span>
+                        </div>
+                        <span class="text-red-400 text-xs font-semibold px-2 py-0.5 bg-red-500/10 rounded-full">0 entries</span>
+                    </div>
+                    <!-- Upcoming event -->
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2.5 text-dark-300">
+                            <span class="text-base">🏃</span>
+                            <span>Saturday race</span>
+                        </div>
+                        <span class="text-gold-400 text-xs font-semibold px-2 py-0.5 bg-gold-500/10 rounded-full">3 days</span>
+                    </div>
+                    <!-- Last rest day -->
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2.5 text-dark-300">
+                            <span class="text-base">🛌</span>
+                            <span>Last rest day</span>
+                        </div>
+                        <span class="text-red-400 text-xs font-semibold px-2 py-0.5 bg-red-500/10 rounded-full">8 days ago</span>
+                    </div>
+                    <!-- Stress log -->
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2.5 text-dark-300">
+                            <span class="text-base">🧠</span>
+                            <span>Stress level</span>
+                        </div>
+                        <span class="text-yellow-400 text-xs font-semibold px-2 py-0.5 bg-yellow-500/10 rounded-full">High</span>
+                    </div>
+                    <!-- Nutrition -->
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2.5 text-dark-300">
+                            <span class="text-base">🥗</span>
+                            <span>Nutrition log</span>
+                        </div>
+                        <span class="text-dark-400 text-xs font-semibold px-2 py-0.5 bg-dark-700 rounded-full">1 of 3 meals</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- WHO QoL Domains -->
+            <div class="bg-dark-800/50 border border-white/8 rounded-2xl p-5 fade-in" style="transition-delay:0.3s">
+                <div class="flex items-center gap-2 mb-4">
+                    <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/>
+                    </svg>
+                    <span class="text-xs font-semibold text-dark-400 uppercase tracking-wider">WHO QoL Domains</span>
+                </div>
+                <div class="space-y-2.5">
+                    <div>
+                        <div class="flex justify-between text-xs mb-1"><span class="text-dark-300">Physical Health</span><span class="text-red-400 font-medium">38%</span></div>
+                        <div class="w-full bg-dark-700 rounded-full h-1.5"><div class="bg-red-400 h-1.5 rounded-full" style="width:38%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs mb-1"><span class="text-dark-300">Psychological</span><span class="text-yellow-400 font-medium">52%</span></div>
+                        <div class="w-full bg-dark-700 rounded-full h-1.5"><div class="bg-yellow-400 h-1.5 rounded-full" style="width:52%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs mb-1"><span class="text-dark-300">Social Relations</span><span class="text-emerald-400 font-medium">71%</span></div>
+                        <div class="w-full bg-dark-700 rounded-full h-1.5"><div class="bg-emerald-400 h-1.5 rounded-full" style="width:71%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs mb-1"><span class="text-dark-300">Environment</span><span class="text-blue-400 font-medium">64%</span></div>
+                        <div class="w-full bg-dark-700 rounded-full h-1.5"><div class="bg-blue-400 h-1.5 rounded-full" style="width:64%"></div></div>
+                    </div>
+                </div>
+                <p class="text-xs text-dark-500 mt-3">Grounded in WHO WHOQOL-BREF framework</p>
+            </div>
+
+        </div><!-- end right column -->
+
+    </div><!-- end dashboard grid -->
+
+    <!-- ========== NUDGES PANEL ========== -->
+    <div class="bg-dark-800/30 border border-white/8 rounded-2xl p-6 sm:p-8 mb-8 fade-in">
+
+        <!-- Panel header -->
+        <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center gap-3">
+                <div id="nudgePanelIcon" class="w-10 h-10 rounded-xl bg-dark-700 border border-white/10 flex items-center justify-center transition-all duration-300">
+                    <svg class="w-5 h-5 text-dark-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.347.347A3.001 3.001 0 0112 15a3.001 3.001 0 01-2.121-5.121l-.12-.12z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h2 id="nudgePanelTitle" class="font-semibold text-white text-base">AI Health Suggestions</h2>
+                    <p id="nudgePanelSub" class="text-xs text-dark-400">General wellness recommendations</p>
+                </div>
+            </div>
+            <div id="modeBadge" class="px-3 py-1 rounded-full text-xs font-semibold bg-dark-700 text-dark-400 border border-white/10 transition-all duration-300">
+                Generic Mode
+            </div>
+        </div>
+
+        <!-- Nudge cards container -->
+        <div id="nudgeContainer" class="space-y-3">
+            <!-- Populated by JS -->
+        </div>
+
+        <!-- Comparison note -->
+        <div id="comparisonNote" class="mt-5 p-4 rounded-xl bg-dark-700/40 border border-white/5 text-xs text-dark-400 leading-relaxed hidden">
+        </div>
+    </div>
+
+    <!-- ========== COMPARISON EXPLAINER ========== -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-12 fade-in">
+
+        <div class="bg-dark-800/40 border border-white/8 rounded-xl p-5">
+            <div class="flex items-center gap-2 mb-3">
+                <div class="w-2 h-2 rounded-full bg-dark-500"></div>
+                <h3 class="text-sm font-semibold text-dark-300">Generic AI</h3>
+            </div>
+            <ul class="space-y-2 text-xs text-dark-400">
+                <li class="flex items-start gap-2"><span class="text-dark-600 mt-0.5">—</span> Pattern-matches on last night's data only</li>
+                <li class="flex items-start gap-2"><span class="text-dark-600 mt-0.5">—</span> No awareness of trends, events, or context</li>
+                <li class="flex items-start gap-2"><span class="text-dark-600 mt-0.5">—</span> Same advice for everyone with 4.5hr sleep</li>
+                <li class="flex items-start gap-2"><span class="text-dark-600 mt-0.5">—</span> Outputs statistical averages, not your reality</li>
+            </ul>
+        </div>
+
+        <div class="bg-dark-800/40 border border-gold-500/15 rounded-xl p-5">
+            <div class="flex items-center gap-2 mb-3">
+                <div class="w-2 h-2 rounded-full bg-gold-500"></div>
+                <h3 class="text-sm font-semibold text-gold-400">Sentinel</h3>
+            </div>
+            <ul class="space-y-2 text-xs text-dark-300">
+                <li class="flex items-start gap-2"><span class="text-gold-600 mt-0.5">→</span> Cross-references 8 days of wearable data</li>
+                <li class="flex items-start gap-2"><span class="text-gold-600 mt-0.5">→</span> Knows about the Saturday race and rest deficit</li>
+                <li class="flex items-start gap-2"><span class="text-gold-600 mt-0.5">→</span> WHO WHOQOL-BREF framework grounds every nudge</li>
+                <li class="flex items-start gap-2"><span class="text-gold-600 mt-0.5">→</span> Explains the reasoning — explainable AI, not a black box</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ========== WAITLIST / EMAIL CAPTURE ========== -->
+    <section id="waitlist" class="relative overflow-hidden rounded-2xl fade-in">
+        <div class="absolute inset-0 bg-gradient-to-br from-gold-900/30 via-dark-900 to-dark-800/60"></div>
+        <div class="absolute inset-0 border border-gold-500/20 rounded-2xl pointer-events-none gold-glow"></div>
+        <div class="relative px-6 sm:px-10 py-12 sm:py-14 text-center">
+
+            <div class="inline-flex items-center gap-2 bg-gold-500/10 border border-gold-500/25 rounded-full px-4 py-1.5 text-xs text-gold-400 font-medium mb-5">
+                <span class="w-1.5 h-1.5 rounded-full bg-gold-500 live-dot"></span>
+                Early Access — Founding Members Only
+            </div>
+
+            <h2 class="font-display text-3xl sm:text-4xl font-bold mb-4">
+                Want this for <span class="gradient-text">your data?</span>
+            </h2>
+            <p class="text-dark-300 max-w-lg mx-auto mb-2 text-base leading-relaxed">
+                Sentinel analyzes your actual wearables — Oura, Whoop, Apple Watch, Garmin — and delivers nudges grounded in your history, not population averages.
+            </p>
+            <p class="text-dark-500 text-sm mb-8">
+                Join the LifeAtlas founding member waitlist. No spam. First access when we launch.
+            </p>
+
+            <!-- Form -->
+            <form id="waitlistForm" onsubmit="handleWaitlist(event)" class="flex flex-col sm:flex-row items-center gap-3 max-w-md mx-auto">
+                <input
+                    type="email"
+                    id="emailInput"
+                    placeholder="your@email.com"
+                    required
+                    class="email-input w-full sm:flex-1 bg-dark-800/70 border border-white/15 text-white placeholder-dark-500 rounded-xl px-4 py-3 text-sm transition-all"
+                />
+                <button type="submit" class="w-full sm:w-auto bg-gold-500 hover:bg-gold-400 text-dark-950 font-bold px-6 py-3 rounded-xl transition-all hover:shadow-lg hover:shadow-gold-500/25 text-sm whitespace-nowrap">
+                    Join Waitlist
+                </button>
+            </form>
+
+            <!-- Success state (hidden) -->
+            <div id="waitlistSuccess" class="hidden mt-4">
+                <div class="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/25 rounded-full px-5 py-2.5 text-sm text-emerald-400 font-medium">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    You're on the list. We'll be in touch.
+                </div>
+            </div>
+
+            <p class="text-dark-600 text-xs mt-5">
+                By joining you agree to our <a href="privacy.html" class="text-dark-400 hover:text-gold-500 transition-colors">Privacy Policy</a>.
+                Your data is yours. Always.
+            </p>
+        </div>
+    </section>
+
+    <!-- ========== MODULE CONTEXT ========== -->
+    <div class="mt-10 pt-10 border-t border-white/5 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center fade-in">
+        <div>
+            <div class="text-xs text-dark-500 uppercase tracking-wider mb-1">Part of</div>
+            <div class="text-sm font-semibold text-dark-200">Module 8 — Personal Digital Twin</div>
+        </div>
+        <div>
+            <div class="text-xs text-dark-500 uppercase tracking-wider mb-1">Also covered in</div>
+            <div class="text-sm font-semibold text-dark-200">Module 9 — Precision Wellness</div>
+        </div>
+        <div>
+            <div class="text-xs text-dark-500 uppercase tracking-wider mb-1">Full course</div>
+            <a href="index.html" class="text-sm font-semibold text-gold-400 hover:text-gold-300 transition-colors">Digital Twin Consulting ↗</a>
+        </div>
+    </div>
+
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="border-t border-white/5 py-8 mt-4">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-dark-500">
+        <span>© 2026 LifeAtlas / Winniio AB. All rights reserved.</span>
+        <div class="flex gap-4">
+            <a href="privacy.html" class="hover:text-gold-500 transition-colors">Privacy</a>
+            <a href="terms.html" class="hover:text-gold-500 transition-colors">Terms</a>
+            <a href="index.html" class="hover:text-gold-500 transition-colors">Home</a>
+        </div>
+    </div>
+</footer>
+
+<!-- ========== JAVASCRIPT ========== -->
+<script>
+// ─────────────────────────────────────────────────────────────
+// DATA
+// ─────────────────────────────────────────────────────────────
+const NUDGES = {
+    generic: [
+        {
+            type: 'warning',
+            icon: '😴',
+            title: 'You need more sleep',
+            body: 'Adults should aim for 7–9 hours of sleep per night. Sleeping less than 6 hours is associated with increased health risks.',
+            source: 'General sleep guidelines',
+            tag: 'Sleep'
+        },
+        {
+            type: 'info',
+            icon: '💧',
+            title: 'Stay hydrated',
+            body: 'Make sure you are drinking enough water throughout the day. The recommended intake is around 2–3 litres per day for most adults.',
+            source: 'General nutrition guidelines',
+            tag: 'Hydration'
+        },
+        {
+            type: 'warning',
+            icon: '🏃',
+            title: 'Consider reducing exercise intensity',
+            body: 'High training load can lead to fatigue. Make sure to include rest days in your schedule and listen to your body.',
+            source: 'General fitness advice',
+            tag: 'Training'
+        },
+        {
+            type: 'info',
+            icon: '🧘',
+            title: 'Try stress management techniques',
+            body: 'Chronic stress can negatively impact your health. Consider meditation, deep breathing, or other relaxation techniques.',
+            source: 'General wellness advice',
+            tag: 'Stress'
+        }
+    ],
+    sentinel: [
+        {
+            type: 'critical',
+            icon: '🚨',
+            title: 'Recovery block required before Saturday',
+            body: 'You have had zero rest days in 8 consecutive days. Your recovery score is 24% — the lowest it has been in 3 weeks. With a race on Saturday (3 days away), you need 1–2 full recovery days now, not after the event. Continuing to train at this load risks injury and will compromise your race performance.',
+            source: 'WHO Physical Activity domain · 8-day training log · Race calendar',
+            tag: 'Critical'
+        },
+        {
+            type: 'warning',
+            icon: '📉',
+            title: 'HRV down 15% — reduce intensity today',
+            body: 'Your HRV has trended from 56ms (7 days ago) to 42ms today — a 15% decline. This is your body signalling accumulated stress load. Reduce training to Zone 1–2 today. High-intensity work with this HRV trajectory and your current sleep debt will accelerate overtraining risk.',
+            source: 'HRV 7-day trend · WHO Psychological domain · Sleep debt calculation',
+            tag: 'HRV'
+        },
+        {
+            type: 'critical',
+            icon: '☕',
+            title: 'Dehydration risk: 3 coffees, 0 water today',
+            body: 'You have logged 3 coffees and zero water entries today. Caffeine is a mild diuretic. Combined with 4.5hr sleep (which increases cortisol and raises fluid needs), high training load, and stress flagged as high, your cognitive function and recovery are being compounded by dehydration. Drink 500ml of water now before your next coffee.',
+            source: 'Nutrition log · WHO Physical Health domain · Sleep + cortisol research',
+            tag: 'Hydration'
+        },
+        {
+            type: 'positive',
+            icon: '🔥',
+            title: 'Consistency streak is a real asset — protect it smartly',
+            body: 'You are on a 12-day active streak. That is meaningful and worth protecting. But streaks end in injury or burnout when recovery is neglected at exactly the load levels you are at now. A planned rest day preserves the streak\'s value. An injury breaks it for weeks. Schedule tomorrow as active recovery: walk, mobility, sleep 8+ hours.',
+            source: 'Activity consistency data · WHO Physical Health domain · Overtraining prevention literature',
+            tag: 'Streak'
+        }
+    ]
+};
+
+const HRV_TREND = [56, 54, 53, 50, 49, 46, 44, 42]; // 7 days ago → today
+
+// ─────────────────────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────────────────────
+let currentMode = 'generic';
+
+// ─────────────────────────────────────────────────────────────
+// RENDER HRV SPARKLINE
+// ─────────────────────────────────────────────────────────────
+function renderHRVBars() {
+    const container = document.getElementById('hrvBars');
+    if (!container) return;
+    const max = Math.max(...HRV_TREND);
+    const min = Math.min(...HRV_TREND);
+    container.innerHTML = '';
+    HRV_TREND.forEach((val, i) => {
+        const pct = ((val - min) / (max - min)) * 100;
+        const isLast = i === HRV_TREND.length - 1;
+        const bar = document.createElement('div');
+        bar.className = 'flex-1 rounded-sm hrv-bar transition-all duration-700';
+        bar.style.height = `${Math.max(15, pct)}%`;
+        bar.style.background = isLast ? '#f87171' : `rgba(16,185,129,${0.3 + (i / HRV_TREND.length) * 0.5})`;
+        bar.style.transitionDelay = `${i * 80}ms`;
+        container.appendChild(bar);
+    });
+}
+
+// ─────────────────────────────────────────────────────────────
+// RENDER NUDGES
+// ─────────────────────────────────────────────────────────────
+const TYPE_STYLES = {
+    critical:  { cls: 'alert-critical',  tagBg: 'bg-red-500/15 text-red-400 border-red-500/30' },
+    warning:   { cls: 'alert-warning',   tagBg: 'bg-yellow-500/15 text-yellow-400 border-yellow-500/30' },
+    info:      { cls: 'alert-info',      tagBg: 'bg-blue-500/15 text-blue-400 border-blue-500/30' },
+    positive:  { cls: 'alert-positive',  tagBg: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30' },
+};
+
+function renderNudges(mode) {
+    const container = document.getElementById('nudgeContainer');
+    const nudges = NUDGES[mode];
+    container.innerHTML = '';
+
+    nudges.forEach((nudge, i) => {
+        const styles = TYPE_STYLES[nudge.type] || TYPE_STYLES.info;
+        const card = document.createElement('div');
+        card.className = `nudge-card rounded-xl p-4 sm:p-5 ${styles.cls}`;
+        card.style.transitionDelay = `${i * 120}ms`;
+        card.innerHTML = `
+            <div class="flex items-start gap-3 sm:gap-4">
+                <span class="text-xl mt-0.5 flex-shrink-0" role="img" aria-label="${nudge.tag}">${nudge.icon}</span>
+                <div class="flex-1 min-w-0">
+                    <div class="flex flex-wrap items-center gap-2 mb-1.5">
+                        <h3 class="text-sm font-semibold text-white">${nudge.title}</h3>
+                        <span class="px-2 py-0.5 rounded-full text-xs font-medium border ${styles.tagBg}">${nudge.tag}</span>
+                    </div>
+                    <p class="text-xs sm:text-sm text-dark-300 leading-relaxed mb-2">${nudge.body}</p>
+                    ${mode === 'sentinel' ? `
+                    <div class="flex items-start gap-1.5 mt-2">
+                        <svg class="w-3.5 h-3.5 text-gold-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <p class="text-xs text-dark-500 italic">${nudge.source}</p>
+                    </div>` : ''}
+                </div>
+            </div>
+        `;
+        container.appendChild(card);
+
+        // Stagger animation in
+        requestAnimationFrame(() => {
+            setTimeout(() => card.classList.add('visible'), i * 120 + 50);
+        });
+    });
+}
+
+// ─────────────────────────────────────────────────────────────
+// SET MODE
+// ─────────────────────────────────────────────────────────────
+function setMode(mode) {
+    currentMode = mode;
+
+    // Toggle slider
+    const slider = document.getElementById('toggleSlider');
+    const btnGeneric = document.getElementById('btnGeneric');
+    const btnSentinel = document.getElementById('btnSentinel');
+
+    if (mode === 'sentinel') {
+        slider.style.transform = 'translateX(100%)';
+        slider.style.background = 'linear-gradient(135deg, rgba(201,168,76,0.25), rgba(201,168,76,0.1))';
+        slider.style.border = '1px solid rgba(201,168,76,0.35)';
+        btnSentinel.classList.add('text-gold-400');
+        btnSentinel.classList.remove('text-dark-300');
+        btnGeneric.classList.remove('text-white');
+        btnGeneric.classList.add('text-dark-400');
+        btnSentinel.querySelector('svg').classList.remove('opacity-70');
+        btnSentinel.querySelector('svg').style.color = '#c9a84c';
+
+        // Panel updates
+        document.getElementById('nudgePanelTitle').textContent = 'Sentinel Analysis';
+        document.getElementById('nudgePanelSub').textContent = 'Contextual, data-grounded, WHO-aligned nudges';
+        document.getElementById('modeBadge').className = 'px-3 py-1 rounded-full text-xs font-semibold bg-gold-500/15 text-gold-400 border border-gold-500/35 sentinel-pill-active transition-all duration-300';
+        document.getElementById('modeBadge').textContent = 'Sentinel Active';
+
+        const icon = document.getElementById('nudgePanelIcon');
+        icon.className = 'w-10 h-10 rounded-xl bg-gold-500/15 border border-gold-500/30 flex items-center justify-center transition-all duration-300';
+        icon.innerHTML = `<svg class="w-5 h-5 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+        </svg>`;
+
+        // Comparison note
+        const note = document.getElementById('comparisonNote');
+        note.classList.remove('hidden');
+        note.innerHTML = `<strong class="text-gold-500">Why this matters:</strong> Generic AI saw "4.5 hours of sleep" and suggested sleeping more. Sentinel saw 4.5hr sleep <em>plus</em> 8 consecutive training days, a Saturday race in 3 days, HRV trending down 15%, 3 coffees and no water, and a high stress flag. Same data point — completely different intervention. This is the difference between a symptom checker and a health agent that actually knows you.`;
+
+        // Dashboard glow
+        document.getElementById('dashboardGrid').classList.add('sentinel-active');
+
+    } else {
+        slider.style.transform = 'translateX(0)';
+        slider.style.background = 'rgba(255,255,255,0.06)';
+        slider.style.border = '1px solid rgba(255,255,255,0.1)';
+        btnGeneric.classList.add('text-white');
+        btnGeneric.classList.remove('text-dark-400');
+        btnSentinel.classList.remove('text-gold-400');
+        btnSentinel.classList.add('text-dark-300');
+        btnSentinel.querySelector('svg').style.color = '';
+
+        document.getElementById('nudgePanelTitle').textContent = 'AI Health Suggestions';
+        document.getElementById('nudgePanelSub').textContent = 'General wellness recommendations';
+        document.getElementById('modeBadge').className = 'px-3 py-1 rounded-full text-xs font-semibold bg-dark-700 text-dark-400 border border-white/10 transition-all duration-300';
+        document.getElementById('modeBadge').textContent = 'Generic Mode';
+
+        const icon = document.getElementById('nudgePanelIcon');
+        icon.className = 'w-10 h-10 rounded-xl bg-dark-700 border border-white/10 flex items-center justify-center transition-all duration-300';
+        icon.innerHTML = `<svg class="w-5 h-5 text-dark-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.347.347A3.001 3.001 0 0112 15a3.001 3.001 0 01-2.121-5.121l-.12-.12z"/>
+        </svg>`;
+
+        document.getElementById('comparisonNote').classList.add('hidden');
+        document.getElementById('dashboardGrid').classList.remove('sentinel-active');
+    }
+
+    renderNudges(mode);
+}
+
+// ─────────────────────────────────────────────────────────────
+// WAITLIST FORM
+// ─────────────────────────────────────────────────────────────
+function handleWaitlist(e) {
+    e.preventDefault();
+    const email = document.getElementById('emailInput').value;
+    if (!email) return;
+
+    const form = document.getElementById('waitlistForm');
+    const success = document.getElementById('waitlistSuccess');
+    form.style.opacity = '0';
+    form.style.transform = 'translateY(-8px)';
+    setTimeout(() => {
+        form.classList.add('hidden');
+        success.classList.remove('hidden');
+        success.style.opacity = '0';
+        success.style.transform = 'translateY(8px)';
+        setTimeout(() => {
+            success.style.transition = 'all 0.4s ease';
+            success.style.opacity = '1';
+            success.style.transform = 'translateY(0)';
+        }, 50);
+    }, 300);
+
+    // In a real integration, POST to your API here:
+    // fetch('/api/waitlist', { method: 'POST', body: JSON.stringify({ email }), headers: { 'Content-Type': 'application/json' }})
+}
+
+// ─────────────────────────────────────────────────────────────
+// SCROLL PROGRESS + FADE-INS
+// ─────────────────────────────────────────────────────────────
+function updateScrollProgress() {
+    const doc = document.documentElement;
+    const scrolled = doc.scrollTop || document.body.scrollTop;
+    const max = doc.scrollHeight - doc.clientHeight;
+    const pct = max > 0 ? (scrolled / max) * 100 : 0;
+    const el = document.getElementById('scrollProgress');
+    if (el) el.style.width = pct + '%';
+}
+
+function observeFadeIns() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+}
+
+// ─────────────────────────────────────────────────────────────
+// ANIMATED NUMBER COUNTER
+// ─────────────────────────────────────────────────────────────
+function animateCounter(el, target, duration, decimals) {
+    const start = parseFloat(el.textContent) || 0;
+    const range = target - start;
+    const startTime = performance.now();
+    function tick(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        const val = start + range * ease;
+        el.textContent = decimals ? val.toFixed(decimals) : Math.round(val);
+        if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+}
+
+// ─────────────────────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+    renderHRVBars();
+    renderNudges('generic');
+    setMode('generic'); // establish generic as initial active state
+
+    // Animate stat values on load
+    setTimeout(() => {
+        animateCounter(document.getElementById('sleepHours'), 4.5, 1200, 1);
+        animateCounter(document.getElementById('hrvVal'), 42, 1400, 0);
+        animateCounter(document.getElementById('strainVal'), 8.4, 1000, 1);
+        animateCounter(document.getElementById('recoveryVal'), 24, 1100, 0);
+        animateCounter(document.getElementById('sleepScore'), 30, 1200, 0);
+        animateCounter(document.getElementById('hrvScore'), 45, 1400, 0);
+        animateCounter(document.getElementById('recoveryScore'), 24, 1100, 0);
+    }, 400);
+
+    window.addEventListener('scroll', updateScrollProgress, { passive: true });
+    observeFadeIns();
+    updateScrollProgress();
+});
+</script>
+
+</body>
+</html>
